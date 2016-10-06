@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "812778515019",
+    "firebase_url": "https://datingute.firebaseio.com",
+    "project_id": "datingute",
+    "storage_bucket": "datingute.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:812778515019:android:15c0ae7d5f167dbf",
+        "android_client_info": {
+          "package_name": "com.itute.dating"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "812778515019-nfn9gknbd5n91ik6el02ts82mtqcnno6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.itute.dating",
+            "certificate_hash": "EB87D2D85229A496701CA2A795042655B1257366"
+          }
+        },
+        {
+          "client_id": "812778515019-tcgrh4r0l3m111olim7p7ks0u7iks181.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHMpCOW9Y9W6bMKOWElP6_PLMXuVKFiiI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "812778515019-tcgrh4r0l3m111olim7p7ks0u7iks181.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">DatingUTE</string>
+    <string name="facebook_app_id">577782705763431</string>
+    <string name="batBuoc">Bắt buộc</string>
+    <string name="emailInvalid">Email không hợp lệ!</string>
+    <string name="dangNhapKhongThanhCong">Đăng nhập không thành công</string>
+</resources>
