@@ -15,7 +15,7 @@ public class BaseActivity extends AppCompatActivity {
 
     public void showProgessDialog() {
         if (mProgressDialog == null) {
-            mProgressDialog = new ProgressDialog(this, R.style.AlertDialogCustom);
+            mProgressDialog = new ProgressDialog(this);
             mProgressDialog.setMessage("Đang tải...");
             mProgressDialog.setCancelable(false);
         }

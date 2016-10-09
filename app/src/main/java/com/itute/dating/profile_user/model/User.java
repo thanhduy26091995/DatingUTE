@@ -14,24 +14,24 @@ public class User {
     private String schoolName;
     private String facultyName;
     private String className;
-    private boolean gender;
+    private int gender;
     private String phone;
     private long dateOfBirth;
-    private boolean isAdd;
-    private boolean isAdmin;
     private String photoURL;
+    private String hobby;
+
     //default constructor
 
     public User() {
     }
 
-    public User(String displayName, String photoURL, Map<String, Object> address, String phone, boolean isAdd, boolean isAdmin) {
+    public User(String displayName, String photoURL, Map<String, Object> address, String phone, int gender) {
         this.displayName = displayName;
         this.photoURL = photoURL;
         this.address = address;
         this.phone = phone;
-        this.isAdd = isAdd;
-        this.isAdmin = isAdmin;
+        this.gender = gender;
+
     }
 
     public String getDisplayName() {
@@ -74,11 +74,11 @@ public class User {
         this.className = className;
     }
 
-    public boolean getGender() {
+    public int getGender() {
         return gender;
     }
 
-    public void setGender(boolean gender) {
+    public void setGender(int gender) {
         this.gender = gender;
     }
 
@@ -96,22 +96,6 @@ public class User {
 
     public void setDateOfBirth(long dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
-    }
-
-    public boolean getIsAdd() {
-        return isAdd;
-    }
-
-    public void setIsAdd(boolean add) {
-        isAdd = add;
-    }
-
-    public boolean getIsAdmin() {
-        return isAdmin;
-    }
-
-    public void setIsAdmin(boolean admin) {
-        isAdmin = admin;
     }
 
     public String getPhotoURL() {
@@ -132,8 +116,6 @@ public class User {
         myMap.put(Constants.GENDER, gender);
         myMap.put(Constants.PHONE, phone);
         myMap.put(Constants.DATE_OF_BIRTH, dateOfBirth);
-        myMap.put(Constants.IS_ADD, isAdd);
-        myMap.put(Constants.IS_ADMIN, isAdmin);
         myMap.put(Constants.PHOTO_URL, photoURL);
         return myMap;
     }

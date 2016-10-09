@@ -70,7 +70,7 @@ public class LoginFacebookPresenter {
 
                     Profile profile = Profile.getCurrentProfile();
                     submitter.addNewUser(user.getUid(), profile.getName(), profile.getProfilePictureUri(160, 160).toString(),
-                            initAddressData(), "", false, false);
+                            initAddressData(), "", 0);
                     view.moveToMainActivity();
                 }
             }
@@ -119,7 +119,7 @@ public class LoginFacebookPresenter {
             @Override
             public void onError(FacebookException error) {
                 view.showToast("Error");
-                Log.d(TAG, "facebook:onError:");
+                Log.d(TAG, error.getMessage());
             }
         });
 

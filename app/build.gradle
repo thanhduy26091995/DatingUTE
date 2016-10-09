@@ -47,5 +47,7 @@ dependencies {
     //butter knife
     compile 'com.jakewharton:butterknife:8.1.0'
     apt 'com.jakewharton:butterknife-compiler:8.1.0'
+    //date time picker dialog
+    compile 'com.wdullaer:materialdatetimepicker:2.3.0'
 }
 apply plugin: 'com.google.gms.google-services'

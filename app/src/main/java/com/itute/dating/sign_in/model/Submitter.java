@@ -17,8 +17,8 @@ public class Submitter {
         this.mDatabase = mDatabase;
     }
 
-    public void addNewUser(String uid, String displayName, String photoURL, Map<String, Object> address, String phone, boolean isAdd, boolean isAdmin) {
-        User user = new User(displayName, photoURL, address, phone, isAdd, isAdmin);
+    public void addNewUser(String uid, String displayName, String photoURL, Map<String, Object> address, String phone, int gender) {
+        User user = new User(displayName, photoURL, address, phone, gender);
         Map<String, Object> myMap = new HashMap<>();
         myMap = user.toMap();
         mDatabase.child(Constants.USERS).child(uid).setValue(myMap);

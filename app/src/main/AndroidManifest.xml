@@ -17,7 +17,7 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
-        <activity android:name=".sign_in.view.SignInActivity">
+        <activity android:name=".main.view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -36,7 +36,8 @@
             android:value="AIzaSyA3ODoYqWiVH_B-f292Lyszgyng-eLa3UY" />
 
         <activity android:name=".base.view.BaseActivity"></activity>
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".sign_in.view.SignInActivity"></activity>
+        <activity android:name=".first_login.view.FirstLoginActivity"></activity>
     </application>
 
 </manifest>

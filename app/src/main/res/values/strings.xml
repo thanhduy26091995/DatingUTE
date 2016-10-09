@@ -4,4 +4,13 @@
     <string name="batBuoc">Bắt buộc</string>
     <string name="emailInvalid">Email không hợp lệ!</string>
     <string name="dangNhapKhongThanhCong">Đăng nhập không thành công</string>
+    <string name="chonGioiTinh">Chọn Giới Tính</string>
+    <string name="dienDayDuThongTin">Hãy điền đầy đủ thông tin</string>
+    <string name="loiThongTinNguoiDung">Lỗi khi lấy thông tin người dùng!</string>
+
+    <string-array name="arr_gender">
+        <item>Nam</item>
+        <item>Nữ</item>
+    </string-array>
+
 </resources>

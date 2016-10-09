@@ -8,6 +8,7 @@ public class Constants {
     public static final String[] FACEBOOK_PERMISSION = new String[]{"public_profile", "user_friends", "email"};
     public static final String USERS = "users";
     public static final int RC_SIGN_IN = 0;
+    public static final int PLACE_PICKER_REQUEST = 1;
     //user
     public static final String DISPLAY_NAME = "displayName";
     public static final String ADDRESS = "address";
