@@ -22,6 +22,7 @@ import com.itute.dating.sign_in.model.Submitter;
 import com.itute.dating.sign_in.view.SignInActivity;
 import com.itute.dating.util.Constants;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -69,8 +70,9 @@ public class LoginGooglePresenter {
                     view.moveToMainActivity();
                 } else {
                     try {
+                        long timestamp = new Date().getTime() / 1000;
                         submitter.addNewUser(user.getUid(), acct.getDisplayName(), acct.getPhotoUrl().toString(), initAddressData(),
-                                "", 0);
+                                "", 0, timestamp);
                         view.moveToMainActivity();
                     } catch (Exception e) {
                         Log.d("onAuthSuccessGoogle", "" + e.getMessage());

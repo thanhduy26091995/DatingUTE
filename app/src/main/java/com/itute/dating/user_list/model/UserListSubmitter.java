@@ -16,7 +16,7 @@ public class UserListSubmitter {
 
     //lấy danh sách User
     public Query getUserList() {
-        Query userList = mDatabase.child(Constants.USERS);
+        Query userList = mDatabase.child(Constants.USERS).orderByChild(Constants.TIMESTAMP);
         return userList;
     }
 }

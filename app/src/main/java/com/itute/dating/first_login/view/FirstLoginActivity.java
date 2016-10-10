@@ -16,8 +16,11 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginManager;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,6 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.itute.dating.R;
 import com.itute.dating.base.view.BaseActivity;
+import com.itute.dating.base.view.GoogleAuthController;
 import com.itute.dating.first_login.presenter.FirstLoginPresenter;
 import com.itute.dating.main.view.MainActivity;
 import com.itute.dating.profile_user.model.User;
@@ -76,6 +80,8 @@ public class FirstLoginActivity extends BaseActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first_login);
         ButterKnife.bind(this);
+        FacebookSdk.sdkInitialize(this);
+        //init
         presenter = new FirstLoginPresenter(this);
         mDatabase = FirebaseDatabase.getInstance().getReference();
         initInfo();
@@ -93,7 +99,7 @@ public class FirstLoginActivity extends BaseActivity implements View.OnClickList
         if (i == R.id.form_first_login_gender) {
             showPopUpGender();
         } else if (i == R.id.btn_back) {
-            finish();
+           signOut();
         } else if (i == R.id.form_first_login_address) {
             presenter.showPlace();
         } else if (i == R.id.form_first_login_date) {
@@ -103,6 +109,13 @@ public class FirstLoginActivity extends BaseActivity implements View.OnClickList
         }
     }
 
+    private void signOut() {
+        if (GoogleAuthController.getInstance().getGoogleApiClient() != null) {
+            presenter.logOut(GoogleAuthController.getInstance().getGoogleApiClient());
+        }
+        LoginManager.getInstance().logOut();
+        FirebaseAuth.getInstance().signOut();
+    }
     private void initInfo() {
         try {
             mDatabase.child(Constants.USERS).child(getUid()).addListenerForSingleValueEvent(new ValueEventListener() {

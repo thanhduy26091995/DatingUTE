@@ -19,19 +19,27 @@ public class User {
     private long dateOfBirth;
     private String photoURL;
     private String hobby;
-
+    private long timestamp;
     //default constructor
 
     public User() {
     }
 
-    public User(String displayName, String photoURL, Map<String, Object> address, String phone, int gender) {
+    public User(String displayName, String photoURL, Map<String, Object> address, String phone, int gender, long timestamp) {
         this.displayName = displayName;
         this.photoURL = photoURL;
         this.address = address;
         this.phone = phone;
         this.gender = gender;
+        this.timestamp = timestamp;
+    }
 
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
     }
 
     public String getDisplayName() {
@@ -117,6 +125,7 @@ public class User {
         myMap.put(Constants.PHONE, phone);
         myMap.put(Constants.DATE_OF_BIRTH, dateOfBirth);
         myMap.put(Constants.PHOTO_URL, photoURL);
+        myMap.put(Constants.TIMESTAMP, timestamp);
         return myMap;
     }
 }

@@ -30,6 +30,7 @@ import com.itute.dating.util.Constants;
 
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -68,9 +69,10 @@ public class LoginFacebookPresenter {
                     view.moveToMainActivity();
                 } else {
 
+                    long timestamp = new Date().getTime() / 1000;
                     Profile profile = Profile.getCurrentProfile();
                     submitter.addNewUser(user.getUid(), profile.getName(), profile.getProfilePictureUri(160, 160).toString(),
-                            initAddressData(), "", 0);
+                            initAddressData(), "", 0, timestamp);
                     view.moveToMainActivity();
                 }
             }

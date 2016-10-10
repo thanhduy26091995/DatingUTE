@@ -72,7 +72,6 @@ public class UserListFragment extends Fragment {
                             .error(R.drawable.avatar)
                             .centerCrop()
                             .into(viewHolder.imgAvatar);
-
                     hideProgressDialog();
 
                 }

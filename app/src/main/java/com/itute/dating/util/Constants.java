@@ -23,4 +23,5 @@ public class Constants {
     public static final String IS_ADD = "isAdd";
     public static final String IS_ADMIN = "isAdmin";
     public static final String PHOTO_URL = "photoURL";
+    public static final String TIMESTAMP = "timestamp";
 }
