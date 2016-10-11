@@ -16,11 +16,12 @@ public class FirstLoginSubmitter {
         this.mDatabase = mDatabase;
     }
 
-    public void updateDataUser(String uid, int gender, Map<String, Object> address, long dateOfBirth) {
+    public void updateDataUser(String uid, int gender, Map<String, Object> address, long dateOfBirth, int old) {
         Map<String, Object> updateChildren = new HashMap<>();
         updateChildren.put(Constants.GENDER, gender);
         updateChildren.put(Constants.ADDRESS, address);
         updateChildren.put(Constants.DATE_OF_BIRTH, dateOfBirth);
+        updateChildren.put(Constants.OLD, old);
         mDatabase.child(Constants.USERS).child(uid).updateChildren(updateChildren);
     }
 }

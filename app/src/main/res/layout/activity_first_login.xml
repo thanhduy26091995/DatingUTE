@@ -12,40 +12,39 @@
         android:background="@color/colorPrimary">
 
         <com.itute.dating.base.view.IconTextView
-            android:background="@drawable/button_background_pressed"
             android:id="@+id/btn_back"
-            android:layout_width="64dp"
-            android:layout_height="50dp"
+            style="@style/AppNormalText"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
+            android:background="@drawable/button_background_pressed"
             android:gravity="center"
             android:text="@string/fa_arrow_left"
-            android:textColor="@color/white"
-            android:textSize="18dp" />
-
-        <TextView
-            android:id="@+id/txt_user_name"
-            style="@style/AppNormalText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerInParent="true"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="20dp"
-            android:text="Thông Tin Cá Nhân"
             android:textColor="@color/white" />
 
+        <TextView
+            android:id="@+id/txt_profile_usename"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="Thông tin cá nhân"
+            android:textColor="@color/md_white_1000"
+            android:textSize="18dp" />
+
         <com.itute.dating.base.view.IconTextView
-            android:background="@drawable/button_background_pressed"
             android:id="@+id/txt_submit_info"
-            android:layout_width="64dp"
-            android:layout_height="50dp"
+            style="@style/AppNormalText"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
+            android:background="@drawable/button_background_pressed"
             android:gravity="center"
             android:text="@string/fa_check"
-            android:textColor="@color/white"
-            android:textSize="18dp" />
+            android:textColor="@color/white" />
     </RelativeLayout>
 
     <LinearLayout
@@ -103,7 +102,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="@string/fa_male"
-                    android:textSize="18dp" />
+                    style="@style/AppNormalText" />
 
                 <TextView
                     android:id="@+id/txt_first_login_gender"
@@ -134,7 +133,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="@string/fa_calendar_plus_o"
-                    android:textSize="18dp" />
+                    style="@style/AppNormalText"/>
 
                 <TextView
                     android:id="@+id/txt_first_login_date"
@@ -176,7 +175,7 @@
                     android:layout_weight="0.5"
                     android:gravity="center"
                     android:text="@string/fa_location"
-                    android:textSize="18dp" />
+                    style="@style/AppNormalText" />
 
                 <TextView
                     android:id="@+id/txt_first_login_address"

@@ -2,6 +2,7 @@ package com.itute.dating.user_list.view;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -62,16 +63,27 @@ public class UserListFragment extends Fragment {
             mAdapter = new FirebaseRecyclerAdapter<User, UserListViewHolder>(User.class, R.layout.item_list_friend,
                     UserListViewHolder.class, query) {
                 @Override
-                protected void populateViewHolder(UserListViewHolder viewHolder, User model, int position) {
-
-                    viewHolder.bindToViewHolder(model);
-                    //load avatar
-                    Glide.with(getActivity())
-                            .load(model.getPhotoURL())
-                            .diskCacheStrategy(DiskCacheStrategy.ALL)
-                            .error(R.drawable.avatar)
-                            .centerCrop()
-                            .into(viewHolder.imgAvatar);
+                protected void populateViewHolder(UserListViewHolder viewHolder, User model, final int position) {
+                    //if (model.getGender() != 0) {
+                        viewHolder.bindToViewHolder(model);
+                        //load avatar
+                        Glide.with(getActivity())
+                                .load(model.getPhotoURL())
+                                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                .error(R.drawable.avatar)
+                                .centerCrop()
+                                .into(viewHolder.imgAvatar);
+//                    }
+//                    else{
+//                        Handler handler = new Handler();
+//                        handler.post(new Runnable() {
+//                            @Override
+//                            public void run() {
+//
+//                            }
+//                        });
+                        //mAdapter.notifyItemRemoved(position);
+                    //}
                     hideProgressDialog();
 
                 }

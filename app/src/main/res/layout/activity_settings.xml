@@ -9,7 +9,6 @@
         android:id="@+id/settings_border"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:background="@color/white">
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -31,17 +30,18 @@
             android:layout_marginLeft="20dp"
             android:layout_marginStart="17dp"
             android:layout_toEndOf="@+id/setting_avatar"
-            android:text="Thanh Duy"
+            android:text=""
             android:textSize="15dp" />
 
         <com.itute.dating.base.view.IconTextView
             android:id="@+id/btn_send_comment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="20dp"
             android:background="@android:color/transparent"
+            android:gravity="center"
             android:text="@string/fa_arrow_right"
             android:textSize="18dp" />
     </RelativeLayout>
@@ -77,20 +77,20 @@
             android:weightSum="5">
 
             <com.itute.dating.base.view.IconTextView
+                style="@style/AppNormalText"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.75"
                 android:gravity="center"
                 android:text="@string/fa_male"
-                android:textColor="@color/md_black_1000"
-                android:textSize="18dp" />
+                android:textColor="@color/md_black_1000" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_weight="4.25"
-                android:gravity="center"
+                android:gravity="left|center"
                 android:text="Nam" />
 
         </LinearLayout>
@@ -107,27 +107,30 @@
             android:weightSum="5">
 
             <com.itute.dating.base.view.IconTextView
+                style="@style/AppNormalText"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.75"
                 android:gravity="center"
+                android:paddingTop="20dp"
                 android:text="@string/fa_star_o"
-                android:textColor="@color/md_black_1000"
-                android:textSize="18dp" />
+                android:textColor="@color/md_black_1000" />
 
             <com.appyvet.rangebar.RangeBar xmlns:custom="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/rangebar"
                 android:layout_width="0dp"
-                android:layout_height="60dp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_weight="4.25"
-                custom:pinPadding="10dp"
-                custom:pinRadius="10dp"
-                custom:selectorColor="@color/colorPrimary"
+                custom:barWeight="10dp"
                 custom:connectingLineColor="@color/colorPrimary"
+                custom:connectingLineWeight="5dp"
                 custom:pinColor="@color/colorPrimary"
+                custom:pinPadding="15dp"
+                custom:pinRadius="15dp"
                 custom:rangeBar="true"
+                custom:selectorColor="@color/colorPrimaryDark"
                 custom:temporaryPins="true"
                 custom:tickEnd="30"
                 custom:tickInterval="1"
@@ -159,7 +162,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_below="@+id/settings_notifications"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
@@ -167,19 +170,20 @@
             android:weightSum="5">
 
             <com.itute.dating.base.view.IconTextView
+                style="@style/AppNormalText"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.75"
                 android:gravity="center"
                 android:text="@string/fa_phone_square"
-                android:textColor="@color/md_black_1000"
-                android:textSize="18dp" />
+                android:textColor="@color/md_black_1000" />
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_weight="4"
+                android:gravity="left|center"
                 android:text="Ẩn số điện thoại" />
 
             <android.support.v7.widget.SwitchCompat

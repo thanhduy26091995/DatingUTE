@@ -11,27 +11,83 @@ import java.util.Map;
 public class User {
     private String displayName;
     private Map<String, Object> address;
-    private String schoolName;
-    private String facultyName;
-    private String className;
     private int gender;
     private String phone;
     private long dateOfBirth;
     private String photoURL;
     private String hobby;
+    private String star;
+    private String job;
+    private String language;
+    private String religion;
     private long timestamp;
+    private int old;
     //default constructor
 
     public User() {
     }
 
-    public User(String displayName, String photoURL, Map<String, Object> address, String phone, int gender, long timestamp) {
+    public User(String displayName, String photoURL, Map<String, Object> address, String phone, int gender, long timestamp,
+                String hobby, String star, String job, String language, String religion) {
         this.displayName = displayName;
         this.photoURL = photoURL;
         this.address = address;
         this.phone = phone;
         this.gender = gender;
         this.timestamp = timestamp;
+        this.hobby = hobby;
+        this.star = star;
+        this.job = job;
+        this.language = language;
+        this.religion = religion;
+    }
+
+    public String getHobby() {
+        return hobby;
+    }
+
+    public void setHobby(String hobby) {
+        this.hobby = hobby;
+    }
+
+    public String getStar() {
+        return star;
+    }
+
+    public void setStar(String star) {
+        this.star = star;
+    }
+
+    public String getJob() {
+        return job;
+    }
+
+    public void setJob(String job) {
+        this.job = job;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public String getReligion() {
+        return religion;
+    }
+
+    public void setReligion(String religion) {
+        this.religion = religion;
+    }
+
+    public int getOld() {
+        return old;
+    }
+
+    public void setOld(int old) {
+        this.old = old;
     }
 
     public long getTimestamp() {
@@ -56,30 +112,6 @@ public class User {
 
     public void setAddress(Map<String, Object> address) {
         this.address = address;
-    }
-
-    public String getSchoolName() {
-        return schoolName;
-    }
-
-    public void setSchoolName(String schoolName) {
-        this.schoolName = schoolName;
-    }
-
-    public String getFacultyName() {
-        return facultyName;
-    }
-
-    public void setFacultyName(String facultyName) {
-        this.facultyName = facultyName;
-    }
-
-    public String getClassName() {
-        return className;
-    }
-
-    public void setClassName(String className) {
-        this.className = className;
     }
 
     public int getGender() {
@@ -118,14 +150,17 @@ public class User {
         Map<String, Object> myMap = new HashMap<>();
         myMap.put(Constants.DISPLAY_NAME, displayName);
         myMap.put(Constants.ADDRESS, address);
-        myMap.put(Constants.SCHOOL_NAME, schoolName);
-        myMap.put(Constants.FACULTY_NAME, facultyName);
-        myMap.put(Constants.CLASS_NAME, className);
         myMap.put(Constants.GENDER, gender);
         myMap.put(Constants.PHONE, phone);
         myMap.put(Constants.DATE_OF_BIRTH, dateOfBirth);
         myMap.put(Constants.PHOTO_URL, photoURL);
         myMap.put(Constants.TIMESTAMP, timestamp);
+        myMap.put(Constants.HOBBY, hobby);
+        myMap.put(Constants.JOB, job);
+        myMap.put(Constants.LANGUAGE, language);
+        myMap.put(Constants.STAR, star);
+        myMap.put(Constants.RELIGION, religion);
+
         return myMap;
     }
 }

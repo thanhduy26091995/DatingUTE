@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -26,6 +27,7 @@ import com.itute.dating.base.model.ImageLoader;
 import com.itute.dating.base.view.BaseActivity;
 import com.itute.dating.base.view.GoogleAuthController;
 import com.itute.dating.profile_user.model.User;
+import com.itute.dating.profile_user.view.ProfileUserActivity;
 import com.itute.dating.settings.presenter.SettingsPresenter;
 import com.itute.dating.sign_in.view.SignInActivity;
 
@@ -43,6 +45,8 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
     ImageView imgAvatar;
     @BindView(R.id.settings_profile)
     TextView txtName;
+    @BindView(R.id.settings_border)
+    RelativeLayout formProfile;
 
     private com.appyvet.rangebar.RangeBar rangeBar;
     private DatabaseReference mUserReference;
@@ -70,6 +74,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 
         //event click
         btnSignOut.setOnClickListener(this);
+        formProfile.setOnClickListener(this);
         return rootView;
     }
 
@@ -78,6 +83,8 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
         int i = view.getId();
         if (i == R.id.setting_button) {
             signOut();
+        } else if (i == R.id.settings_border) {
+            startActivity(new Intent(getActivity(), ProfileUserActivity.class));
         }
     }
 

@@ -13,4 +13,41 @@
         <item>Nữ</item>
     </string-array>
 
+    <string-array name="arr_job">
+        <item>Học sinh</item>
+        <item>Sinh viên</item>
+        <item>Giáo dục</item>
+        <item>Truyền thông</item>
+        <item>Giải trí</item>
+        <item>Nhà nước</item>
+        <item>Công nhân</item>
+        <item>Nông dân</item>
+        <item>Bán hàng</item>
+        <item>Thất nghiệp</item>
+        <item>Khác</item>
+    </string-array>
+
+    <string-array name="arr_religion">
+        <item>Thiên chúa</item>
+        <item>Phật giáo</item>
+        <item>Tin lành</item>
+        <item>Khác</item>
+        <item>Không tôn giáo</item>
+    </string-array>
+
+    <string-array name="arr_star">
+        <item>Ma kết</item>
+        <item>Bảo Bình</item>
+        <item>Song ngư</item>
+        <item>Bạch dương</item>
+        <item>Kim ngưu</item>
+        <item>Song tử</item>
+        <item>Cự giải</item>
+        <item>Sư tử</item>
+        <item>Xử nữ</item>
+        <item>Thiên bình</item>
+        <item>Hổ cáp</item>
+        <item>Nhân mã</item>
+    </string-array>
+
 </resources>

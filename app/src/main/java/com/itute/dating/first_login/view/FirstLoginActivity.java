@@ -74,6 +74,7 @@ public class FirstLoginActivity extends BaseActivity implements View.OnClickList
     private DatabaseReference mDatabase;
     private static final String TAG = "FirstLoginActivity";
     private long dateOfBirth = new Date().getTime();
+    private int yearOfBirth;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -99,7 +100,7 @@ public class FirstLoginActivity extends BaseActivity implements View.OnClickList
         if (i == R.id.form_first_login_gender) {
             showPopUpGender();
         } else if (i == R.id.btn_back) {
-           signOut();
+            signOut();
         } else if (i == R.id.form_first_login_address) {
             presenter.showPlace();
         } else if (i == R.id.form_first_login_date) {
@@ -116,6 +117,7 @@ public class FirstLoginActivity extends BaseActivity implements View.OnClickList
         LoginManager.getInstance().logOut();
         FirebaseAuth.getInstance().signOut();
     }
+
     private void initInfo() {
         try {
             mDatabase.child(Constants.USERS).child(getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -165,7 +167,8 @@ public class FirstLoginActivity extends BaseActivity implements View.OnClickList
             showToast(getResources().getString(R.string.dienDayDuThongTin));
         }
         if (result) {
-            presenter.updateDataUser(getUid(), dataGender(txtGender.getText().toString()), dataAddress(), dateOfBirth);
+            int currentYear  = Calendar.getInstance().get(Calendar.YEAR);
+            presenter.updateDataUser(getUid(), dataGender(txtGender.getText().toString()), dataAddress(), dateOfBirth, currentYear - yearOfBirth);
 
         }
     }
@@ -227,7 +230,7 @@ public class FirstLoginActivity extends BaseActivity implements View.OnClickList
         c.set(Calendar.MONTH, monthOfYear);
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         dateOfBirth = c.getTime().getTime();
-
+        yearOfBirth = year;
         txtDate.setText(EventDateTimeFormatter.formatDateStart(dateOfBirth));
     }
 }

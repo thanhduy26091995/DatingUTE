@@ -14,9 +14,6 @@ public class Constants {
     public static final String ADDRESS = "address";
     public static final String LATITUDE = "latitude";
     public static final String LONGITUDE = "longitude";
-    public static final String SCHOOL_NAME = "schoolName";
-    public static final String FACULTY_NAME = "facultyName";
-    public static final String CLASS_NAME = "className";
     public static final String GENDER = "gender";
     public static final String PHONE = "phone";
     public static final String DATE_OF_BIRTH = "dateOfBirth";
@@ -24,4 +21,10 @@ public class Constants {
     public static final String IS_ADMIN = "isAdmin";
     public static final String PHOTO_URL = "photoURL";
     public static final String TIMESTAMP = "timestamp";
+    public static final String HOBBY = "hobby";
+    public static final String STAR = "star";
+    public static final String JOB = "job";
+    public static final String LANGUAGE = "language";
+    public static final String OLD = "old";
+    public static final String RELIGION = "religion";
 }

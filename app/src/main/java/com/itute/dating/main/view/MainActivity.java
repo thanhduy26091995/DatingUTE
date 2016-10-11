@@ -112,7 +112,7 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
         setupViewPagerUser(mViewPager);
         tabLayout.setupWithViewPager(mViewPager);
 
-        // tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorPrimary));
+         tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorPrimaryDark));
         setupTabTextAndIcons();
         setSelectedTab();
 
@@ -136,7 +136,7 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
         //Tab Settings
         LinearLayout tabViewThree = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.custom_icon, null);
         ((TextView) tabViewThree.findViewById(R.id.tabIcon)).setTypeface(iconFont);
-        ((TextView) tabViewThree.findViewById(R.id.tabIcon)).setText(R.string.fa_cog);
+        ((TextView) tabViewThree.findViewById(R.id.tabIcon)).setText(R.string.fa_bars);
         tabLayout.getTabAt(2).setCustomView(tabViewThree);
 
     }
@@ -145,7 +145,7 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new UserListFragment(), getString(R.string.fa_list_alt));
         adapter.addFragment(new ChatListFragment(), getString(R.string.fa_comments_o));
-        adapter.addFragment(new SettingsFragment(), getString(R.string.fa_cog));
+        adapter.addFragment(new SettingsFragment(), getString(R.string.fa_bars));
         viewPager.setAdapter(adapter);
     }
 

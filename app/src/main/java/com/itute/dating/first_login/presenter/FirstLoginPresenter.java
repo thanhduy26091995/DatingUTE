@@ -79,7 +79,7 @@ public class FirstLoginPresenter {
         dpd.show(view.getFragmentManager(), "Datepickerdialog");
     }
 
-    public void updateDataUser(final String uid, final int gender, final Map<String, Object> address, final long dateOfBirth) {
+    public void updateDataUser(final String uid, final int gender, final Map<String, Object> address, final long dateOfBirth, final int old) {
         mDatabase.child(Constants.USERS).child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -88,7 +88,7 @@ public class FirstLoginPresenter {
                     if (user == null) {
                         view.showToast(view.getResources().getString(R.string.loiThongTinNguoiDung));
                     } else {
-                        submitter.updateDataUser(uid, gender, address, dateOfBirth);
+                        submitter.updateDataUser(uid, gender, address, dateOfBirth, old);
                         view.startActivity(new Intent(view, MainActivity.class));
                         view.finish();
                     }

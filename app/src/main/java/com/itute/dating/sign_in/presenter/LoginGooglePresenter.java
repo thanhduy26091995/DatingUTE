@@ -72,7 +72,7 @@ public class LoginGooglePresenter {
                     try {
                         long timestamp = new Date().getTime() / 1000;
                         submitter.addNewUser(user.getUid(), acct.getDisplayName(), acct.getPhotoUrl().toString(), initAddressData(),
-                                "", 0, timestamp);
+                                "", 0, timestamp, "", "", "", "", "");
                         view.moveToMainActivity();
                     } catch (Exception e) {
                         Log.d("onAuthSuccessGoogle", "" + e.getMessage());

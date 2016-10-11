@@ -35,4 +35,8 @@
         <item name="android:colorForeground">@color/md_grey_500</item>
     </style>
 
+    <style name="AppLargeText">
+        <item name="android:textSize">25sp</item>
+    </style>
+
 </resources>
