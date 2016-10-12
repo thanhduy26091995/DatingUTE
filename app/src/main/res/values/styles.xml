@@ -16,6 +16,9 @@
         <item name="android:textSize">18sp</item>
     </style>
 
+    <style name="iconNormalSize">
+        <item name="android:textSize">16dp</item>
+    </style>
     <!-- config alert dialog-->
     <style name="AlertDialogCustom" parent="Theme.AppCompat.Dialog">
         <item name="android:textColorPrimary">@color/primaryText</item>

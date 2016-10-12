@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.appyvet.rangebar.RangeBar;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
@@ -71,7 +72,12 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
         ButterKnife.bind(this, rootView);
 
         rangeBar = (com.appyvet.rangebar.RangeBar) rootView.findViewById(R.id.rangebar);
-
+        rangeBar.setOnRangeBarChangeListener(new RangeBar.OnRangeBarChangeListener() {
+            @Override
+            public void onRangeChangeListener(RangeBar rangeBar, int leftPinIndex, int rightPinIndex, String leftPinValue, String rightPinValue) {
+                Log.d(TAG, "" + leftPinIndex + "/" + rightPinIndex + "/" + leftPinValue + "/" + rightPinValue);
+            }
+        });
         //event click
         btnSignOut.setOnClickListener(this);
         formProfile.setOnClickListener(this);
@@ -84,7 +90,10 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
         if (i == R.id.setting_button) {
             signOut();
         } else if (i == R.id.settings_border) {
-            startActivity(new Intent(getActivity(), ProfileUserActivity.class));
+            Intent myIntent = new Intent(getActivity(), ProfileUserActivity.class);
+            myIntent.putExtra(ProfileUserActivity.EXTRA_UID, BaseActivity.getUid());
+            startActivity(myIntent);
+
         }
     }
 

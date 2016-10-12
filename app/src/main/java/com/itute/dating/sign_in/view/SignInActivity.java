@@ -157,7 +157,6 @@ public class SignInActivity extends BaseActivity implements GoogleApiClient.OnCo
 
     //đăng nhập bằng facebook
     private void signWithFacebook() {
-
         facebookPresenter.setUpFacebook(this, callbackManager, mAuth);
     }
 

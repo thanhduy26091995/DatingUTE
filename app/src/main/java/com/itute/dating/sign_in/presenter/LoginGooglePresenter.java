@@ -78,6 +78,8 @@ public class LoginGooglePresenter {
                         Log.d("onAuthSuccessGoogle", "" + e.getMessage());
                     }
                 }
+                //update state login
+                submitter.updateState(user.getUid(), true);
             }
 
             @Override

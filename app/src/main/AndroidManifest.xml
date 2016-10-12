@@ -38,7 +38,10 @@
         <activity android:name=".base.view.BaseActivity"></activity>
         <activity android:name=".sign_in.view.SignInActivity"></activity>
         <activity android:name=".first_login.view.FirstLoginActivity"></activity>
-        <activity android:name=".profile_user.view.ProfileUserActivity"></activity>
+        <activity
+            android:name=".profile_user.view.ProfileUserActivity"
+            android:windowSoftInputMode="stateHidden"></activity>
+        <activity android:name=".chat.view.ChatActivity"></activity>
     </application>
 
 </manifest>

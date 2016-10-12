@@ -1,6 +1,7 @@
 package com.itute.dating.base.model;
 
 import android.app.Activity;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -25,11 +26,16 @@ public class ImageLoader {
     }
 
     public void loadImage(Activity activity, String url, ImageView imageView) {
-        Glide.with(activity)
-                .load(url)
-                .error(R.drawable.avatar)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .centerCrop()
-                .into(imageView);
+       try{
+           Glide.with(activity)
+                   .load(url)
+                   .error(R.drawable.avatar)
+                   .diskCacheStrategy(DiskCacheStrategy.ALL)
+                   .centerCrop()
+                   .into(imageView);
+       }
+       catch (Exception e){
+           Log.d("IMAGELOADER", e.getMessage());
+       }
     }
 }

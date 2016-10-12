@@ -7,6 +7,11 @@
     <string name="chonGioiTinh">Chọn Giới Tính</string>
     <string name="dienDayDuThongTin">Hãy điền đầy đủ thông tin</string>
     <string name="loiThongTinNguoiDung">Lỗi khi lấy thông tin người dùng!</string>
+    <string name="tenKhongDuocDeTrong">Tên không được để trống</string>
+    <string name="thaTim">Thả tim</string>
+    <string name="chat">Chat</string>
+    <string name="timeline">Timeline</string>
+    <string name="hint_message">Tin nhắn của bạn...</string>
 
     <string-array name="arr_gender">
         <item>Nam</item>

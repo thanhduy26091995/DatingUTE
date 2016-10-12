@@ -13,4 +13,5 @@ public class EventDateTimeFormatter {
     public static String formatEventTime(long milliseconds) {
         return new SimpleDateFormat("h:mm a").format(milliseconds);
     }
+
 }

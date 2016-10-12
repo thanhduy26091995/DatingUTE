@@ -68,13 +68,14 @@ public class LoginFacebookPresenter {
                 if (dataSnapshot.exists()) {
                     view.moveToMainActivity();
                 } else {
-
                     long timestamp = new Date().getTime() / 1000;
                     Profile profile = Profile.getCurrentProfile();
                     submitter.addNewUser(user.getUid(), profile.getName(), profile.getProfilePictureUri(160, 160).toString(),
                             initAddressData(), "", 0, timestamp, "", "", "", "", "");
                     view.moveToMainActivity();
                 }
+                //update state login
+                submitter.updateState(user.getUid(), true);
             }
 
             @Override

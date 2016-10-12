@@ -12,6 +12,7 @@ import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.itute.dating.base.view.BaseActivity;
 import com.itute.dating.base.view.GoogleAuthController;
 import com.itute.dating.settings.model.SettingsSubmitter;
 import com.itute.dating.settings.view.SettingsFragment;
@@ -54,10 +55,13 @@ public class SettingsPresenter {
                 Log.d("Error", "GoogleSubmitter API Client Connection Suspended");
             }
         });
+        //update state login
+        submitter.updateState(BaseActivity.getUid(), false);
     }
 
     //get user theo ID
     public DatabaseReference getUser(String uid) {
         return submitter.getUser(uid);
     }
+
 }

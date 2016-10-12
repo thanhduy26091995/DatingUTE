@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="10dp"
+    android:paddingTop="10dp"
+    android:weightSum="5">
+
+    <com.itute.dating.base.view.IconTextView
+        android:id="@+id/btn_camera"
+        style="@style/iconNormalSize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp"
+        android:text="@string/fa_camera" />
+
+    <com.itute.dating.base.view.IconTextView
+        android:id="@+id/btn_confirm"
+        style="@style/iconNormalSize"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/btn_camera"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/btn_camera"
+        android:gravity="center_vertical"
+        android:padding="5dp"
+        android:text="@string/fa_send"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignBottom="@+id/btn_camera"
+        android:layout_alignTop="@+id/btn_camera"
+        android:layout_toLeftOf="@+id/btn_confirm"
+        android:layout_toRightOf="@+id/btn_camera"
+        android:background="@drawable/border_white">
+
+        <com.itute.dating.base.view.IconTextView
+            android:id="@+id/btn_location"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:paddingLeft="5dp"
+            android:paddingRight="10dp"
+            android:text="@string/fa_smile_o"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/et_message"
+            style="@style/iconNormalSize"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/btn_location"
+            android:background="@android:color/transparent"
+            android:hint="@string/hint_message"
+            android:inputType="textMultiLine"
+            android:padding="5dp"
+            android:maxLines="5"
+            android:scrollbars="vertical"
+            android:textColor="@color/primaryText" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

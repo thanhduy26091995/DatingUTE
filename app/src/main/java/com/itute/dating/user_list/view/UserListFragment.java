@@ -1,6 +1,7 @@
 package com.itute.dating.user_list.view;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -20,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.itute.dating.R;
 import com.itute.dating.profile_user.model.User;
+import com.itute.dating.profile_user.view.ProfileUserActivity;
 import com.itute.dating.user_list.model.UserListViewHolder;
 import com.itute.dating.user_list.presenter.UserListPresenter;
 import com.itute.dating.util.MyLinearLayoutManager;
@@ -49,6 +51,12 @@ public class UserListFragment extends Fragment {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         customLinearLayoutManager = new MyLinearLayoutManager(getContext());
         mRecycler = (RecyclerView) rootView.findViewById(R.id.frame_user_list);
+        //cache recycler view
+        mRecycler.setHasFixedSize(true);
+        mRecycler.setItemViewCacheSize(20);
+        mRecycler.setDrawingCacheEnabled(true);
+        mRecycler.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+        //end cache
         presenter = new UserListPresenter(this);
 
         Query query = presenter.getUserList();
@@ -64,27 +72,30 @@ public class UserListFragment extends Fragment {
                     UserListViewHolder.class, query) {
                 @Override
                 protected void populateViewHolder(UserListViewHolder viewHolder, User model, final int position) {
-                    //if (model.getGender() != 0) {
-                        viewHolder.bindToViewHolder(model);
-                        //load avatar
-                        Glide.with(getActivity())
-                                .load(model.getPhotoURL())
-                                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                                .error(R.drawable.avatar)
-                                .centerCrop()
-                                .into(viewHolder.imgAvatar);
-//                    }
-//                    else{
-//                        Handler handler = new Handler();
-//                        handler.post(new Runnable() {
-//                            @Override
-//                            public void run() {
-//
-//                            }
-//                        });
-                        //mAdapter.notifyItemRemoved(position);
-                    //}
+                    //lấy id root
+                    final DatabaseReference userRef = getRef(position);
+                    // gắn click listener
+                    final String userKey = userRef.getKey();
+
+                    viewHolder.bindToViewHolder(model);
+                    //load avatar
+                    Glide.with(getActivity())
+                            .load(model.getPhotoURL())
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .error(R.drawable.avatar)
+                            .centerCrop()
+                            .into(viewHolder.imgAvatar);
+
                     hideProgressDialog();
+                    //event click
+                    viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(getActivity(), ProfileUserActivity.class);
+                            intent.putExtra(ProfileUserActivity.EXTRA_UID, userKey);
+                            startActivity(intent);
+                        }
+                    });
 
                 }
             };

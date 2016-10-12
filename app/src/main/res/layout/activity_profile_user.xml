@@ -90,10 +90,6 @@
                     android:src="@drawable/avatar"
                     app:civ_border_color="@color/colorPrimary"
                     app:civ_border_width="1dp" />
-
-                <EditText
-                    android:layout_width="1dp"
-                    android:layout_height="1dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -102,7 +98,7 @@
                 android:layout_height="50dp"
                 android:layout_below="@+id/form_contain_image"
                 android:background="@color/colorPrimary"
-                android:weightSum="3">
+                android:weightSum="4">
 
 
                 <com.itute.dating.base.view.IconTextView
@@ -110,9 +106,23 @@
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_gravity="center"
-                    android:layout_weight="3"
+                    android:layout_weight="2"
+                    android:background="@drawable/button_background_pressed"
                     android:gravity="center"
                     android:text="@string/fa_comment_o"
+                    android:textColor="@color/white"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
+
+                <com.itute.dating.base.view.IconTextView
+                    android:id="@+id/txt_heart"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="2"
+                    android:background="@drawable/button_background_pressed"
+                    android:gravity="center"
+                    android:text="@string/fa_heart"
                     android:textColor="@color/white"
                     android:textSize="25sp"
                     android:textStyle="bold" />

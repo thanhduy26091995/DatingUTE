@@ -5,4 +5,6 @@
     <color name="colorAccent">#66B929</color>
     <color name="white">@color/md_white_1000</color>
     <color name="primaryText">@color/md_grey_900</color>
+    <color name="light_grey">#DDDDDD</color>
+    <color name="divider">#B6B6B6</color>
 </resources>

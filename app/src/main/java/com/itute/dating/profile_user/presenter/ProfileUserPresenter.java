@@ -5,10 +5,16 @@ import android.content.Intent;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.UploadTask;
 import com.itute.dating.R;
 import com.itute.dating.profile_user.model.ProfileUserSubmitter;
+import com.itute.dating.profile_user.model.User;
 import com.itute.dating.profile_user.view.ProfileUserActivity;
 import com.itute.dating.util.Constants;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
@@ -64,5 +70,40 @@ public class ProfileUserPresenter {
         } catch (GooglePlayServicesNotAvailableException e) {
             e.printStackTrace();
         }
+    }
+
+    //mở thư viện ảnh
+    public void showImage() {
+        Intent myIntent = new Intent(Intent.ACTION_PICK);
+        myIntent.setType("image/*");
+        view.startActivityForResult(myIntent, Constants.GALLERY_INTENT);
+    }
+
+    //chỉnh sửa thông tin User
+    public void editUser(final User userUpdate, final String uid) {
+        mDatabase.child(Constants.USERS).child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot != null) {
+                    User user = dataSnapshot.getValue(User.class);
+                    if (user != null) {
+                        submitter.editUser(userUpdate, uid);
+                        submitter.addImageUser(uid, Constants.AVATAR, new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                submitter.editUserPhotoURL(uid, taskSnapshot.getDownloadUrl().toString());
+                            }
+                        });
+                    } else {
+                        view.showToast(view.getResources().getString(R.string.loiThongTinNguoiDung));
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 }

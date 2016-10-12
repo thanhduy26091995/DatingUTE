@@ -22,6 +22,7 @@ public class User {
     private String religion;
     private long timestamp;
     private int old;
+    private boolean isLogin;
     //default constructor
 
     public User() {
@@ -40,6 +41,14 @@ public class User {
         this.job = job;
         this.language = language;
         this.religion = religion;
+    }
+
+    public boolean getIsLogin() {
+        return isLogin;
+    }
+
+    public void setIsLogin(boolean login) {
+        isLogin = login;
     }
 
     public String getHobby() {
@@ -160,7 +169,7 @@ public class User {
         myMap.put(Constants.LANGUAGE, language);
         myMap.put(Constants.STAR, star);
         myMap.put(Constants.RELIGION, religion);
-
+        myMap.put(Constants.OLD, old);
         return myMap;
     }
 }

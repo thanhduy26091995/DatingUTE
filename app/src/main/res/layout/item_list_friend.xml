@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="5dp"
+    android:layout_marginBottom="10dp"
     android:background="@color/md_white_1000"
     android:orientation="vertical"
     android:paddingBottom="10dp"
@@ -76,13 +76,12 @@
             android:id="@+id/contentAddress"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:orientation="horizontal"
-            android:padding="4dp">
+            android:orientation="horizontal">
 
             <com.itute.dating.base.view.IconTextView
                 android:id="@+id/iconLocation"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="30dp"
                 android:gravity="center"
                 android:text="@string/fa_map_marker"
                 android:textColor="@color/md_grey_700"
@@ -104,12 +103,11 @@
             android:id="@+id/contentState"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:orientation="horizontal"
-            android:padding="4dp">
+            android:orientation="horizontal">
 
             <com.itute.dating.base.view.IconTextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="30dp"
                 android:gravity="center"
                 android:text="@string/fa_globe"
                 android:textColor="@color/md_grey_700"
@@ -125,6 +123,107 @@
                 android:maxLines="1"
                 android:text="Online"
                 android:textColor="@color/md_black_1000" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <!-- Footer -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="0.8dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/md_grey_600" />
+
+        <LinearLayout
+            android:id="@+id/footerButtons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <LinearLayout
+                android:id="@+id/btnJoin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <com.itute.dating.base.view.IconTextView
+                    android:id="@+id/iconJoin"
+                    style="@style/iconNormalSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fa_heart_o"
+                    android:textColor="@color/md_black_1000" />
+
+                <TextView
+                    android:id="@+id/txtJoin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="@string/thaTim"
+                    android:textColor="@color/md_black_1000" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btnComment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <com.itute.dating.base.view.IconTextView
+                    android:id="@+id/iconComment"
+                    style="@style/iconNormalSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fa_comment_o"
+                    android:textColor="@color/md_black_1000" />
+
+                <TextView
+                    android:id="@+id/txtComment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="@string/chat"
+                    android:textColor="@color/md_black_1000" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btnShare"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <com.itute.dating.base.view.IconTextView
+                    android:id="@+id/iconShare"
+                    style="@style/iconNormalSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fa_list_alt"
+                    android:textColor="@color/md_black_1000" />
+
+                <TextView
+                    android:id="@+id/txtShare"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="@string/timeline"
+                    android:textColor="@color/md_black_1000" />
+            </LinearLayout>
+
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
