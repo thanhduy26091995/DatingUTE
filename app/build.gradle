@@ -51,5 +51,7 @@ dependencies {
     compile 'com.wdullaer:materialdatetimepicker:2.3.0'
     //range
     compile 'com.appyvet:materialrangebar:1.3'
+    //emotion
+    compile 'io.github.rockerhieu:emojicon:1.4.1'
 }
 apply plugin: 'com.google.gms.google-services'

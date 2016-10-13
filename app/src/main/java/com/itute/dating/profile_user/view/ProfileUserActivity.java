@@ -220,6 +220,7 @@ public class ProfileUserActivity extends BaseActivity implements View.OnClickLis
 
     private void moveToChatActivity() {
         Intent myIntent = new Intent(ProfileUserActivity.this, ChatActivity.class);
+        myIntent.putExtra(ChatActivity.PARTNER_ID, intentUid);
         startActivity(myIntent);
     }
 

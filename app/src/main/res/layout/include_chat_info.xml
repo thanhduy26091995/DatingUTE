@@ -9,6 +9,7 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginBottom="5dp"
+        android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
         android:background="@android:color/transparent"
         android:src="@drawable/avatar"
@@ -18,75 +19,81 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:weightSum="6">
 
             <com.itute.dating.base.view.IconTextView
                 style="@style/AppLargeText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:gravity="center"
                 android:text="@string/fa_user"
                 android:textColor="@color/colorPrimary" />
 
             <TextView
                 android:id="@+id/txt_partner_username"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
+                android:layout_weight="5"
                 android:text="" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp">
+            android:layout_marginTop="5dp"
+            android:weightSum="6">
 
             <com.itute.dating.base.view.IconTextView
                 style="@style/AppLargeText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:gravity="center"
                 android:text="@string/fa_tree"
                 android:textColor="@color/colorPrimary" />
 
             <TextView
-                android:id="@+id/txt_partner_phone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:id="@+id/txt_partner_old"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
+                android:layout_weight="5"
                 android:text="" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp">
+            android:layout_marginTop="5dp"
+            android:weightSum="6">
 
             <com.itute.dating.base.view.IconTextView
                 android:id="@+id/iconTextView2"
+                android:gravity="center"
                 style="@style/AppLargeText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
                 android:text="@string/fa_map_marker"
                 android:textColor="@color/colorPrimary" />
 
             <TextView
                 android:id="@+id/txt_partner_address"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
+                android:layout_weight="5"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="" />
