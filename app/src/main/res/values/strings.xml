@@ -12,6 +12,7 @@
     <string name="chat">Chat</string>
     <string name="timeline">Timeline</string>
     <string name="hint_message">Tin nhắn của bạn...</string>
+    <string name="speech_prompt">Hãy nói gì đó…</string>
 
     <string-array name="arr_gender">
         <item>Nam</item>

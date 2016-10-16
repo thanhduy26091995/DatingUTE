@@ -1,5 +1,6 @@
 package com.itute.dating.profile_user.presenter;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
@@ -57,14 +58,17 @@ public class ProfileUserPresenter {
         dpd.show(view.getFragmentManager(), "Datepickerdialog");
     }
 
+    public ProgressDialog mProgressDialog;
+
+
     //mở google place
     public void showPlace() {
         PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
         Intent myIntent;
-
         try {
             myIntent = builder.build(view);
             view.startActivityForResult(myIntent, Constants.PLACE_PICKER_REQUEST);
+
         } catch (GooglePlayServicesRepairableException e) {
             e.printStackTrace();
         } catch (GooglePlayServicesNotAvailableException e) {

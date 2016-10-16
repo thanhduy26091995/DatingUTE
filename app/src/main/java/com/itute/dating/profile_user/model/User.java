@@ -23,6 +23,8 @@ public class User {
     private long timestamp;
     private int old;
     private boolean isLogin;
+    private Map<String, Boolean> hearts = new HashMap<>();
+    private int heartCount;
     //default constructor
 
     public User() {
@@ -41,6 +43,22 @@ public class User {
         this.job = job;
         this.language = language;
         this.religion = religion;
+    }
+
+    public int getHeartCount() {
+        return heartCount;
+    }
+
+    public void setHeartCount(int heartCount) {
+        this.heartCount = heartCount;
+    }
+
+    public Map<String, Boolean> getHearts() {
+        return hearts;
+    }
+
+    public void setHearts(Map<String, Boolean> hearts) {
+        this.hearts = hearts;
     }
 
     public boolean getIsLogin() {
@@ -170,6 +188,7 @@ public class User {
         myMap.put(Constants.STAR, star);
         myMap.put(Constants.RELIGION, religion);
         myMap.put(Constants.OLD, old);
+        myMap.put(Constants.HEART_COUNT, heartCount);
         return myMap;
     }
 }

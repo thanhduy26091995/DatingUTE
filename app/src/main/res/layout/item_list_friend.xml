@@ -150,7 +150,7 @@
             android:weightSum="3">
 
             <LinearLayout
-                android:id="@+id/btnJoin"
+                android:id="@+id/linearHeart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -158,7 +158,7 @@
                 android:orientation="horizontal">
 
                 <com.itute.dating.base.view.IconTextView
-                    android:id="@+id/iconJoin"
+                    android:id="@+id/iconHeart"
                     style="@style/iconNormalSize"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -166,7 +166,7 @@
                     android:textColor="@color/md_black_1000" />
 
                 <TextView
-                    android:id="@+id/txtJoin"
+                    android:id="@+id/txtHeart"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -175,7 +175,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/btnComment"
+                android:id="@+id/linearChat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -200,7 +200,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/btnShare"
+                android:id="@+id/linearTimeline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

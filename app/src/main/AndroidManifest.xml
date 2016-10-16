@@ -42,6 +42,7 @@
             android:name=".profile_user.view.ProfileUserActivity"
             android:windowSoftInputMode="stateHidden"></activity>
         <activity android:name=".chat.view.ChatActivity"></activity>
+        <activity android:name=".list_heart.view.ListHeartActivity"></activity>
     </application>
 
 </manifest>

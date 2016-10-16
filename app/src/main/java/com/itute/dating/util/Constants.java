@@ -16,6 +16,7 @@ public class Constants {
     public static final String USER_AVATAR = "userAvatar";
     public static final String AVATAR = "avatar";
     public static final Locale DEFAULT_LOCALE = Locale.US;
+    public static final int REQ_CODE_SPEECH_INPUT = 100;
     //user
     public static final String DISPLAY_NAME = "displayName";
     public static final String ADDRESS = "address";
@@ -33,6 +34,8 @@ public class Constants {
     public static final String LANGUAGE = "language";
     public static final String OLD = "old";
     public static final String RELIGION = "religion";
+    public static final String HEARTS = "hearts";
+    public static final String HEART_COUNT = "heartCount";
     //chat
     public static final String IS_MINE = "isMine";
     public static final String FROM_NAME = "fromName";

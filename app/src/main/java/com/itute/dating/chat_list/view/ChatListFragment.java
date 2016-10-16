@@ -24,6 +24,7 @@ import com.itute.dating.chat.view.ChatActivity;
 import com.itute.dating.chat_list.model.ChatListViewHolder;
 import com.itute.dating.chat_list.presenter.ChatListPresenter;
 import com.itute.dating.profile_user.view.ProfileUserActivity;
+import com.itute.dating.util.MyLinearLayoutManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,6 +40,7 @@ public class ChatListFragment extends Fragment {
     private ChatListPresenter presenter;
     private FirebaseRecyclerAdapter<ChatMessage, ChatListViewHolder> mAdapter;
     private DatabaseReference mDatabase;
+    private MyLinearLayoutManager customLinearLayoutManager;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,6 +48,7 @@ public class ChatListFragment extends Fragment {
         presenter = new ChatListPresenter(this);
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mManager = new LinearLayoutManager(getContext());
+        customLinearLayoutManager = new MyLinearLayoutManager(getContext());
     }
 
     @Nullable
@@ -83,7 +86,7 @@ public class ChatListFragment extends Fragment {
                         });
                     }
                 };
-                mRecycler.setLayoutManager(mManager);
+                mRecycler.setLayoutManager(customLinearLayoutManager);
                 mRecycler.setAdapter(mAdapter);
             }
 

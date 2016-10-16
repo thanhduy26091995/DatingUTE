@@ -103,6 +103,7 @@ public class FirstLoginActivity extends BaseActivity implements View.OnClickList
             signOut();
         } else if (i == R.id.form_first_login_address) {
             presenter.showPlace();
+
         } else if (i == R.id.form_first_login_date) {
             presenter.onPickDateStart();
         } else if (i == R.id.txt_submit_info) {
@@ -219,6 +220,7 @@ public class FirstLoginActivity extends BaseActivity implements View.OnClickList
                 txtAddress.setText(address);
                 lat = place.getLatLng().latitude;
                 lon = place.getLatLng().longitude;
+
             }
         }
     }

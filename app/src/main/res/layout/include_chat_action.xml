@@ -1,20 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:emojicon="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:emojicon="http://schemas.android.com/tools"
     android:layout_marginLeft="10dp"
     android:orientation="horizontal"
     android:paddingBottom="10dp"
     android:paddingTop="10dp"
     android:weightSum="7">
 
+    <com.itute.dating.base.view.IconTextView
+        android:id="@+id/txt_micro"
+        style="@style/iconNormalSize"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="@string/fa_microphone"
+        android:textColor="@color/colorPrimary" />
+
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-
-        android:layout_weight="6"
+        android:layout_weight="5"
         android:background="@drawable/border_white">
 
         <com.itute.dating.base.view.IconTextView
@@ -50,7 +60,7 @@
         android:id="@+id/btn_confirm"
         style="@style/iconNormalSize"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
         android:layout_weight="1"
         android:gravity="center"

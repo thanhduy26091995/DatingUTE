@@ -35,6 +35,7 @@ import com.itute.dating.R;
 import com.itute.dating.base.model.ImageLoader;
 import com.itute.dating.base.view.BaseActivity;
 import com.itute.dating.chat.view.ChatActivity;
+import com.itute.dating.list_heart.view.ListHeartActivity;
 import com.itute.dating.profile_user.model.User;
 import com.itute.dating.profile_user.presenter.ProfileUserPresenter;
 import com.itute.dating.util.Constants;
@@ -104,6 +105,8 @@ public class ProfileUserActivity extends BaseActivity implements View.OnClickLis
     LinearLayout formPhone;
     @BindView(R.id.txt_chat)
     TextView txtChat;
+    @BindView(R.id.txt_heart)
+    TextView txtHeart;
 
 
     private DatabaseReference mUserReference;
@@ -166,6 +169,7 @@ public class ProfileUserActivity extends BaseActivity implements View.OnClickLis
         formHobby.setOnClickListener(this);
         imgAvatarUser.setOnClickListener(this);
         txtChat.setOnClickListener(this);
+        txtHeart.setOnClickListener(this);
         //block editText
         if (edtName.isEnabled()) {
             edtName.setEnabled(false);
@@ -215,12 +219,19 @@ public class ProfileUserActivity extends BaseActivity implements View.OnClickLis
             saveInfo();
         } else if (i == R.id.txt_chat) {
             moveToChatActivity();
+        } else if (i == R.id.txt_heart) {
+            moveToHeartActivity();
         }
     }
 
     private void moveToChatActivity() {
         Intent myIntent = new Intent(ProfileUserActivity.this, ChatActivity.class);
         myIntent.putExtra(ChatActivity.PARTNER_ID, intentUid);
+        startActivity(myIntent);
+    }
+
+    private void moveToHeartActivity() {
+        Intent myIntent = new Intent(ProfileUserActivity.this, ListHeartActivity.class);
         startActivity(myIntent);
     }
 
@@ -345,7 +356,9 @@ public class ProfileUserActivity extends BaseActivity implements View.OnClickLis
 
     private void openGooglePlace() {
         if (txtSaveInfo.getVisibility() == View.VISIBLE) {
+            // showProgessDialog();
             presenter.showPlace();
+
         }
     }
 
@@ -479,7 +492,9 @@ public class ProfileUserActivity extends BaseActivity implements View.OnClickLis
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         if (requestCode == Constants.PLACE_PICKER_REQUEST) {
+            // hideProgressDialog();
             if (resultCode == RESULT_OK) {
                 Place place = PlacePicker.getPlace(data, this);
                 String address = String.format("%s", place.getAddress());

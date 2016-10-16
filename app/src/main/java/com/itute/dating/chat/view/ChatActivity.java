@@ -1,8 +1,11 @@
 package com.itute.dating.chat.view;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -36,7 +39,9 @@ import com.itute.dating.chat.presenter.ChatMessagePresenter;
 import com.itute.dating.profile_user.model.User;
 import com.itute.dating.util.Constants;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -72,6 +77,8 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener, 
     FrameLayout frameIcon;
     @BindView(R.id.root_view)
     RelativeLayout rootView;
+    @BindView(R.id.txt_micro)
+    TextView txtMicro;
 
     private ChatMessagePresenter presenter;
     private FirebaseRecyclerAdapter<ChatMessage, ChatMessageViewHolder> mAdapter;
@@ -106,6 +113,7 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener, 
         //event click
         txtSend.setOnClickListener(this);
         txtIcon.setOnClickListener(this);
+        txtMicro.setOnClickListener(this);
 //        rootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
 //            public void onGlobalLayout() {
 //                int heightDiff = rootView.getRootView().getHeight() - rootView.getHeight();
@@ -156,6 +164,31 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener, 
             addNewMessage();
         } else if (view == txtIcon) {
             openIcons();
+        } else if (view == txtMicro) {
+            promptSpeechInput();
+        }
+    }
+
+    private void promptSpeechInput() {
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, getString(R.string.speech_prompt));
+        try {
+            startActivityForResult(intent, Constants.REQ_CODE_SPEECH_INPUT);
+        } catch (ActivityNotFoundException e) {
+            Log.d(TAG, e.getMessage());
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == Constants.REQ_CODE_SPEECH_INPUT) {
+            if (resultCode == RESULT_OK && data != null) {
+                ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                edtMessage.setText(result.get(0));
+            }
         }
     }
 
