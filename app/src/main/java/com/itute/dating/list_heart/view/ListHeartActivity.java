@@ -104,7 +104,24 @@ public class ListHeartActivity extends BaseActivity implements View.OnClickListe
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
+                if (dataSnapshot != null) {
+                    mDatabase.child(Constants.USERS).child(dataSnapshot.getKey()).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if (dataSnapshot != null) {
+                                User user = dataSnapshot.getValue(User.class);
+                                Log.d(TAG, user.getDisplayName());
+                                listUser.remove(user);
+                                customAdapter.notifyDataSetChanged();
+                            }
+                        }
 
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                }
             }
 
             @Override

@@ -36,6 +36,8 @@ public class Constants {
     public static final String RELIGION = "religion";
     public static final String HEARTS = "hearts";
     public static final String HEART_COUNT = "heartCount";
+    public static final String STATUS = "status";
+    public static final String UID = "uid";
     //chat
     public static final String IS_MINE = "isMine";
     public static final String FROM_NAME = "fromName";

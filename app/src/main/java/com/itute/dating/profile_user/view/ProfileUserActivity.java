@@ -107,7 +107,12 @@ public class ProfileUserActivity extends BaseActivity implements View.OnClickLis
     TextView txtChat;
     @BindView(R.id.txt_heart)
     TextView txtHeart;
-
+    @BindView(R.id.status)
+    EditText edtStatus;
+    @BindView(R.id.txt_edit_status)
+    TextView txtEditStatus;
+    @BindView(R.id.txt_submit_status)
+    TextView txtSubmitStatus;
 
     private DatabaseReference mUserReference;
     private ProfileUserPresenter presenter;
@@ -146,12 +151,16 @@ public class ProfileUserActivity extends BaseActivity implements View.OnClickLis
     private void disableViews() {
         txtSaveInfo.setVisibility(View.GONE);
         txtEditInfo.setVisibility(View.GONE);
+        txtEditStatus.setVisibility(View.GONE);
+        txtSubmitStatus.setVisibility(View.GONE);
     }
 
     private void initViews() {
         //default
         txtSaveInfo.setVisibility(View.GONE);
         txtEditInfo.setVisibility(View.VISIBLE);
+        txtEditStatus.setVisibility(View.VISIBLE);
+        txtSubmitStatus.setVisibility(View.GONE);
         //event click
         btnBack.setOnClickListener(this);
         formGender.setOnClickListener(this);
@@ -170,6 +179,8 @@ public class ProfileUserActivity extends BaseActivity implements View.OnClickLis
         imgAvatarUser.setOnClickListener(this);
         txtChat.setOnClickListener(this);
         txtHeart.setOnClickListener(this);
+        txtEditStatus.setOnClickListener(this);
+        txtSubmitStatus.setOnClickListener(this);
         //block editText
         if (edtName.isEnabled()) {
             edtName.setEnabled(false);
@@ -182,6 +193,9 @@ public class ProfileUserActivity extends BaseActivity implements View.OnClickLis
         }
         if (edtPhone.isEnabled()) {
             edtPhone.setEnabled(false);
+        }
+        if (edtStatus.isEnabled()) {
+            edtStatus.setEnabled(false);
         }
 
     }
@@ -221,6 +235,32 @@ public class ProfileUserActivity extends BaseActivity implements View.OnClickLis
             moveToChatActivity();
         } else if (i == R.id.txt_heart) {
             moveToHeartActivity();
+        } else if (i == R.id.txt_edit_status) {
+            editStatus();
+        } else if (i == R.id.txt_submit_status) {
+            submitStatus();
+        }
+    }
+
+    private void submitStatus() {
+        //cập nhật status
+        presenter.updateStatus(edtStatus.getText().toString(), intentUid);
+        txtEditStatus.setVisibility(View.VISIBLE);
+        txtSubmitStatus.setVisibility(View.GONE);
+        edtStatus.setEnabled(false);
+    }
+
+    private void editStatus() {
+        txtEditStatus.setVisibility(View.GONE);
+        txtSubmitStatus.setVisibility(View.VISIBLE);
+        if (txtSubmitStatus.getVisibility() == View.VISIBLE) {
+            if (!edtStatus.isEnabled()) {
+                edtStatus.setEnabled(true);
+                edtStatus.setFocusable(true);
+                edtStatus.requestFocus();
+                InputMethodManager imm = (InputMethodManager) getSystemService(this.INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+            }
         }
     }
 
@@ -435,6 +475,7 @@ public class ProfileUserActivity extends BaseActivity implements View.OnClickLis
                         txtLocation.setText(user.getAddress().get(Constants.ADDRESS).toString());
                         edtHobby.setText(user.getHobby());
                         edtLanguage.setText(user.getLanguage());
+                        edtStatus.setText(user.getStatus());
                         txtJob.setText(user.getJob());
                         txtReligion.setText(user.getReligion());
                         txtStar.setText(user.getStar());

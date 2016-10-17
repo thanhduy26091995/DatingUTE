@@ -25,13 +25,15 @@ public class User {
     private boolean isLogin;
     private Map<String, Boolean> hearts = new HashMap<>();
     private int heartCount;
+    private String status;
+    private String uid;
     //default constructor
 
     public User() {
     }
 
     public User(String displayName, String photoURL, Map<String, Object> address, String phone, int gender, long timestamp,
-                String hobby, String star, String job, String language, String religion) {
+                String hobby, String star, String job, String language, String religion, String uid) {
         this.displayName = displayName;
         this.photoURL = photoURL;
         this.address = address;
@@ -43,6 +45,23 @@ public class User {
         this.job = job;
         this.language = language;
         this.religion = religion;
+        this.uid = uid;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public int getHeartCount() {
@@ -189,6 +208,7 @@ public class User {
         myMap.put(Constants.RELIGION, religion);
         myMap.put(Constants.OLD, old);
         myMap.put(Constants.HEART_COUNT, heartCount);
+        myMap.put(Constants.UID, uid);
         return myMap;
     }
 }

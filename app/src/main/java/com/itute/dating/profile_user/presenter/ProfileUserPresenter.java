@@ -110,4 +110,25 @@ public class ProfileUserPresenter {
             }
         });
     }
+
+    public void updateStatus(final String status, final String uid) {
+        mDatabase.child(Constants.USERS).child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot != null) {
+                    User user = dataSnapshot.getValue(User.class);
+                    if (user != null) {
+                        submitter.updateStatus(status, uid);
+                    } else {
+                        view.showToast(view.getResources().getString(R.string.loiThongTinNguoiDung));
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
 }

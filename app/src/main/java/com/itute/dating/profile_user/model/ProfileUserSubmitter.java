@@ -52,6 +52,13 @@ public class ProfileUserSubmitter {
         mDatabase.child(Constants.USERS).child(uid).updateChildren(myMap);
     }
 
+    //cập nhật status
+    public void updateStatus(String status, String uid) {
+        Map<String, Object> myMap = new HashMap<>();
+        myMap.put(Constants.STATUS, status);
+        mDatabase.child(Constants.USERS).child(uid).updateChildren(myMap);
+    }
+
     //chỉnh sửa user photoURL
     public void editUserPhotoURL(String uid, String photoURL) {
         Map<String, Object> myMap = new HashMap<>();

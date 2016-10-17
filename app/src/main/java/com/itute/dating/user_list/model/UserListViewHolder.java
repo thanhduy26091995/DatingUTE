@@ -48,6 +48,6 @@ public class UserListViewHolder extends RecyclerView.ViewHolder {
         } else {
             txtState.setText("Offline");
         }
-
+        txtStatus.setText(user.getStatus());
     }
 }

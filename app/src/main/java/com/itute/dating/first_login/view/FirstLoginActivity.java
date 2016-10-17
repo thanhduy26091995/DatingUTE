@@ -102,6 +102,7 @@ public class FirstLoginActivity extends BaseActivity implements View.OnClickList
         } else if (i == R.id.btn_back) {
             signOut();
         } else if (i == R.id.form_first_login_address) {
+
             presenter.showPlace();
 
         } else if (i == R.id.form_first_login_date) {
@@ -215,6 +216,7 @@ public class FirstLoginActivity extends BaseActivity implements View.OnClickList
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Constants.PLACE_PICKER_REQUEST) {
             if (resultCode == RESULT_OK) {
+
                 Place place = PlacePicker.getPlace(data, this);
                 String address = String.format("%s", place.getAddress());
                 txtAddress.setText(address);
