@@ -71,7 +71,7 @@ public class LoginFacebookPresenter {
                     long timestamp = new Date().getTime() / 1000;
                     Profile profile = Profile.getCurrentProfile();
                     submitter.addNewUser(user.getUid(), profile.getName(), profile.getProfilePictureUri(160, 160).toString(),
-                            initAddressData(), "", 0, timestamp, "", "", "", "", "");
+                            initAddressData(), "", 0, timestamp, "", "", "", "", "", initSearchData());
                     view.moveToMainActivity();
                 }
                 //update state login
@@ -83,6 +83,14 @@ public class LoginFacebookPresenter {
                 Log.w(TAG, "getUser:onCancelled", databaseError.toException());
             }
         });
+    }
+
+    private Map<String, Object> initSearchData() {
+        Map<String, Object> address = new HashMap<String, Object>();
+        address.put(Constants.GENDER, 0);
+        address.put(Constants.FROM, 16);
+        address.put(Constants.TO, 30);
+        return address;
     }
 
     private Map<String, Object> initAddressData() {

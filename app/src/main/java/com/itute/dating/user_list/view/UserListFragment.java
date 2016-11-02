@@ -13,22 +13,31 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.itute.dating.R;
 import com.itute.dating.base.view.BaseActivity;
 import com.itute.dating.chat.view.ChatActivity;
 import com.itute.dating.profile_user.model.User;
 import com.itute.dating.profile_user.view.ProfileUserActivity;
+import com.itute.dating.user_list.CustomFilterUserListAdapter;
 import com.itute.dating.user_list.model.UserListViewHolder;
 import com.itute.dating.user_list.presenter.UserListPresenter;
 import com.itute.dating.util.Constants;
 import com.itute.dating.util.MyLinearLayoutManager;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by buivu on 08/10/2016.
@@ -41,6 +50,10 @@ public class UserListFragment extends Fragment {
     private MyLinearLayoutManager customLinearLayoutManager;
     private UserListPresenter presenter;
     private ProgressDialog mProgressDialog;
+    private int gender, from, to;
+    private Query query;
+    private CustomFilterUserListAdapter customAdapter;
+    private List<User> listUser;
 
     public UserListFragment() {
     }
@@ -62,11 +75,103 @@ public class UserListFragment extends Fragment {
         mRecycler.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
         //end cache
         presenter = new UserListPresenter(this);
-
-        Query query = presenter.getUserList();
-        loadData(query);
+        initInfo();
+        changeSearch();
         //init info
         return rootView;
+    }
+
+    private void changeSearch() {
+        mDatabase.child(Constants.USERS).child(BaseActivity.getUid()).child(Constants.SEARCH).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                if (dataSnapshot != null) {
+                    initInfo();
+                }
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void initInfo() {
+        Log.d(TAG, "onInitInfo");
+        // showProgessDialog();
+
+        mDatabase.child(Constants.USERS).child(BaseActivity.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot != null) {
+                    User user = dataSnapshot.getValue(User.class);
+                    if (user != null) {
+                        gender = Integer.parseInt(user.getSearch().get(Constants.GENDER).toString());
+                        from = Integer.parseInt(user.getSearch().get(Constants.FROM).toString());
+                        to = Integer.parseInt(user.getSearch().get(Constants.TO).toString());
+                        if (gender == 0) {
+                            query = presenter.getUserList();
+                        } else if (gender == 1) {
+                            query = presenter.getUserGender(1);
+                        } else {
+                            query = presenter.getUserGender(2);
+                        }
+                        //hideProgressDialog();
+                        //sủ dụng customAdapter để xử lý tuổi
+//                        listUser = new ArrayList<>();
+//                        customAdapter = new CustomFilterUserListAdapter(listUser, getActivity());
+//
+//                        query.addListenerForSingleValueEvent(new ValueEventListener() {
+//                            @Override
+//                            public void onDataChange(DataSnapshot dataSnapshot) {
+//                                if (dataSnapshot != null) {
+//                                    for (DataSnapshot data : dataSnapshot.getChildren()) {
+//                                        User user = data.getValue(User.class);
+//                                        if (user != null) {
+//                                            if (from <= user.getOld() && user.getOld() <= to) {
+//                                                customAdapter.addItem(listUser.size(), user);
+//                                                Log.d(TAG, "" + listUser.size());
+//                                                customAdapter.notifyDataSetChanged();
+//                                            }
+//                                            //Log.d(TAG, "" + listUser.size());
+//                                        }
+//                                    }
+//                                    mRecycler.setLayoutManager(customLinearLayoutManager);
+//                                    mRecycler.setAdapter(customAdapter);
+//                                }
+//                            }
+//
+//                            @Override
+//                            public void onCancelled(DatabaseError databaseError) {
+//
+//                            }
+//                        });
+                        loadData(query);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void loadData(Query query) {
@@ -76,6 +181,7 @@ public class UserListFragment extends Fragment {
                     UserListViewHolder.class, query) {
                 @Override
                 protected void populateViewHolder(UserListViewHolder viewHolder, User model, final int position) {
+
                     //lấy id root
                     final DatabaseReference userRef = getRef(position);
                     // gắn click listener
@@ -89,6 +195,14 @@ public class UserListFragment extends Fragment {
                     } else {
                         viewHolder.txtIconHeart.setTextColor(ContextCompat.getColor(getContext(), R.color.md_black_1000));
                         viewHolder.txtHeart.setTextColor(ContextCompat.getColor(getContext(), R.color.md_black_1000));
+                    }
+                    //highlight nếu đã gửi lời mời
+                    if (model.getRequests().containsKey(BaseActivity.getUid())) {
+                        viewHolder.txtIconAddFriend.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+                        viewHolder.txtAddFriend.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+                    } else {
+                        viewHolder.txtIconAddFriend.setTextColor(ContextCompat.getColor(getContext(), R.color.md_black_1000));
+                        viewHolder.txtAddFriend.setTextColor(ContextCompat.getColor(getContext(), R.color.md_black_1000));
                     }
                     //load avatar
                     Glide.with(getActivity())
@@ -125,6 +239,15 @@ public class UserListFragment extends Fragment {
                             presenter.onHeartClicked(userPostRef, BaseActivity.getUid());
                         }
                     });
+                    //click add friend
+                    viewHolder.linearAddFriend.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            DatabaseReference userPostRef = mDatabase.child(Constants.USERS).child(userKey);
+                            presenter.onAddFriendClicked(userPostRef, BaseActivity.getUid());
+
+                        }
+                    });
 
                 }
             };
@@ -136,6 +259,10 @@ public class UserListFragment extends Fragment {
         mRecycler.setLayoutManager(customLinearLayoutManager);
         mRecycler.setAdapter(mAdapter);
 
+    }
+
+    public void showToast(String content) {
+        Toast.makeText(getActivity(), content, Toast.LENGTH_SHORT).show();
     }
 
     public void showProgessDialog() {

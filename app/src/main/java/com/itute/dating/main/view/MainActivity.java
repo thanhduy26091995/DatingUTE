@@ -19,7 +19,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.itute.dating.R;
+import com.itute.dating.add_friend.view.AddFriendFragment;
+import com.itute.dating.base.model.DeviceToken;
 import com.itute.dating.base.view.BaseActivity;
 import com.itute.dating.base.view.GoogleAuthController;
 import com.itute.dating.chat_list.view.ChatListFragment;
@@ -29,6 +32,7 @@ import com.itute.dating.profile_user.model.User;
 import com.itute.dating.settings.view.SettingsFragment;
 import com.itute.dating.sign_in.view.SignInActivity;
 import com.itute.dating.user_list.view.UserListFragment;
+import com.itute.dating.util.Constants;
 import com.itute.dating.util.FontManager;
 import com.itute.dating.util.ViewPagerAdapter;
 
@@ -43,6 +47,7 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
     private DatabaseReference mUserReference;
     private MainPresenter presenter;
     private int gender;
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +62,10 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
             finish();
         } else {
             initInfo();
+            //add device token
+            mDatabase = FirebaseDatabase.getInstance().getReference();
+            String token = FirebaseInstanceId.getInstance().getToken();
+            DeviceToken.getInstance().addDeviceToken(mDatabase, getUid(), token);
         }
 
     }
@@ -112,11 +121,11 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
         setupViewPagerUser(mViewPager);
         tabLayout.setupWithViewPager(mViewPager);
 
-         tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorPrimaryDark));
+        tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorPrimaryDark));
         setupTabTextAndIcons();
         setSelectedTab();
 
-        mViewPager.setOffscreenPageLimit(2);
+        mViewPager.setOffscreenPageLimit(3);
 
     }
 
@@ -133,11 +142,16 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
         ((TextView) tabViewTwo.findViewById(R.id.tabIcon)).setTypeface(iconFont);
         ((TextView) tabViewTwo.findViewById(R.id.tabIcon)).setText(R.string.fa_comments_o);
         tabLayout.getTabAt(1).setCustomView(tabViewTwo);
-        //Tab Settings
+        //Tab Chat List
         LinearLayout tabViewThree = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.custom_icon, null);
         ((TextView) tabViewThree.findViewById(R.id.tabIcon)).setTypeface(iconFont);
-        ((TextView) tabViewThree.findViewById(R.id.tabIcon)).setText(R.string.fa_bars);
+        ((TextView) tabViewThree.findViewById(R.id.tabIcon)).setText(R.string.fa_users);
         tabLayout.getTabAt(2).setCustomView(tabViewThree);
+        //Tab Settings
+        LinearLayout tabViewFour = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.custom_icon, null);
+        ((TextView) tabViewFour.findViewById(R.id.tabIcon)).setTypeface(iconFont);
+        ((TextView) tabViewFour.findViewById(R.id.tabIcon)).setText(R.string.fa_bars);
+        tabLayout.getTabAt(3).setCustomView(tabViewFour);
 
     }
 
@@ -145,13 +159,14 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new UserListFragment(), getString(R.string.fa_list_alt));
         adapter.addFragment(new ChatListFragment(), getString(R.string.fa_comments_o));
+        adapter.addFragment(new AddFriendFragment(), getString(R.string.fa_users));
         adapter.addFragment(new SettingsFragment(), getString(R.string.fa_bars));
         viewPager.setAdapter(adapter);
     }
 
     public void setSelectedTab() {
         // Fetch the selected tab index with default
-        int selectedTabIndex = getIntent().getIntExtra("TAB_SELECT", 0);
+        int selectedTabIndex = getIntent().getIntExtra(Constants.TAB_SELECT, 0);
         // Switch to page based on index
         mViewPager.setCurrentItem(selectedTabIndex);
     }

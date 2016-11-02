@@ -21,8 +21,8 @@ import org.w3c.dom.Text;
 public class UserListViewHolder extends RecyclerView.ViewHolder {
 
     public TextView txtName, txtStatus, txtAddress, txtState;
-    public LinearLayout linearHeart, linearChat, linearTimeline;
-    public TextView txtIconHeart, txtHeart;
+    public LinearLayout linearHeart, linearChat, linearAddFriend;
+    public TextView txtIconHeart, txtHeart, txtIconAddFriend, txtAddFriend;
     public ImageView imgAvatar;
 
     public UserListViewHolder(View itemView) {
@@ -35,13 +35,15 @@ public class UserListViewHolder extends RecyclerView.ViewHolder {
         imgAvatar = (ImageView) itemView.findViewById(R.id.avatar);
         linearHeart = (LinearLayout) itemView.findViewById(R.id.linearHeart);
         linearChat = (LinearLayout) itemView.findViewById(R.id.linearChat);
-        linearTimeline = (LinearLayout) itemView.findViewById(R.id.linearTimeline);
+        linearAddFriend = (LinearLayout) itemView.findViewById(R.id.linearAddFriend);
         txtIconHeart = (TextView) itemView.findViewById(R.id.iconHeart);
         txtHeart = (TextView) itemView.findViewById(R.id.txtHeart);
+        txtIconAddFriend = (TextView) itemView.findViewById(R.id.iconAddFriend);
+        txtAddFriend = (TextView) itemView.findViewById(R.id.txtAddFriend);
     }
 
     public void bindToViewHolder(User user) {
-        txtName.setText(user.getDisplayName());
+        txtName.setText(String.format("%s (%d tuổi)", user.getDisplayName(), user.getOld()));
         txtAddress.setText(user.getAddress().get(Constants.ADDRESS).toString());
         if (user.getIsLogin()) {
             txtState.setText("Online");

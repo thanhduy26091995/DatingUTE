@@ -93,13 +93,14 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="64dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal"
                     android:weightSum="7">
 
                     <EditText
+                        android:padding="10dp"
                         android:id="@+id/status"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -145,7 +146,7 @@
                 android:layout_height="50dp"
                 android:layout_below="@+id/form_contain_image"
                 android:background="@color/colorPrimary"
-                android:weightSum="4">
+                android:weightSum="3">
 
 
                 <com.itute.dating.base.view.IconTextView

@@ -86,6 +86,7 @@
                 android:textColor="@color/md_black_1000" />
 
             <TextView
+                android:id="@+id/txt_gender"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
@@ -99,7 +100,7 @@
 
             android:id="@+id/settings_2"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="30dp"
             android:layout_below="@+id/settings_1"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
@@ -112,30 +113,16 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.75"
                 android:gravity="center"
-                android:paddingTop="20dp"
                 android:text="@string/fa_star_o"
                 android:textColor="@color/md_black_1000" />
-
-            <com.appyvet.rangebar.RangeBar xmlns:custom="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/rangebar"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
+            <TextView
+                android:id="@+id/oldFromTo"
+                android:gravity="left|center"
+                android:layout_gravity="center"
+                android:text="Từ 18 đến 21"
                 android:layout_weight="4.25"
-                custom:barWeight="10dp"
-                custom:connectingLineColor="@color/colorPrimary"
-                custom:connectingLineWeight="5dp"
-                custom:pinColor="@color/colorPrimary"
-                custom:pinPadding="15dp"
-                custom:pinRadius="15dp"
-                custom:rangeBar="true"
-                custom:selectorColor="@color/colorPrimaryDark"
-                custom:temporaryPins="true"
-                custom:tickEnd="30"
-                custom:tickInterval="1"
-                custom:tickStart="16" />
-
+                android:layout_width="0dp"
+                android:layout_height="match_parent" />
 
         </LinearLayout>
 

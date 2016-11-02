@@ -18,6 +18,9 @@ import com.itute.dating.settings.model.SettingsSubmitter;
 import com.itute.dating.settings.view.SettingsFragment;
 import com.itute.dating.util.Constants;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by buivu on 10/10/2016.
  */
@@ -64,4 +67,13 @@ public class SettingsPresenter {
         return submitter.getUser(uid);
     }
 
+    //cập nhật gender search
+    public void updateSearchGender(String uid, int gender) {
+        submitter.updateSearchGender(uid, gender);
+    }
+
+    //cập nhật độ tuổi
+    public void updateAge(String uid, int left, int right) {
+        submitter.updateAge(uid, left, right);
+    }
 }

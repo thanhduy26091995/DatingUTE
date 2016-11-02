@@ -14,9 +14,15 @@ public class UserListSubmitter {
         this.mDatabase = mDatabase;
     }
 
-    //lấy danh sách User
+    //lấy toàn bộ danh sách User
     public Query getUserList() {
         Query userList = mDatabase.child(Constants.USERS).orderByChild(Constants.TIMESTAMP);
         return userList;
+    }
+
+    //lấy danh sách User có giới tính Nam
+    public Query getUserGender(int gender){
+        Query userGender = mDatabase.child(Constants.USERS).orderByChild(Constants.GENDER).equalTo(gender);
+        return userGender;
     }
 }

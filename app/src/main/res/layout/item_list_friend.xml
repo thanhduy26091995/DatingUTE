@@ -200,7 +200,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/linearTimeline"
+                android:id="@+id/linearAddFriend"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -208,19 +208,19 @@
                 android:orientation="horizontal">
 
                 <com.itute.dating.base.view.IconTextView
-                    android:id="@+id/iconShare"
+                    android:id="@+id/iconAddFriend"
                     style="@style/iconNormalSize"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/fa_list_alt"
+                    android:text="@string/fa_user_plus"
                     android:textColor="@color/md_black_1000" />
 
                 <TextView
-                    android:id="@+id/txtShare"
+                    android:id="@+id/txtAddFriend"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="@string/timeline"
+                    android:text="@string/add"
                     android:textColor="@color/md_black_1000" />
             </LinearLayout>
 

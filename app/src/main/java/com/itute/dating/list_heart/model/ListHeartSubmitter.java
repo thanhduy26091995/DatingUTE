@@ -16,6 +16,5 @@ public class ListHeartSubmitter {
 
     public Query getAllHeart(String uid) {
         return mDatabase.child(Constants.USERS).child(uid).child(Constants.HEARTS);
-
     }
 }

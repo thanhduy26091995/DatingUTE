@@ -60,6 +60,14 @@ public class LoginGooglePresenter {
         return address;
     }
 
+    private Map<String, Object> initSearchData() {
+        Map<String, Object> address = new HashMap<String, Object>();
+        address.put(Constants.GENDER, 0);
+        address.put(Constants.FROM, 16);
+        address.put(Constants.TO, 30);
+        return address;
+    }
+
     //đăng nhập thành công thì lưu user và chuyển tới MainActivity
     public void onAuthSuccess(final FirebaseUser user, final GoogleSignInAccount acct) {
 
@@ -72,7 +80,7 @@ public class LoginGooglePresenter {
                     try {
                         long timestamp = new Date().getTime() / 1000;
                         submitter.addNewUser(user.getUid(), acct.getDisplayName(), acct.getPhotoUrl().toString(), initAddressData(),
-                                "", 0, timestamp, "", "", "", "", "");
+                                "", 0, timestamp, "", "", "", "", "", initSearchData());
                         view.moveToMainActivity();
                     } catch (Exception e) {
                         Log.d("onAuthSuccessGoogle", "" + e.getMessage());

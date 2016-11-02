@@ -27,13 +27,17 @@ public class User {
     private int heartCount;
     private String status;
     private String uid;
+    private Map<String, Object> search = new HashMap<>();
+    private Map<String, Boolean> friends = new HashMap<>();
+    private Map<String, Boolean> requests = new HashMap<>();
+    private int friendCount;
     //default constructor
 
     public User() {
     }
 
     public User(String displayName, String photoURL, Map<String, Object> address, String phone, int gender, long timestamp,
-                String hobby, String star, String job, String language, String religion, String uid) {
+                String hobby, String star, String job, String language, String religion, String uid, Map<String, Object> search) {
         this.displayName = displayName;
         this.photoURL = photoURL;
         this.address = address;
@@ -46,6 +50,39 @@ public class User {
         this.language = language;
         this.religion = religion;
         this.uid = uid;
+        this.search = search;
+    }
+
+    public Map<String, Boolean> getRequests() {
+        return requests;
+    }
+
+    public void setRequests(Map<String, Boolean> requests) {
+        this.requests = requests;
+    }
+
+    public int getFriendCount() {
+        return friendCount;
+    }
+
+    public void setFriendCount(int friendCount) {
+        this.friendCount = friendCount;
+    }
+
+    public Map<String, Boolean> getFriends() {
+        return friends;
+    }
+
+    public void setFriends(Map<String, Boolean> friends) {
+        this.friends = friends;
+    }
+
+    public Map<String, Object> getSearch() {
+        return search;
+    }
+
+    public void setSearch(Map<String, Object> search) {
+        this.search = search;
     }
 
     public String getUid() {
@@ -209,6 +246,7 @@ public class User {
         myMap.put(Constants.OLD, old);
         myMap.put(Constants.HEART_COUNT, heartCount);
         myMap.put(Constants.UID, uid);
+        myMap.put(Constants.SEARCH, search);
         return myMap;
     }
 }

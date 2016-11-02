@@ -150,6 +150,7 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener, 
                     if (lastPosition == -1 || (positionStart >= (count - 1) && lastPosition == (positionStart - 1))) {
                         mRecycler.scrollToPosition(positionStart);
                     }
+
                 }
             });
             mRecycler.setAdapter(mAdapter);

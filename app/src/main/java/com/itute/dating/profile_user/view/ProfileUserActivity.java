@@ -153,6 +153,7 @@ public class ProfileUserActivity extends BaseActivity implements View.OnClickLis
         txtEditInfo.setVisibility(View.GONE);
         txtEditStatus.setVisibility(View.GONE);
         txtSubmitStatus.setVisibility(View.GONE);
+        txtHeart.setVisibility(View.GONE);
     }
 
     private void initViews() {
@@ -396,7 +397,7 @@ public class ProfileUserActivity extends BaseActivity implements View.OnClickLis
 
     private void openGooglePlace() {
         if (txtSaveInfo.getVisibility() == View.VISIBLE) {
-            // showProgessDialog();
+
             presenter.showPlace();
 
         }
@@ -535,7 +536,6 @@ public class ProfileUserActivity extends BaseActivity implements View.OnClickLis
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == Constants.PLACE_PICKER_REQUEST) {
-            // hideProgressDialog();
             if (resultCode == RESULT_OK) {
                 Place place = PlacePicker.getPlace(data, this);
                 String address = String.format("%s", place.getAddress());

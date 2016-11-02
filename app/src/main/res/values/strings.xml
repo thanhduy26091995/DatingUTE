@@ -11,12 +11,24 @@
     <string name="thaTim">Thả tim</string>
     <string name="chat">Chat</string>
     <string name="timeline">Timeline</string>
+    <string name="add">Thêm bạn</string>
     <string name="hint_message">Tin nhắn của bạn...</string>
     <string name="speech_prompt">Hãy nói gì đó…</string>
-
+    <string name="chooseAge">Chọn độ tuổi</string>
+    <string name="sendRequestSuccess">Gửi lời mời kết bạn thành công</string>
+    <string name="sendRequestFail">Đã hủy lời mời kết bạn</string>
+    <string name="xacNhan">Xác nhân</string>
+    <string name="xoa">Xóa</string>
+    <string name="daLaBanBe">Bạn đã là bạn bè với người này!</string>
     <string-array name="arr_gender">
         <item>Nam</item>
         <item>Nữ</item>
+    </string-array>
+
+    <string-array name="arr_gender_full">
+        <item>Nam</item>
+        <item>Nữ</item>
+        <item>Cả hai</item>
     </string-array>
 
     <string-array name="arr_job">

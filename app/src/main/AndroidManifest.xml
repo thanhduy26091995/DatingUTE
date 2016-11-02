@@ -33,7 +33,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyA3ODoYqWiVH_B-f292Lyszgyng-eLa3UY" />
+            android:value="AIzaSyDJdoTU7hQeGhWLL8zOUZFcTK5KukGaseg" />
 
         <activity android:name=".base.view.BaseActivity"></activity>
         <activity android:name=".sign_in.view.SignInActivity"></activity>
@@ -43,6 +43,18 @@
             android:windowSoftInputMode="stateHidden"></activity>
         <activity android:name=".chat.view.ChatActivity"></activity>
         <activity android:name=".list_heart.view.ListHeartActivity"></activity>
+
+        <service android:name=".service.MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
+
+        <service android:name=".service.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

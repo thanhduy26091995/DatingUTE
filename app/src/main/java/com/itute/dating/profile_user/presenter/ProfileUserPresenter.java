@@ -65,10 +65,10 @@ public class ProfileUserPresenter {
     public void showPlace() {
         PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
         Intent myIntent;
+
         try {
             myIntent = builder.build(view);
             view.startActivityForResult(myIntent, Constants.PLACE_PICKER_REQUEST);
-
         } catch (GooglePlayServicesRepairableException e) {
             e.printStackTrace();
         } catch (GooglePlayServicesNotAvailableException e) {
