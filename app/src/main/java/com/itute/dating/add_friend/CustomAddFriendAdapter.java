@@ -78,10 +78,14 @@ public class CustomAddFriendAdapter extends RecyclerView.Adapter<AddFriendViewHo
             @Override
             public void onClick(View view) {
                 //thêm 1 node vào friends
-                Map<String, Object> friends = new HashMap<String, Object>();
-                friends.put(listUserId.get(position), true);
-                //cập nhật bạn bè
-                mDatabase.child(Constants.USERS).child(BaseActivity.getUid()).child(Constants.FRIENDS).updateChildren(friends);
+                Map<String, Object> friendsMine = new HashMap<String, Object>();
+                friendsMine.put(listUserId.get(position), true);
+
+                Map<String, Object> friendsPartner = new HashMap<String, Object>();
+                friendsPartner.put(BaseActivity.getUid(), true);
+                //cập nhật bạn bè 2 chiều
+                mDatabase.child(Constants.USERS).child(BaseActivity.getUid()).child(Constants.FRIENDS).updateChildren(friendsMine);
+                mDatabase.child(Constants.USERS).child(listUserId.get(position)).child(Constants.FRIENDS).updateChildren(friendsPartner);
                 //xóa node này trong requets
                 mDatabase.child(Constants.USERS).child(BaseActivity.getUid()).child(Constants.REQUESTS).child(listUserId.get(position)).removeValue();
                 //disable 2 nút xác nhận và đồng ý
@@ -98,6 +102,26 @@ public class CustomAddFriendAdapter extends RecyclerView.Adapter<AddFriendViewHo
                                 Map<String, Object> updateFriendCount = new HashMap<String, Object>();
                                 updateFriendCount.put(Constants.FRIEND_COUNT, numFriend + 1);
                                 mDatabase.child(Constants.USERS).child(BaseActivity.getUid()).updateChildren(updateFriendCount);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+                //cập nhật só lượng bạn bè
+                mDatabase.child(Constants.USERS).child(listUserId.get(position)).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot != null) {
+                            User user = dataSnapshot.getValue(User.class);
+                            if (user != null) {
+                                int numFriend = user.getFriendCount();
+                                Map<String, Object> updateFriendCount = new HashMap<String, Object>();
+                                updateFriendCount.put(Constants.FRIEND_COUNT, numFriend + 1);
+                                mDatabase.child(Constants.USERS).child(listUserId.get(position)).updateChildren(updateFriendCount);
                             }
                         }
                     }

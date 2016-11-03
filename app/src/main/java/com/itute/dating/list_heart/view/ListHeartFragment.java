@@ -2,12 +2,15 @@ package com.itute.dating.list_heart.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.firebase.ui.database.FirebaseListAdapter;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -34,65 +37,74 @@ import butterknife.ButterKnife;
 /**
  * Created by buivu on 16/10/2016.
  */
-public class ListHeartActivity extends BaseActivity implements View.OnClickListener {
-
-    @BindView(R.id.frame_list_heart)
-    RecyclerView mRecycler;
-    @BindView(R.id.btn_back)
-    TextView txtBack;
+public class ListHeartFragment extends Fragment implements View.OnClickListener {
 
 
     private ListHeartPresenter presenter;
     private MyLinearLayoutManager customLayoutManager;
     private FirebaseRecyclerAdapter<User, ListHeartViewHolder> mAdapter;
-    public static final String TAG = "ListHeartActivity";
+    public static final String TAG = "ListHeartFragment";
     private DatabaseReference mDatabase;
     private CustomListHeartAdapter customAdapter;
-    private List<User> listUser;
+    private List<String> listUserId;
+    private RecyclerView mRecycler;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_all_list_heart);
-        ButterKnife.bind(this);
+
         //event click
-        txtBack.setOnClickListener(this);
         //init
         mDatabase = FirebaseDatabase.getInstance().getReference();
         presenter = new ListHeartPresenter(this);
-        customLayoutManager = new MyLinearLayoutManager(this);
+        customLayoutManager = new MyLinearLayoutManager(getActivity());
 
-        listUser = new ArrayList<>();
-        customAdapter = new CustomListHeartAdapter(ListHeartActivity.this, listUser);
+        listUserId = new ArrayList<>();
+        customAdapter = new CustomListHeartAdapter(getActivity(), listUserId);
+
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_all_list_heart, container, false);
+        mRecycler = (RecyclerView) rootView.findViewById(R.id.frame_list_heart);
+        swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh_layout);
+        //event for swipe
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefreshLayout.setRefreshing(false);
+                customAdapter.clear();
+                loadData();
+            }
+        });
         loadData();
         mRecycler.setLayoutManager(customLayoutManager);
         mRecycler.setAdapter(customAdapter);
 
+        return rootView;
     }
 
     private void loadData() {
-        final Query query = presenter.getAllHeart(getUid());
+        final Query query = presenter.getAllHeart(BaseActivity.getUid());
         query.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(final DataSnapshot dataSnapshot, String s) {
                 if (dataSnapshot != null) {
-                    Log.d(TAG, dataSnapshot.getKey());
-                    mDatabase.child(Constants.USERS).child(dataSnapshot.getKey()).addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            if (dataSnapshot != null) {
-                                User user = dataSnapshot.getValue(User.class);
-                                Log.d(TAG, user.getDisplayName());
-                                listUser.add(user);
-                                customAdapter.notifyDataSetChanged();
-                            }
-                        }
+                    final List<Boolean> result = new ArrayList<>();
+                    result.add(true);
 
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
+                    for (int i = 0; i < listUserId.size(); i++) {
+                        if (dataSnapshot.getKey().equals(listUserId.get(i))) {
+                            result.set(0, false);
                         }
-                    });
+                    }
+                    if (result.get(0)) {
+                        listUserId.add(dataSnapshot.getKey());
+                        customAdapter.notifyDataSetChanged();
+                    }
 
                 }
             }
@@ -105,22 +117,9 @@ public class ListHeartActivity extends BaseActivity implements View.OnClickListe
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
                 if (dataSnapshot != null) {
-                    mDatabase.child(Constants.USERS).child(dataSnapshot.getKey()).addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            if (dataSnapshot != null) {
-                                User user = dataSnapshot.getValue(User.class);
-                                Log.d(TAG, user.getDisplayName());
-                                listUser.remove(user);
-                                customAdapter.notifyDataSetChanged();
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
+                    //  mAdapter.clear();
+                    listUserId.remove(dataSnapshot.getKey());
+                    //   customAdapter.notifyDataSetChanged();
                 }
             }
 
@@ -138,8 +137,6 @@ public class ListHeartActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        if (view == txtBack) {
-            finish();
-        }
+
     }
 }

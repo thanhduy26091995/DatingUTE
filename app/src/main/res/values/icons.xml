@@ -9,6 +9,7 @@
     <string name="fa_star_o">&#xf006;</string>
     <string name="fa_user">&#xf007;</string>
     <string name="fa_film">&#xf008;</string>
+    <string name="fa_image">&#xf03e;</string>
     <string name="fa_user_plus">&#xf234;</string>
     <string name="fa_th_large">&#xf009;</string>
     <string name="fa_th">&#xf00a;</string>
@@ -21,6 +22,7 @@
     <string name="fa_signal">&#xf012;</string>
     <string name="fa_cog">&#xf013;</string>
     <string name="fa_trash_o">&#xf014;</string>
+    <string name="fa_trash">&#xf1f8;</string>
     <string name="fa_home">&#xf015;</string>
     <string name="fa_file_o">&#xf016;</string>
     <string name="fa_clock_o">&#xf017;</string>

@@ -14,7 +14,14 @@ public class ListHeartSubmitter {
         this.mDatabase = mDatabase;
     }
 
+    //lấy danh sách các bạn đã thả tim
     public Query getAllHeart(String uid) {
         return mDatabase.child(Constants.USERS).child(uid).child(Constants.HEARTS);
     }
+
+    //lấy danh sách bạn bè
+    public Query getAlllFriends(String uid) {
+        return mDatabase.child(Constants.USERS).child(uid).child(Constants.FRIENDS);
+    }
 }
+

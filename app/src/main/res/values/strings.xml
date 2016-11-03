@@ -20,6 +20,12 @@
     <string name="xacNhan">Xác nhân</string>
     <string name="xoa">Xóa</string>
     <string name="daLaBanBe">Bạn đã là bạn bè với người này!</string>
+    <string name="banBe">Bạn bè</string>
+    <string name="tim">Đươc yêu thích</string>
+    <string name="confirmUnfriend">Bạn có chắc chắn muốn xóa người này khỏi danh sách bạn bè không?</string>
+    <string name="huy">Hủy</string>
+    <string name="banBeCuaBan">Bạn bè của bạn</string>
+
     <string-array name="arr_gender">
         <item>Nam</item>
         <item>Nữ</item>

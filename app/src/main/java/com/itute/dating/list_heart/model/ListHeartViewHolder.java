@@ -21,6 +21,7 @@ public class ListHeartViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
         imgAvatar = (ImageView) itemView.findViewById(R.id.iv_avatar);
         txtName = (TextView) itemView.findViewById(R.id.txtNameHeart);
+
     }
 
     public void bindToListHeart(Activity activity, User user) {

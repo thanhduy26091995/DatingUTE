@@ -16,14 +16,12 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.firebase.database.DataSnapshot;
@@ -35,7 +33,8 @@ import com.itute.dating.R;
 import com.itute.dating.base.model.ImageLoader;
 import com.itute.dating.base.view.BaseActivity;
 import com.itute.dating.chat.view.ChatActivity;
-import com.itute.dating.list_heart.view.ListHeartActivity;
+import com.itute.dating.list_heart.view.HeartActivity;
+import com.itute.dating.list_heart.view.ListHeartFragment;
 import com.itute.dating.profile_user.model.User;
 import com.itute.dating.profile_user.presenter.ProfileUserPresenter;
 import com.itute.dating.util.Constants;
@@ -45,7 +44,6 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.zip.CheckedInputStream;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -272,7 +270,7 @@ public class ProfileUserActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void moveToHeartActivity() {
-        Intent myIntent = new Intent(ProfileUserActivity.this, ListHeartActivity.class);
+        Intent myIntent = new Intent(ProfileUserActivity.this, HeartActivity.class);
         startActivity(myIntent);
     }
 

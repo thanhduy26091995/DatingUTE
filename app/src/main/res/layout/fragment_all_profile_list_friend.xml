@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/swipe_refresh_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -11,14 +10,14 @@
         android:layout_height="match_parent">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/frame_list_heart"
+            android:id="@+id/frame_profile_list_friend"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
             android:clipToPadding="false"
             android:scrollbars="vertical"
-            tools:listitem="@layout/item_list_heart" />
+            tools:listitem="@layout/item_profile_list_friend" />
     </LinearLayout>
 
 
-</android.support.v4.widget.SwipeRefreshLayout>
+</RelativeLayout>
