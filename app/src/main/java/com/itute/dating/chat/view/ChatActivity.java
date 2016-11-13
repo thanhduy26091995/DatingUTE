@@ -95,6 +95,11 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener, 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         ButterKnife.bind(this);
+        //cache recycler view
+        mRecycler.setHasFixedSize(true);
+        mRecycler.setItemViewCacheSize(100);
+        mRecycler.setDrawingCacheEnabled(true);
+        mRecycler.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
         //get intent
         partnerID = getIntent().getStringExtra(PARTNER_ID);
         //init firebase
@@ -135,7 +140,7 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener, 
                 @Override
                 protected void populateViewHolder(ChatMessageViewHolder viewHolder, ChatMessage model, int position) {
                     viewHolder.bindToView(model);
-
+                    mRecycler.scrollToPosition(mAdapter.getItemCount() - 1);
                 }
             };
             mAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
@@ -236,6 +241,7 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener, 
             presenter.addChatMessage(partnerID, message);
             //clear text and show keyboard
             edtMessage.setText(null);
+
 //            edtMessage.requestFocus();
 //            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 //            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);

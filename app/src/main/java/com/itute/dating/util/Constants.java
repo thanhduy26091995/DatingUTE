@@ -17,10 +17,13 @@ public class Constants {
     public static final String AVATAR = "avatar";
     public static final Locale DEFAULT_LOCALE = Locale.US;
     public static final int REQ_CODE_SPEECH_INPUT = 100;
-    public static final String DEVICE_TOKEN ="deviceToken";
+    public static final String DEVICE_TOKEN = "deviceToken";
     public static final String TAB_SELECT = "TAB_SELECT";
     public static final String REQUESTS = "requests";
-
+    public static final int INTENT_REQUEST_GET_IMAGES = 13;
+    public static final String PHOTOS = "photos";
+    public static final String USER_PHOTOS = "userPhotos";
+    public static final String PHOTO_LINK = "photoLink";
     //user
     public static final String DISPLAY_NAME = "displayName";
     public static final String ADDRESS = "address";
@@ -45,8 +48,8 @@ public class Constants {
     public static final String SEARCH = "search";
     public static final String FROM = "from";
     public static final String TO = "to";
-    public static final String FRIEND_COUNT ="friendCount";
-    public static final String FRIENDS ="friends";
+    public static final String FRIEND_COUNT = "friendCount";
+    public static final String FRIENDS = "friends";
     //chat
     public static final String IS_MINE = "isMine";
     public static final String FROM_NAME = "fromName";

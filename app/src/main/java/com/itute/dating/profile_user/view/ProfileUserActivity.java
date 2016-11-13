@@ -30,6 +30,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.itute.dating.R;
+import com.itute.dating.add_image.view.AddImageActivity;
 import com.itute.dating.base.model.ImageLoader;
 import com.itute.dating.base.view.BaseActivity;
 import com.itute.dating.chat.view.ChatActivity;
@@ -111,6 +112,8 @@ public class ProfileUserActivity extends BaseActivity implements View.OnClickLis
     TextView txtEditStatus;
     @BindView(R.id.txt_submit_status)
     TextView txtSubmitStatus;
+    @BindView(R.id.txt_gallery)
+    TextView txtGallery;
 
     private DatabaseReference mUserReference;
     private ProfileUserPresenter presenter;
@@ -180,6 +183,7 @@ public class ProfileUserActivity extends BaseActivity implements View.OnClickLis
         txtHeart.setOnClickListener(this);
         txtEditStatus.setOnClickListener(this);
         txtSubmitStatus.setOnClickListener(this);
+        txtGallery.setOnClickListener(this);
         //block editText
         if (edtName.isEnabled()) {
             edtName.setEnabled(false);
@@ -238,7 +242,15 @@ public class ProfileUserActivity extends BaseActivity implements View.OnClickLis
             editStatus();
         } else if (i == R.id.txt_submit_status) {
             submitStatus();
+        } else if (i == R.id.txt_gallery) {
+            moveToAddImageGallery();
         }
+    }
+
+    private void moveToAddImageGallery() {
+        Intent myIntent = new Intent(ProfileUserActivity.this, AddImageActivity.class);
+        myIntent.putExtra(AddImageActivity.EXTRA_UID, intentUid);
+        startActivity(myIntent);
     }
 
     private void submitStatus() {

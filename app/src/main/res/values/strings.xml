@@ -25,6 +25,14 @@
     <string name="confirmUnfriend">Bạn có chắc chắn muốn xóa người này khỏi danh sách bạn bè không?</string>
     <string name="huy">Hủy</string>
     <string name="banBeCuaBan">Bạn bè của bạn</string>
+    <string name="addFriendSuccessfully">Bạn đã là bạn bè với người này</string>
+    <string name="addFriendFail">Bạn đã hủy yêu cầu kết bạn của người này</string>
+    <string name="myGallery">Kho ảnh của bạn</string>
+    <string name="share">Chia sẻ</string>
+    <string name="loading">Đang tải</string>
+
+
+
 
     <string-array name="arr_gender">
         <item>Nam</item>

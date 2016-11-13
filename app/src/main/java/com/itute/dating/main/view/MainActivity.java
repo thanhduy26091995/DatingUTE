@@ -145,7 +145,7 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
         //Tab Chat List
         LinearLayout tabViewThree = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.custom_icon, null);
         ((TextView) tabViewThree.findViewById(R.id.tabIcon)).setTypeface(iconFont);
-        ((TextView) tabViewThree.findViewById(R.id.tabIcon)).setText(R.string.fa_users);
+        ((TextView) tabViewThree.findViewById(R.id.tabIcon)).setText(R.string.fa_user_plus);
         tabLayout.getTabAt(2).setCustomView(tabViewThree);
         //Tab Settings
         LinearLayout tabViewFour = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.custom_icon, null);
@@ -159,7 +159,7 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new UserListFragment(), getString(R.string.fa_list_alt));
         adapter.addFragment(new ChatListFragment(), getString(R.string.fa_comments_o));
-        adapter.addFragment(new AddFriendFragment(), getString(R.string.fa_users));
+        adapter.addFragment(new AddFriendFragment(), getString(R.string.fa_user_plus));
         adapter.addFragment(new SettingsFragment(), getString(R.string.fa_bars));
         viewPager.setAdapter(adapter);
     }

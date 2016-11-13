@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/appBar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/appbar_height"
+        android:background="@color/colorPrimary">
+
+        <com.itute.dating.base.view.IconTextView
+            android:id="@+id/btnAppBack"
+            style="@style/AppLargeText"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/button_background_pressed"
+            android:gravity="center"
+            android:text="@string/fa_arrow_left"
+            android:textColor="@color/md_white_1000"
+            android:textSize="18dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/btnAppBack"
+            android:gravity="center"
+            android:text="@string/share"
+            android:textColor="@color/md_white_1000"
+            android:textSize="18dp" />
+
+        <com.itute.dating.base.view.IconTextView
+            android:id="@+id/txtAddImage"
+            style="@style/AppLargeText"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/button_background_pressed"
+            android:gravity="center"
+            android:text="@string/fa_camera"
+            android:textColor="@color/md_white_1000"
+            android:textSize="18dp" />
+
+        <com.itute.dating.base.view.IconTextView
+            android:id="@+id/txtPost"
+            style="@style/AppLargeText"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="5dp"
+            android:layout_toStartOf="@+id/txtAddImage"
+            android:background="@drawable/button_background_pressed"
+            android:gravity="center"
+            android:text="@string/fa_send"
+            android:textColor="@color/md_white_1000"
+            android:textSize="18dp" />
+    </RelativeLayout>
+
+    <HorizontalScrollView
+        android:id="@+id/imageContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/appBar"
+        android:layout_marginTop="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/photoContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            </LinearLayout>
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <android.support.v7.widget.RecyclerView
+    android:id="@+id/recyclerView_image"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@+id/imageContainer">
+
+    </android.support.v7.widget.RecyclerView>
+    <!--<com.felipecsl.asymmetricgridview.library.widget.AsymmetricGridView xmlns:android="http://schemas.android.com/apk/res/android"-->
+        <!--android:id="@+id/listView"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_below="@+id/imageContainer" />-->
+</RelativeLayout>

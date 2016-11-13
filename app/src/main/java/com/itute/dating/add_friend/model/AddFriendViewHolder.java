@@ -16,7 +16,7 @@ import com.itute.dating.profile_user.model.User;
  */
 public class AddFriendViewHolder extends RecyclerView.ViewHolder {
     public ImageView imgAvatar;
-    public TextView txtName;
+    public TextView txtName, txtSuccess, txtFail;
     public Button btnDongY, btnHuyBo;
 
     public AddFriendViewHolder(View itemView) {
@@ -26,6 +26,8 @@ public class AddFriendViewHolder extends RecyclerView.ViewHolder {
         txtName = (TextView) itemView.findViewById(R.id.txtNameAddFriend);
         btnDongY = (Button) itemView.findViewById(R.id.btn_xacNhan);
         btnHuyBo = (Button) itemView.findViewById(R.id.btn_xoa);
+        txtSuccess = (TextView) itemView.findViewById(R.id.txt_success);
+        txtFail = (TextView) itemView.findViewById(R.id.txt_fail);
     }
 
     public void bindToListHeart(Activity activity, User user) {
