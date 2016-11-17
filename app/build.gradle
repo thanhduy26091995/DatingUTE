@@ -2,9 +2,16 @@ apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'datingKey'
+            keyPassword 'thanhduy123'
+            storeFile file('F:/OneDrive/KeyStore/dating.keystore.jks')
+            storePassword 'thanhduy123'
+        }
+    }
     compileSdkVersion 24
     buildToolsVersion "24.0.1"
-
     defaultConfig {
         applicationId "com.itute.dating"
         minSdkVersion 18
@@ -17,19 +24,23 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
+    }
+    dexOptions {
+        javaMaxHeapSize "2g"
     }
 }
 
 repositories {
     mavenCentral()
-    maven { url "https://s3.amazonaws.com/repo.commonsware.com"}
+    maven { url "https://s3.amazonaws.com/repo.commonsware.com" }
     maven { url "https://jitpack.io" }
 
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:24.2.1'
     // Firebase Authentication

@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.itute.dating.R;
 
 /**
  * Created by buivu on 06/10/2016.
@@ -23,7 +22,7 @@ public class BaseActivity extends AppCompatActivity {
             mProgressDialog.show();
         } catch (Exception e) {
         }
-        ;
+
     }
 
     public void hideProgressDialog() {

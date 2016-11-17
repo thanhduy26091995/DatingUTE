@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentActivity;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
 import com.itute.dating.R;
 import com.itute.dating.util.Constants;
 
@@ -30,7 +31,8 @@ public class GoogleAuthController {
         // [END config_signin]
 
         builder = new GoogleApiClient.Builder(DatingUTEApplication.getInstance())
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso);
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .addApi(LocationServices.API);
 
         builder.enableAutoManage(fragmentActivity /* FragmentActivity */, listener /* OnConnectionFailedListener */);
         mGoogleApiClient = builder.build();

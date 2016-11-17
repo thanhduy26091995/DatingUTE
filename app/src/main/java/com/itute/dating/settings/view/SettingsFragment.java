@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,12 +16,16 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.appyvet.rangebar.RangeBar;
+import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
+import com.facebook.share.model.AppInviteContent;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.AppInviteDialog;
+import com.facebook.share.widget.ShareDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -62,6 +67,10 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
     TextView txtGender;
     @BindView(R.id.oldFromTo)
     TextView txtFromTo;
+    @BindView(R.id.setting_share)
+    Button btnShare;
+    @BindView(R.id.setting_invite)
+    Button btnInvite;
 
 
     private DatabaseReference mUserReference;
@@ -69,6 +78,9 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
     private static final String TAG = "SettingsFragment";
     private String[] listGender;
     private int initFrom, initTo;
+    private CallbackManager callbackManager;
+    private ShareDialog shareDialog;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -85,6 +97,9 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_settings, container, false);
         FacebookSdk.sdkInitialize(getContext());
+        callbackManager = CallbackManager.Factory.create();
+        shareDialog = new ShareDialog(this);
+
         ButterKnife.bind(this, rootView);
 
         //event click
@@ -92,6 +107,8 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
         formProfile.setOnClickListener(this);
         settingGender.setOnClickListener(this);
         txtFromTo.setOnClickListener(this);
+        btnShare.setOnClickListener(this);
+        btnInvite.setOnClickListener(this);
         return rootView;
     }
 
@@ -108,6 +125,39 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
             openPopupGender();
         } else if (i == R.id.oldFromTo) {
             showDialog();
+        } else if (i == R.id.setting_share) {
+            shareFacebook();
+        } else if (i == R.id.setting_invite) {
+            inviteFriend();
+        }
+    }
+
+    private void shareFacebook() {
+        if (ShareDialog.canShow(ShareLinkContent.class)) {
+            ShareLinkContent linkContent = new ShareLinkContent.Builder()
+                    .setContentTitle("Hello Facebook")
+                    .setContentDescription(
+                            "The 'Hello Facebook' sample  showcases simple Facebook integration")
+                    .setContentUrl(Uri.parse("http://developers.facebook.com/android"))
+                    .build();
+
+            shareDialog.show(linkContent);
+        }
+    }
+
+    private void inviteFriend() {
+        String appLinkUrl, previewImageUrl;
+
+        //appLinkUrl = "https://fb.me/582642435279549";
+        appLinkUrl = "https://fb.me/1203850309680309";
+        previewImageUrl = "https://graph.facebook.com/1178797288844596/picture?height=160&width=160&migration_overrides=%7Boctober_2012%3Atrue%7D";
+
+        if (AppInviteDialog.canShow()) {
+            AppInviteContent content = new AppInviteContent.Builder()
+                    .setApplinkUrl(appLinkUrl)
+                    .setPreviewImageUrl(previewImageUrl)
+                    .build();
+            AppInviteDialog.show(this, content);
         }
     }
 

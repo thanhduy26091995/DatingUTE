@@ -115,14 +115,15 @@
                 android:gravity="center"
                 android:text="@string/fa_star_o"
                 android:textColor="@color/md_black_1000" />
+
             <TextView
                 android:id="@+id/oldFromTo"
-                android:gravity="left|center"
-                android:layout_gravity="center"
-                android:text="Từ 18 đến 21"
-                android:layout_weight="4.25"
                 android:layout_width="0dp"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="4.25"
+                android:gravity="left|center"
+                android:text="Từ 18 đến 21" />
 
         </LinearLayout>
 
@@ -200,6 +201,28 @@
             android:background="@android:color/transparent"
             android:gravity="center"
             android:text="Đăng Xuất"
+            android:textColor="@color/colorPrimaryDark" />
+
+        <Button
+            android:id="@+id/setting_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/setting_button"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:text="Chia sẻ"
+            android:textColor="@color/colorPrimaryDark" />
+
+        <Button
+            android:id="@+id/setting_invite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/setting_button"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:text="Mời"
             android:textColor="@color/colorPrimaryDark" />
     </RelativeLayout>
 

@@ -1,16 +1,22 @@
 package com.itute.dating.profile_user.view;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Rect;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -22,6 +28,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.firebase.database.DataSnapshot;
@@ -33,9 +42,9 @@ import com.itute.dating.R;
 import com.itute.dating.add_image.view.AddImageActivity;
 import com.itute.dating.base.model.ImageLoader;
 import com.itute.dating.base.view.BaseActivity;
+import com.itute.dating.base.view.GoogleAuthController;
 import com.itute.dating.chat.view.ChatActivity;
 import com.itute.dating.list_heart.view.HeartActivity;
-import com.itute.dating.list_heart.view.ListHeartFragment;
 import com.itute.dating.profile_user.model.User;
 import com.itute.dating.profile_user.presenter.ProfileUserPresenter;
 import com.itute.dating.util.Constants;
@@ -44,6 +53,7 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -114,6 +124,8 @@ public class ProfileUserActivity extends BaseActivity implements View.OnClickLis
     TextView txtSubmitStatus;
     @BindView(R.id.txt_gallery)
     TextView txtGallery;
+    @BindView(R.id.txt_distance)
+    TextView txtDistance;
 
     private DatabaseReference mUserReference;
     private ProfileUserPresenter presenter;
@@ -125,6 +137,16 @@ public class ProfileUserActivity extends BaseActivity implements View.OnClickLis
     private boolean isChangeDate;
     public static final String EXTRA_UID = "uid_key";
     private String intentUid;
+    private GoogleApiClient mGoogleApiClient;
+    private Location mLastLocation;
+    private LocationRequest mLocationRequest;
+    private static final int REQUEST_CODE_LOCATION = 1001;
+    private static final String[] PERMISSION_GROUP = {
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            android.Manifest.permission.CAMERA,
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.READ_EXTERNAL_STORAGE
+    };
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -145,9 +167,92 @@ public class ProfileUserActivity extends BaseActivity implements View.OnClickLis
         }
         //user ref
         mUserReference = presenter.getUser(intentUid);
-        //
+        mGoogleApiClient = GoogleAuthController.getInstance().getGoogleApiClient();
         initInfo();
+
+
     }
+
+    private boolean verifyLocationPermission() {
+        int locationPermission = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
+        if (locationPermission != PackageManager.PERMISSION_GRANTED) {
+            //request permission
+            ActivityCompat.requestPermissions(this, PERMISSION_GROUP, REQUEST_CODE_LOCATION);
+            return false;
+        }
+        return true;
+    }
+
+    private void showSettingLocationAlert() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        //set title
+        builder.setTitle(getResources().getString(R.string.GPSTitle));
+        //set message
+        builder.setMessage(getResources().getString(R.string.GPSContent));
+        //on press
+        builder.setPositiveButton(getResources().getString(R.string.setting), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Intent settingIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                startActivity(settingIntent);
+            }
+        });
+        //on cancel
+        builder.setNegativeButton(getResources().getString(R.string.huy), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+            }
+        });
+        builder.show();
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case REQUEST_CODE_LOCATION:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    displayLocation();
+                }
+                break;
+        }
+    }
+
+    private void displayLocation() {
+        try {
+            mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+            if (mLastLocation != null) {
+                Location currentLocation = new Location("srcLocation");
+                double currentLat = mLastLocation.getLatitude();
+                double currentLon = mLastLocation.getLongitude();
+                currentLocation.setLatitude(currentLat);
+                currentLocation.setLongitude(currentLon);
+
+
+                Location desLocation = new Location("desLocation");
+                desLocation.setLatitude(lat);
+                desLocation.setLongitude(lon);
+
+                float distance = currentLocation.distanceTo(desLocation) / 1000;
+                txtDistance.setText(String.format("%.2f km", distance));
+                Log.d(TAG, "" + distance);
+            } else {
+                Log.d(TAG, "0: 0");
+                txtDistance.setText("N/A");
+                showSettingLocationAlert();
+            }
+        } catch (SecurityException e) {
+            Log.e(TAG, e.getMessage());
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
 
     private void disableViews() {
         txtSaveInfo.setVisibility(View.GONE);
@@ -184,6 +289,7 @@ public class ProfileUserActivity extends BaseActivity implements View.OnClickLis
         txtEditStatus.setOnClickListener(this);
         txtSubmitStatus.setOnClickListener(this);
         txtGallery.setOnClickListener(this);
+        txtLocation.setOnClickListener(this);
         //block editText
         if (edtName.isEnabled()) {
             edtName.setEnabled(false);
@@ -214,7 +320,7 @@ public class ProfileUserActivity extends BaseActivity implements View.OnClickLis
             editInfo();
         } else if (i == R.id.form_profile_calendar) {
             openCalendar();
-        } else if (i == R.id.form_profile_location) {
+        } else if (i == R.id.txt_profile_location) {
             openGooglePlace();
         } else if (i == R.id.form_profile_job) {
             showPopUpJob();
@@ -245,6 +351,17 @@ public class ProfileUserActivity extends BaseActivity implements View.OnClickLis
         } else if (i == R.id.txt_gallery) {
             moveToAddImageGallery();
         }
+    }
+
+
+    private void openGoogleMap() {
+        if (!intentUid.equals(getUid())) {
+            Uri intentMapUri = Uri.parse(String.format(Locale.ENGLISH, "http://maps.google.com/maps?&daddr=%f,%f", lat, lon));
+            Intent mapIntent = new Intent(Intent.ACTION_VIEW, intentMapUri);
+            mapIntent.setPackage("com.google.android.apps.maps");
+            startActivity(mapIntent);
+        }
+
     }
 
     private void moveToAddImageGallery() {
@@ -352,6 +469,7 @@ public class ProfileUserActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void openGallery() {
+
         if (txtSaveInfo.getVisibility() == View.VISIBLE) {
             presenter.showImage();
         }
@@ -406,11 +524,15 @@ public class ProfileUserActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void openGooglePlace() {
-        if (txtSaveInfo.getVisibility() == View.VISIBLE) {
+        if (intentUid.equals(getUid())) {
+            if (txtSaveInfo.getVisibility() == View.VISIBLE) {
+                presenter.showPlace();
 
-            presenter.showPlace();
-
+            }
+        } else {
+            openGoogleMap();
         }
+
     }
 
     private void openCalendar() {
@@ -499,6 +621,10 @@ public class ProfileUserActivity extends BaseActivity implements View.OnClickLis
                         yearOfBirth = c.get(Calendar.YEAR);
                         //load avatar
                         ImageLoader.getInstance().loadImage(ProfileUserActivity.this, user.getPhotoURL(), imgAvatarUser);
+                        //distance from current location to destination location
+                        if (verifyLocationPermission()) {
+                            displayLocation();
+                        }
                     }
                 }
             }

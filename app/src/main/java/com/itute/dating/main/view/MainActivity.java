@@ -2,6 +2,7 @@ package com.itute.dating.main.view;
 
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
@@ -11,6 +12,8 @@ import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,6 +39,8 @@ import com.itute.dating.util.Constants;
 import com.itute.dating.util.FontManager;
 import com.itute.dating.util.ViewPagerAdapter;
 
+import bolts.AppLinks;
+
 /**
  * Created by buivu on 09/10/2016.
  */
@@ -52,6 +57,12 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
+        Uri targetUrl = AppLinks.getTargetUrlFromInboundIntent(this, getIntent());
+        if (targetUrl != null) {
+            Log.i("Activity", "App Link Target URL: " + targetUrl.toString());
+        }
         setContentView(R.layout.activity_main);
         //init
         presenter = new MainPresenter(this);
