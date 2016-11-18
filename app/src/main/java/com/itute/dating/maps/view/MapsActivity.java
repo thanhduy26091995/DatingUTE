@@ -1,11 +1,16 @@
 package com.itute.dating.maps.view;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -68,6 +73,8 @@ public class MapsActivity extends AppCompatActivity
         //get extra
         extra_lat = getIntent().getDoubleExtra(LAT, 0);
         extra_lon = getIntent().getDoubleExtra(LON, 0);
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+
         //init progress
         initProgressDialog();
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -76,6 +83,9 @@ public class MapsActivity extends AppCompatActivity
 
         mapFrag = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFrag.getMapAsync(this);
+        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            showSettingLocationAlert();
+        }
     }
 
     private void initProgressDialog() {
@@ -129,6 +139,31 @@ public class MapsActivity extends AppCompatActivity
                 .build();
         mGoogleApiClient.connect();
     }
+
+    private void showSettingLocationAlert() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        //set title
+        builder.setTitle(getResources().getString(R.string.GPSTitle));
+        //set message
+        builder.setMessage(getResources().getString(R.string.GPSContent));
+        //on press
+        builder.setPositiveButton(getResources().getString(R.string.setting), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Intent settingIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                startActivity(settingIntent);
+            }
+        });
+        //on cancel
+        builder.setNegativeButton(getResources().getString(R.string.huy), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+            }
+        });
+        builder.show();
+    }
+
 
     @Override
     public void onConnected(Bundle bundle) {

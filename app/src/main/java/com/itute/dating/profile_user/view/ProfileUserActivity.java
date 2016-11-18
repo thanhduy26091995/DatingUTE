@@ -241,7 +241,7 @@ public class ProfileUserActivity extends BaseActivity implements View.OnClickLis
             } else {
                 Log.d(TAG, "0: 0");
                 txtDistance.setText("N/A");
-                //  showSettingLocationAlert();
+                  //showSettingLocationAlert();
             }
         } catch (SecurityException e) {
             Log.e(TAG, e.getMessage());
