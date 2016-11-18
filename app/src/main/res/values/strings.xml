@@ -81,5 +81,6 @@
         <item>Hổ cáp</item>
         <item>Nhân mã</item>
     </string-array>
+    <string name="title_activity_maps">Map</string>
 
 </resources>

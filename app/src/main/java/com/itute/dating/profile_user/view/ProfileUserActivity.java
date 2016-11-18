@@ -45,6 +45,7 @@ import com.itute.dating.base.view.BaseActivity;
 import com.itute.dating.base.view.GoogleAuthController;
 import com.itute.dating.chat.view.ChatActivity;
 import com.itute.dating.list_heart.view.HeartActivity;
+import com.itute.dating.maps.view.MapsActivity;
 import com.itute.dating.profile_user.model.User;
 import com.itute.dating.profile_user.presenter.ProfileUserPresenter;
 import com.itute.dating.util.Constants;
@@ -53,7 +54,6 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -237,11 +237,11 @@ public class ProfileUserActivity extends BaseActivity implements View.OnClickLis
 
                 float distance = currentLocation.distanceTo(desLocation) / 1000;
                 txtDistance.setText(String.format("%.2f km", distance));
-                Log.d(TAG, "" + distance);
+                Log.d(TAG, "" + currentLat + "/" + currentLon);
             } else {
                 Log.d(TAG, "0: 0");
                 txtDistance.setText("N/A");
-                showSettingLocationAlert();
+                //  showSettingLocationAlert();
             }
         } catch (SecurityException e) {
             Log.e(TAG, e.getMessage());
@@ -356,10 +356,15 @@ public class ProfileUserActivity extends BaseActivity implements View.OnClickLis
 
     private void openGoogleMap() {
         if (!intentUid.equals(getUid())) {
-            Uri intentMapUri = Uri.parse(String.format(Locale.ENGLISH, "http://maps.google.com/maps?&daddr=%f,%f", lat, lon));
-            Intent mapIntent = new Intent(Intent.ACTION_VIEW, intentMapUri);
-            mapIntent.setPackage("com.google.android.apps.maps");
-            startActivity(mapIntent);
+//            Uri intentMapUri = Uri.parse(String.format(Locale.ENGLISH, "http://maps.google.com/maps?&daddr=%f,%f", lat, lon));
+//            Intent mapIntent = new Intent(Intent.ACTION_VIEW, intentMapUri);
+//            mapIntent.setPackage("com.google.android.apps.maps");
+//            startActivity(mapIntent);
+            Intent myIntent = new Intent(ProfileUserActivity.this, MapsActivity.class);
+            Log.d(TAG, "" + lat + "/" + lon);
+            myIntent.putExtra(MapsActivity.LAT, lat);
+            myIntent.putExtra(MapsActivity.LON, lon);
+            startActivity(myIntent);
         }
 
     }
