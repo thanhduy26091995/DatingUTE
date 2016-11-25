@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,8 +24,9 @@ import com.itute.dating.chat.model.ChatMessage;
 import com.itute.dating.chat.view.ChatActivity;
 import com.itute.dating.chat_list.model.ChatListViewHolder;
 import com.itute.dating.chat_list.presenter.ChatListPresenter;
-import com.itute.dating.profile_user.view.ProfileUserActivity;
 import com.itute.dating.util.MyLinearLayoutManager;
+
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,6 +43,7 @@ public class ChatListFragment extends Fragment {
     private FirebaseRecyclerAdapter<ChatMessage, ChatListViewHolder> mAdapter;
     private DatabaseReference mDatabase;
     private MyLinearLayoutManager customLinearLayoutManager;
+    private static final String TAG = "ChatListFragment";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,7 +59,17 @@ public class ChatListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_all_chat, container, false);
         ButterKnife.bind(this, rootView);
-        loadData();
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                double start = new Date().getTime() / 1000;
+                loadData();
+                double end = new Date().getTime() / 1000;
+                Log.d(TAG, "time: " + (end - start));
+            }
+        });
+        thread.start();
+
         return rootView;
     }
 
@@ -68,13 +81,14 @@ public class ChatListFragment extends Fragment {
                 mAdapter = new FirebaseRecyclerAdapter<ChatMessage, ChatListViewHolder>(ChatMessage.class, R.layout.item_chat_list,
                         ChatListViewHolder.class, query) {
                     @Override
-                    protected void populateViewHolder(ChatListViewHolder viewHolder, ChatMessage model, int position) {
+                    protected void populateViewHolder(final ChatListViewHolder viewHolder, ChatMessage model, int position) {
                         //lấy id root
                         final DatabaseReference userRef = getRef(position);
                         // gắn click listener
                         final String userKey = userRef.getKey();
 
                         viewHolder.bindToChatList(getContext(), mDatabase, userKey);
+
                         //event click
                         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                             @Override

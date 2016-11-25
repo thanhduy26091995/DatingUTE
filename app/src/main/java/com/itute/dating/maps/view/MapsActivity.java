@@ -33,6 +33,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.itute.dating.R;
+import com.itute.dating.maps.CustomWindowAdapter;
 import com.itute.dating.maps.model.DirectionResults;
 import com.itute.dating.maps.model.Route;
 import com.itute.dating.maps.model.RouteDecode;
@@ -63,8 +64,11 @@ public class MapsActivity extends AppCompatActivity
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
     public static final String LAT = "lat";
     public static final String LON = "lon";
+    public static final String AVATAR_URL = "avatarUrl";
+    public static final String ADDRESS = "address";
     private double extra_lat = 0;
     private double extra_lon = 0;
+    private String avatarUrl = "", address = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +77,11 @@ public class MapsActivity extends AppCompatActivity
         //get extra
         extra_lat = getIntent().getDoubleExtra(LAT, 0);
         extra_lon = getIntent().getDoubleExtra(LON, 0);
+        avatarUrl = getIntent().getStringExtra(AVATAR_URL);
+        address = getIntent().getStringExtra(ADDRESS);
+
+        Log.d(TAG, avatarUrl + ", " + address);
+        Log.d(TAG, "onCreate");
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
         //init progress
@@ -108,6 +117,7 @@ public class MapsActivity extends AppCompatActivity
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        Log.d(TAG, "onMapReady");
         mGoogleMap = googleMap;
         mGoogleMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
             @Override
@@ -167,6 +177,7 @@ public class MapsActivity extends AppCompatActivity
 
     @Override
     public void onConnected(Bundle bundle) {
+        Log.d(TAG, "onConnected");
         mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(1000);
         mLocationRequest.setFastestInterval(1000);
@@ -189,6 +200,7 @@ public class MapsActivity extends AppCompatActivity
 
     @Override
     public void onLocationChanged(Location location) {
+        Log.d(TAG, "onLocationChanged");
         mLastLocation = location;
         if (mCurrLocationMarker != null) {
             mCurrLocationMarker.remove();
@@ -199,7 +211,7 @@ public class MapsActivity extends AppCompatActivity
         Log.d(TAG, "currentLocation: " + location.getLatitude() + "," + location.getLongitude());
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(currentLocation);
-        markerOptions.title("Current Position");
+        markerOptions.title("Vị trí của tôi");
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
         mCurrLocationMarker = mGoogleMap.addMarker(markerOptions);
 
@@ -217,9 +229,14 @@ public class MapsActivity extends AppCompatActivity
         Log.d(TAG, "destinationLocation: " + extra_lat + "/" + extra_lon);
         MarkerOptions markerOptionDes = new MarkerOptions();
         markerOptionDes.position(desLocation);
-        markerOptionDes.title("Destination Position");
+        markerOptionDes.title(address);
+        markerOptionDes.snippet(avatarUrl);
         markerOptionDes.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
-        mCurrLocationMarker = mGoogleMap.addMarker(markerOptionDes);
+        Marker destinationMarker = mGoogleMap.addMarker(markerOptionDes);
+        // mCurrLocationMarker = mGoogleMap.addMarker(markerOptionDes);
+        mGoogleMap.setInfoWindowAdapter(new CustomWindowAdapter(this, avatarUrl));
+        destinationMarker.showInfoWindow();
+
         //chỉ đường dùng direction api
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
         Call<DirectionResults> call = apiService.getJson(location.getLatitude() + "," + location.getLongitude(), extra_lat + "," + extra_lon);

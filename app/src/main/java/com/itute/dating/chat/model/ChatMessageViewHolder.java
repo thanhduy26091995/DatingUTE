@@ -1,7 +1,6 @@
 package com.itute.dating.chat.model;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
 import com.itute.dating.R;
@@ -12,6 +11,7 @@ import com.itute.dating.chat.view.ChatView;
  */
 public class ChatMessageViewHolder extends RecyclerView.ViewHolder {
 
+    private static final String TAG = "ChatMessageViewHolder";
     public ChatView chatView;
 
     public ChatMessageViewHolder(View itemView) {
@@ -22,13 +22,33 @@ public class ChatMessageViewHolder extends RecyclerView.ViewHolder {
     public void bindToView(ChatMessage chatMessage) {
 
         if (chatMessage.getIsMine()) {
-            chatView.setType(0);
-            chatView.setOwner(true);
-            chatView.setMessage(chatMessage.getMessage());
+            if (chatMessage.getMessage().startsWith("<img>")) {
+                chatView.setOwner(true);
+                chatView.setType(1);
+                String content = chatMessage.getMessage().substring(5, chatMessage.getMessage().length());
+                // Log.d(TAG, base64content);
+                chatView.setImage(content);
+            } else {
+                chatView.setOwner(true);
+                chatView.setType(0);
+                chatView.setMessage(chatMessage.getMessage());
+            }
+
+
         } else {
-            chatView.setType(0);
-            chatView.setOwner(false);
-            chatView.setMessage(chatMessage.getMessage());
+            if (chatMessage.getMessage().startsWith("<img>")) {
+                chatView.setOwner(false);
+                chatView.setType(1);
+                String content = chatMessage.getMessage().substring(5, chatMessage.getMessage().length());
+                // Log.d(TAG, base64content);
+                chatView.setImage(content);
+
+            } else {
+                chatView.setOwner(false);
+                chatView.setType(0);
+
+                chatView.setMessage(chatMessage.getMessage());
+            }
         }
 
     }

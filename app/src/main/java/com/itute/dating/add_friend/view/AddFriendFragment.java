@@ -5,33 +5,25 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 import com.itute.dating.R;
 import com.itute.dating.add_friend.CustomAddFriendAdapter;
-import com.itute.dating.add_friend.model.AddFriendViewHolder;
 import com.itute.dating.add_friend.presenter.AddFriendPresenter;
 import com.itute.dating.base.view.BaseActivity;
 import com.itute.dating.profile_user.model.User;
-import com.itute.dating.util.Constants;
 import com.itute.dating.util.MyLinearLayoutManager;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by buivu on 01/11/2016.

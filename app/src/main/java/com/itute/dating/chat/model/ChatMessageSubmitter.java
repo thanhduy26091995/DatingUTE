@@ -2,6 +2,7 @@ package com.itute.dating.chat.model;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
+import com.google.firebase.storage.StorageReference;
 import com.itute.dating.util.Constants;
 
 import java.util.Map;
@@ -11,6 +12,7 @@ import java.util.Map;
  */
 public class ChatMessageSubmitter {
     private DatabaseReference mDatabase;
+
 
     public ChatMessageSubmitter(DatabaseReference mDatabase) {
         this.mDatabase = mDatabase;

@@ -69,7 +69,16 @@ public class ChatListViewHolder extends RecyclerView.ViewHolder {
                         ChatMessage message = data.getValue(ChatMessage.class);
                         if (message != null) {
                             txtTimestamp.setText(PrettyTime.format(new Date(), new Date(message.getTimestamp() * 1000)));
-                            txtLastMessage.setText(message.getMessage());
+
+                            if (message.getMessage().startsWith("<img>")) {
+                                if (message.getIsMine()) {
+                                    txtLastMessage.setText("Bạn vừa gửi một ảnh");
+                                } else {
+                                    txtLastMessage.setText(String.format("%s vừa gửi một ảnh", message.getFromName()));
+                                }
+                            } else {
+                                txtLastMessage.setText(message.getMessage());
+                            }
                         }
                     }
 

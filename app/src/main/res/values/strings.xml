@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">DatingUTE</string>
     <string name="facebook_app_id">582554325288360</string>
+    <string name="ad_unit_banner">ca-app-pub-5982503481177550/5647390627</string>
     <string name="batBuoc">Bắt buộc</string>
     <string name="emailInvalid">Email không hợp lệ!</string>
     <string name="dangNhapKhongThanhCong">Đăng nhập không thành công</string>

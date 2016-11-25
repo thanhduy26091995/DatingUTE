@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.maps.model.LatLng;
 import com.itute.dating.R;
 import com.itute.dating.base.view.IconTextView;
@@ -95,6 +96,17 @@ public class ChatView extends FrameLayout {
 
     public void setMessage(String message) {
         tvMessage.setText(message);
+    }
+
+    public void setImage(String filePath) {
+        // byte[] decodedString = Base64.decode(imageBase64, Base64.DEFAULT);
+        // Bitmap decodeByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        Glide.with(getContext())
+                .load(filePath)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .centerCrop()
+                .placeholder(R.drawable.place_holder_gallery)
+                .into(ivLocation);
     }
 
     public void setType(int type) {

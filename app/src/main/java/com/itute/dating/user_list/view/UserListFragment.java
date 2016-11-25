@@ -3,11 +3,9 @@ package com.itute.dating.user_list.view;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -36,7 +34,7 @@ import com.itute.dating.user_list.presenter.UserListPresenter;
 import com.itute.dating.util.Constants;
 import com.itute.dating.util.MyLinearLayoutManager;
 
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -119,6 +117,8 @@ public class UserListFragment extends Fragment {
         mDatabase.child(Constants.USERS).child(BaseActivity.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                double start = new Date().getTime() / 1000;
+
                 if (dataSnapshot != null) {
                     User user = dataSnapshot.getValue(User.class);
                     if (user != null) {
@@ -163,6 +163,9 @@ public class UserListFragment extends Fragment {
 //                            }
 //                        });
                         loadData(query);
+
+                        double end = new Date().getTime() / 1000;
+                        Log.d(TAG, "time: " + (end - start));
                     }
                 }
             }

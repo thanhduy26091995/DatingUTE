@@ -14,6 +14,8 @@ import android.widget.TextView;
 
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
@@ -53,6 +55,9 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
     private MainPresenter presenter;
     private int gender;
     private DatabaseReference mDatabase;
+    private AdView avBanner;
+    private AdRequest adRequest;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +77,7 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
             startActivity(new Intent(this, SignInActivity.class));
             finish();
         } else {
+            adView();
             initInfo();
             //add device token
             mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -79,6 +85,13 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
             DeviceToken.getInstance().addDeviceToken(mDatabase, getUid(), token);
         }
 
+    }
+
+    private void adView() {
+        avBanner = (AdView) findViewById(R.id.av_banner);
+        adRequest = new AdRequest.Builder().build();
+        // adRequest = new AdRequest.Builder().addTestDevice("C8F1047E8915C2CF2ECC934BF26F844C").build();
+        avBanner.loadAd(adRequest);
     }
 
     @Override

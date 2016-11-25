@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,10 +8,10 @@
     tools:context=".main.view.MainActivity">
 
     <android.support.design.widget.TabLayout
-        android:background="@color/colorPrimary"
         android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="@dimen/appbar_height"
+        android:background="@color/colorPrimary"
         app:tabGravity="fill"
         app:tabIndicatorColor="@color/md_white_1000"
         app:tabMode="fixed" />
@@ -19,5 +20,16 @@
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/av_banner"
         android:layout_below="@id/tabs" />
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/av_banner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        ads:adSize="SMART_BANNER"
+        ads:adUnitId="@string/ad_unit_banner"></com.google.android.gms.ads.AdView>
 </RelativeLayout>

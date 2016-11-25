@@ -133,6 +133,7 @@ public class ProfileUserActivity extends BaseActivity implements View.OnClickLis
     private String[] listGender, listJob, listReligion, listStar;
     private long dateOfBirth;
     private double lat, lon;
+    private String avatarUrl, address;
     private int yearOfBirth;
     private boolean isChangeDate;
     public static final String EXTRA_UID = "uid_key";
@@ -241,7 +242,7 @@ public class ProfileUserActivity extends BaseActivity implements View.OnClickLis
             } else {
                 Log.d(TAG, "0: 0");
                 txtDistance.setText("N/A");
-                  //showSettingLocationAlert();
+                //showSettingLocationAlert();
             }
         } catch (SecurityException e) {
             Log.e(TAG, e.getMessage());
@@ -364,6 +365,8 @@ public class ProfileUserActivity extends BaseActivity implements View.OnClickLis
             Log.d(TAG, "" + lat + "/" + lon);
             myIntent.putExtra(MapsActivity.LAT, lat);
             myIntent.putExtra(MapsActivity.LON, lon);
+            myIntent.putExtra(MapsActivity.AVATAR_URL, avatarUrl);
+            myIntent.putExtra(MapsActivity.ADDRESS, address);
             startActivity(myIntent);
         }
 
@@ -619,6 +622,8 @@ public class ProfileUserActivity extends BaseActivity implements View.OnClickLis
                         txtStar.setText(user.getStar());
                         lat = Double.parseDouble(user.getAddress().get(Constants.LATITUDE).toString());
                         lon = Double.parseDouble(user.getAddress().get(Constants.LONGITUDE).toString());
+                        avatarUrl = user.getPhotoURL();
+                        address = user.getAddress().get(Constants.ADDRESS).toString();
                         dateOfBirth = user.getDateOfBirth();
                         txtCalendar.setText(EventDateTimeFormatter.formatDateStart(dateOfBirth));
                         Calendar c = Calendar.getInstance();

@@ -12,6 +12,7 @@ public class Constants {
     public static final int RC_SIGN_IN = 0;
     public static final int PLACE_PICKER_REQUEST = 1;
     public static final int GALLERY_INTENT = 2;
+    public static final int CAMERA_INTENT = 3;
     public static String USER_FILE_PATH = null;
     public static final String USER_AVATAR = "userAvatar";
     public static final String AVATAR = "avatar";
@@ -24,6 +25,7 @@ public class Constants {
     public static final String PHOTOS = "photos";
     public static final String USER_PHOTOS = "userPhotos";
     public static final String PHOTO_LINK = "photoLink";
+    public static final String CHAT_PHOTO = "chatPhoto";
     //user
     public static final String DISPLAY_NAME = "displayName";
     public static final String ADDRESS = "address";
