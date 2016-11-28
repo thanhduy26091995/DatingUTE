@@ -70,32 +70,27 @@
         android:orientation="horizontal"
         android:weightSum="7">
 
+        <ImageView
+            android:id="@+id/emoji_btn"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_weight="1"
+            android:padding="4dp"
+            android:src="@drawable/ic_insert_emoticon_black_24dp" />
 
         <RelativeLayout
+
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="6"
+            android:layout_weight="5"
             android:background="@drawable/border_white">
-
-            <com.itute.dating.base.view.IconTextView
-                android:id="@+id/txt_smile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:gravity="center_vertical"
-                android:paddingLeft="5dp"
-                android:paddingRight="10dp"
-                android:text="@string/fa_smile_o"
-                android:textColor="@color/colorPrimary"
-                android:textSize="20sp" />
-
 
             <EditText
                 android:id="@+id/et_message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_toLeftOf="@+id/txt_smile"
                 android:background="@android:color/transparent"
                 android:hint="@string/hint_message"
                 android:inputType="textMultiLine"
@@ -103,7 +98,8 @@
                 android:padding="5dp"
                 android:scrollbars="vertical"
                 android:textColor="@color/primaryText"
-                android:textSize="16dp" />
+                android:textSize="16dp"
+                emojicon:emojiconSize="28sp" />
 
         </RelativeLayout>
 

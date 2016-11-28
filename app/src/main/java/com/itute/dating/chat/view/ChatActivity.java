@@ -1,6 +1,7 @@
 package com.itute.dating.chat.view;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -32,7 +33,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,7 +49,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.itute.dating.R;
-import com.itute.dating.base.model.ImageLoader;
 import com.itute.dating.base.view.BaseActivity;
 import com.itute.dating.chat.model.ChatMessage;
 import com.itute.dating.chat.model.ChatMessageViewHolder;
@@ -87,18 +86,18 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener, 
     TextView txtSend;
     @BindView(R.id.txt_partner_username)
     TextView txtPartnerName;
-    @BindView(R.id.txt_partner_old)
-    TextView txtOld;
+    //    @BindView(R.id.txt_partner_old)
+//    TextView txtOld;
     @BindView(R.id.txt_partner_address)
     TextView txtAddress;
-    @BindView(R.id.iv_avatar)
-    ImageView imgAvatarPartner;
-    @BindView(R.id.txt_smile)
-    TextView txtIcon;
+    //    @BindView(R.id.iv_avatar)
+//    ImageView imgAvatarPartner;
+    //        @BindView(R.id.txt_smile)
+//    TextView txtIcon;
     @BindView(R.id.emojicons)
     FrameLayout frameIcon;
     @BindView(R.id.root_view)
-    RelativeLayout rootView;
+    View rootView;
     @BindView(R.id.txt_micro)
     TextView txtMicro;
     @BindView(R.id.txt_gallery)
@@ -109,6 +108,9 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener, 
     TextView txtRecord;
     @BindView(R.id.img_record)
     ImageView imgRecord;
+    @BindView(R.id.emoji_btn)
+    ImageView emojiImageView;
+
 
     private ChatMessagePresenter presenter;
     private FirebaseRecyclerAdapter<ChatMessage, ChatMessageViewHolder> mAdapter;
@@ -133,6 +135,15 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener, 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         ButterKnife.bind(this);
+
+//        rootView = findViewById(R.id.root_view);
+//        emojiImageView = (ImageView) findViewById(R.id.emoji_btn);
+//        edtMessage = (EmojiconEditText) findViewById(R.id.et_message);
+//        //init emojiIcon
+//        emojIcon = new EmojIconActions(this, rootView, edtMessage, emojiImageView);
+//        emojIcon.ShowEmojIcon();
+//        emojIcon.setIconsIds(R.drawable.ic_action_keyboard, R.drawable.smiley);
+
         //init firebase storage
         mStorage = FirebaseStorage.getInstance().getReference();
         //cache recycler view
@@ -156,13 +167,31 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener, 
         initPartnerInfo();
         //event click
         txtSend.setOnClickListener(this);
-        txtIcon.setOnClickListener(this);
+        emojiImageView.setOnClickListener(this);
         txtMicro.setOnClickListener(this);
         txtGallery.setOnClickListener(this);
         txtCamera.setOnClickListener(this);
         txtRecord.setOnClickListener(this);
         imgRecord.setOnClickListener(this);
+
+        mRecycler.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hideKeyboard(view);
+            }
+        });
+
     }
+
+    public void hideKeyboard(View view) {
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+//    private void hideKeyboard(View view) {
+//        InputMethodManager im = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+//        im.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+//    }
 
     private void loadData() {
         try {
@@ -172,6 +201,13 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener, 
                 @Override
                 protected void populateViewHolder(ChatMessageViewHolder viewHolder, ChatMessage model, int position) {
                     viewHolder.bindToView(model);
+                    viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+                            inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                        }
+                    });
                     // mRecycler.scrollToPosition(mAdapter.getItemCount() - 1);
                 }
             };
@@ -201,7 +237,7 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener, 
     public void onClick(View view) {
         if (view == txtSend) {
             addNewMessage();
-        } else if (view == txtIcon) {
+        } else if (view == emojiImageView) {
             openIcons();
         } else if (view == txtMicro) {
             promptSpeechInput();
@@ -209,11 +245,9 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener, 
             openGallery();
         } else if (view == txtCamera) {
             openCamera();
-        }
-        else if (view == txtRecord){
+        } else if (view == txtRecord) {
             imgRecord.setVisibility(View.VISIBLE);
-        }
-        else if (view == imgRecord){
+        } else if (view == imgRecord) {
 
         }
     }
@@ -564,9 +598,9 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener, 
                     if (user != null) {
                         txtPartnerName.setText(user.getDisplayName());
                         toName = user.getDisplayName();
-                        txtOld.setText(String.valueOf(user.getOld()));
+                        //txtOld.setText(String.valueOf(user.getOld()));
                         txtAddress.setText(user.getAddress().get(Constants.ADDRESS).toString());
-                        ImageLoader.getInstance().loadImage(ChatActivity.this, user.getPhotoURL(), imgAvatarPartner);
+                        // ImageLoader.getInstance().loadImage(ChatActivity.this, user.getPhotoURL(), imgAvatarPartner);
                     }
                 }
             }
@@ -595,11 +629,12 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener, 
         });
     }
 
+
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             View v = getCurrentFocus();
-            if (v instanceof EditText) {
+            if (v instanceof RecyclerView) {
                 Rect outRect = new Rect();
                 v.getGlobalVisibleRect(outRect);
                 if (!outRect.contains((int) event.getRawX(), (int) event.getRawY())) {
