@@ -1,11 +1,8 @@
 package com.itute.dating.list_heart;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,6 +83,7 @@ public class CustomListHeartAdapter extends RecyclerView.Adapter<ListHeartViewHo
                 Intent myIntent = new Intent(mContext, ProfileUserActivity.class);
                 myIntent.putExtra(ProfileUserActivity.EXTRA_UID, partnerId);
                 mContext.startActivity(myIntent);
+                mContext.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
     }

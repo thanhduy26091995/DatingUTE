@@ -5,11 +5,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -99,6 +96,7 @@ public class CustomListFriendAdapter extends RecyclerView.Adapter<ListFriendView
                 Intent myIntent = new Intent(mActivity, ChatActivity.class);
                 myIntent.putExtra(ChatActivity.PARTNER_ID, partnerId);
                 mActivity.startActivity(myIntent);
+                mActivity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
         //event click for itemview
@@ -109,6 +107,7 @@ public class CustomListFriendAdapter extends RecyclerView.Adapter<ListFriendView
                 Intent myIntent = new Intent(mActivity, ProfileUserActivity.class);
                 myIntent.putExtra(ProfileUserActivity.EXTRA_UID, partnerId);
                 mActivity.startActivity(myIntent);
+                mActivity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
     }

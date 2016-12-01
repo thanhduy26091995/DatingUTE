@@ -56,6 +56,7 @@ public class HeartActivity extends BaseActivity implements View.OnClickListener 
     public void onClick(View view) {
         if (view == txtBack) {
             finish();
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         }
     }
 }

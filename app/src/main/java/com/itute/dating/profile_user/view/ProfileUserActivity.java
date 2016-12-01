@@ -196,6 +196,7 @@ public class ProfileUserActivity extends BaseActivity implements View.OnClickLis
             public void onClick(DialogInterface dialogInterface, int i) {
                 Intent settingIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                 startActivity(settingIntent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
         //on cancel
@@ -315,6 +316,7 @@ public class ProfileUserActivity extends BaseActivity implements View.OnClickLis
         int i = view.getId();
         if (i == R.id.btnAppBack) {
             finish();
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         } else if (i == R.id.form_profile_gender) {
             showPopUpGender();
         } else if (i == R.id.txt_edit_info) {
@@ -368,6 +370,7 @@ public class ProfileUserActivity extends BaseActivity implements View.OnClickLis
             myIntent.putExtra(MapsActivity.AVATAR_URL, avatarUrl);
             myIntent.putExtra(MapsActivity.ADDRESS, address);
             startActivity(myIntent);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
 
     }
@@ -376,6 +379,7 @@ public class ProfileUserActivity extends BaseActivity implements View.OnClickLis
         Intent myIntent = new Intent(ProfileUserActivity.this, AddImageActivity.class);
         myIntent.putExtra(AddImageActivity.EXTRA_UID, intentUid);
         startActivity(myIntent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     private void submitStatus() {
@@ -404,11 +408,13 @@ public class ProfileUserActivity extends BaseActivity implements View.OnClickLis
         Intent myIntent = new Intent(ProfileUserActivity.this, ChatActivity.class);
         myIntent.putExtra(ChatActivity.PARTNER_ID, intentUid);
         startActivity(myIntent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     private void moveToHeartActivity() {
         Intent myIntent = new Intent(ProfileUserActivity.this, HeartActivity.class);
         startActivity(myIntent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     private void saveInfo() {

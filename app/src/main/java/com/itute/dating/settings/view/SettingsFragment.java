@@ -121,6 +121,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
             Intent myIntent = new Intent(getActivity(), ProfileUserActivity.class);
             myIntent.putExtra(ProfileUserActivity.EXTRA_UID, BaseActivity.getUid());
             startActivity(myIntent);
+            getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         } else if (i == R.id.settings_1) {
             openPopupGender();
         } else if (i == R.id.oldFromTo) {

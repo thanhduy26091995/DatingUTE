@@ -1,36 +1,34 @@
 package com.itute.dating.first_login.presenter;
 
-import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.itute.dating.base.view.GoogleAuthController;
-import com.itute.dating.first_login.model.FirstLoginSubmitter;
-import com.itute.dating.main.view.MainActivity;
-import com.itute.dating.profile_user.model.User;
-import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.itute.dating.R;
+import com.itute.dating.base.view.GoogleAuthController;
+import com.itute.dating.first_login.model.FirstLoginSubmitter;
 import com.itute.dating.first_login.view.FirstLoginActivity;
+import com.itute.dating.main.view.MainActivity;
+import com.itute.dating.profile_user.model.User;
 import com.itute.dating.util.Constants;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.TimeZone;
 
@@ -91,6 +89,7 @@ public class FirstLoginPresenter {
                         submitter.updateDataUser(uid, gender, address, dateOfBirth, old);
                         view.startActivity(new Intent(view, MainActivity.class));
                         view.finish();
+                        view.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     }
                 }
             }

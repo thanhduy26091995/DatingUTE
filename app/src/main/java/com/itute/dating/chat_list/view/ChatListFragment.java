@@ -96,6 +96,7 @@ public class ChatListFragment extends Fragment {
                                 Intent myIntent = new Intent(getActivity(), ChatActivity.class);
                                 myIntent.putExtra(ChatActivity.PARTNER_ID, userKey);
                                 startActivity(myIntent);
+                                getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                             }
                         });
                     }

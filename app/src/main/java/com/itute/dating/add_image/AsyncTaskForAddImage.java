@@ -14,7 +14,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.itute.dating.R;
 import com.itute.dating.add_image.presenter.AddImagePresenter;
 import com.itute.dating.add_image.view.AddImageActivity;
 import com.itute.dating.util.Constants;
@@ -23,7 +22,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.InterruptedIOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.CountDownLatch;
@@ -61,7 +59,7 @@ public class AsyncTaskForAddImage extends AsyncTask<String, String, ArrayList<St
     @Override
     protected ArrayList<String> doInBackground(String... strings) {
         try {
-            if (arrayListUri.size() != 0){
+            if (arrayListUri.size() != 0) {
                 return uploadImage(uid, arrayListUri);
             }
         } catch (Exception e) {

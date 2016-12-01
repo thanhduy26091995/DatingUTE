@@ -76,6 +76,7 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
         if (FirebaseAuth.getInstance().getCurrentUser() == null) {
             startActivity(new Intent(this, SignInActivity.class));
             finish();
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         } else {
             adView();
             initInfo();
@@ -121,6 +122,7 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
                             } else {
                                 startActivity(new Intent(MainActivity.this, FirstLoginActivity.class));
                                 finish();
+                                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                             }
                             hideProgressDialog();
                         }

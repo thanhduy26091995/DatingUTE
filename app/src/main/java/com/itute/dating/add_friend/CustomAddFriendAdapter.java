@@ -23,7 +23,6 @@ import com.itute.dating.util.Constants;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * Created by buivu on 02/11/2016.
@@ -76,6 +75,7 @@ public class CustomAddFriendAdapter extends RecyclerView.Adapter<AddFriendViewHo
                 Intent myIntent = new Intent(mActivity, ProfileUserActivity.class);
                 myIntent.putExtra(ProfileUserActivity.EXTRA_UID, listUserId.get(position));
                 mActivity.startActivity(myIntent);
+                mActivity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
         //event click xacNhan

@@ -169,6 +169,7 @@ public class SignInActivity extends BaseActivity implements GoogleApiClient.OnCo
         Intent intent = new Intent(SignInActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     //show thông báo cho người dùng

@@ -223,6 +223,7 @@ public class UserListFragment extends Fragment {
                             Intent intent = new Intent(getActivity(), ProfileUserActivity.class);
                             intent.putExtra(ProfileUserActivity.EXTRA_UID, userKey);
                             startActivity(intent);
+                            getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                         }
                     });
                     //click chat
@@ -232,6 +233,7 @@ public class UserListFragment extends Fragment {
                             Intent myIntent = new Intent(getActivity(), ChatActivity.class);
                             myIntent.putExtra(ChatActivity.PARTNER_ID, userKey);
                             startActivity(myIntent);
+                            getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                         }
                     });
                     //click heart
