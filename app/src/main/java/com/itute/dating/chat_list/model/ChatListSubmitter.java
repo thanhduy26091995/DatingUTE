@@ -19,4 +19,10 @@ public class ChatListSubmitter {
         Query query = mDatabase.child(Constants.MESSAGES).child(currentID);
         return query;
     }
+
+    //lấy danh sách những group mà bạn đã chat
+    public Query getAllChatGroup(String currentId) {
+        Query query = mDatabase.child(Constants.USERS).child(currentId).child(Constants.GROUPS);
+        return query;
+    }
 }

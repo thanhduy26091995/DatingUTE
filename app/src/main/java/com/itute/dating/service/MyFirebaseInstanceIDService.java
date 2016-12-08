@@ -11,7 +11,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 import com.itute.dating.base.model.DeviceToken;
-import com.itute.dating.notification.model.Config;
+import com.itute.dating.notification.Config;
 
 /**
  * Created by buivu on 28/10/2016.

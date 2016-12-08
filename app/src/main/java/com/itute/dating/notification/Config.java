@@ -1,4 +1,4 @@
-package com.itute.dating.notification.model;
+package com.itute.dating.notification;
 
 /**
  * Created by buivu on 18/11/2016.

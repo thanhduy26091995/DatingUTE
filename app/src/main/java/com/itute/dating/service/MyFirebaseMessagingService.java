@@ -15,8 +15,8 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.itute.dating.R;
 import com.itute.dating.main.view.MainActivity;
-import com.itute.dating.notification.model.Config;
-import com.itute.dating.notification.model.NotificationUtils;
+import com.itute.dating.notification.Config;
+import com.itute.dating.notification.NotificationUtils;
 import com.itute.dating.util.Constants;
 
 import org.json.JSONException;
@@ -76,6 +76,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
             try {
                 JSONObject json = new JSONObject(remoteMessage.getData().toString());
+                Log.e(TAG, json.toString());
                 handleDataMessage(json);
             } catch (Exception e) {
                 Log.e(TAG, "Exception: " + e.getMessage());
@@ -119,6 +120,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             notificationUtils.playNotificationSound();
         } else {
             // If the app is in background, firebase itself handles the notification
+
         }
     }
 
@@ -155,6 +157,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             } else {
                 // app is in background, show the notification in notification tray
                 Intent resultIntent = new Intent(getApplicationContext(), MainActivity.class);
+                resultIntent.putExtra(Constants.TAB_SELECT, 1);
                 resultIntent.putExtra("message", message);
 
                 // check for image attachment

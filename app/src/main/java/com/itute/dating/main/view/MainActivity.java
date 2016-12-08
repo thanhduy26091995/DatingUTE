@@ -30,7 +30,7 @@ import com.itute.dating.add_friend.view.AddFriendFragment;
 import com.itute.dating.base.model.DeviceToken;
 import com.itute.dating.base.view.BaseActivity;
 import com.itute.dating.base.view.GoogleAuthController;
-import com.itute.dating.chat_list.view.ChatListFragment;
+import com.itute.dating.chat_list.view.ChatFragment;
 import com.itute.dating.first_login.view.FirstLoginActivity;
 import com.itute.dating.main.presenter.MainPresenter;
 import com.itute.dating.profile_user.model.User;
@@ -184,7 +184,7 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
     private void setupViewPagerUser(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new UserListFragment(), getString(R.string.fa_list_alt));
-        adapter.addFragment(new ChatListFragment(), getString(R.string.fa_comments_o));
+        adapter.addFragment(new ChatFragment(), getString(R.string.fa_comments_o));
         adapter.addFragment(new AddFriendFragment(), getString(R.string.fa_user_plus));
         adapter.addFragment(new SettingsFragment(), getString(R.string.fa_bars));
         viewPager.setAdapter(adapter);

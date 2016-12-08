@@ -1,0 +1,104 @@
+package com.itute.dating.chat_list;
+
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.itute.dating.R;
+import com.itute.dating.chat_list.model.ChatGroupViewHolder;
+import com.itute.dating.profile_user.model.User;
+import com.itute.dating.util.Constants;
+
+import java.util.List;
+
+/**
+ * Created by buivu on 07/12/2016.
+ */
+public class CustomChatGroupAdapter extends RecyclerView.Adapter<ChatGroupViewHolder> {
+    private List<String> listChatId;
+    private Fragment view;
+    private DatabaseReference mDatabase;
+
+    public CustomChatGroupAdapter(Fragment view, List<String> listChatId) {
+        this.view = view;
+        this.listChatId = listChatId;
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+    }
+
+
+    @Override
+    public ChatGroupViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View rootView = View.inflate(view.getActivity(), R.layout.item_chat_group, null);
+        return new ChatGroupViewHolder(rootView);
+    }
+
+    @Override
+    public void onBindViewHolder(final ChatGroupViewHolder holder, final int position) {
+        final String strGroupId = listChatId.get(position);
+
+        mDatabase.child(Constants.CHAT_GROUP).child(strGroupId).child(Constants.MEMBER).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                final String[] strMember = {null};
+                final String[] str = {""};
+                if (dataSnapshot != null) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        String member = snapshot.getValue(String.class);
+                        Log.d("Chat", member);
+
+                        mDatabase.child(Constants.USERS).child(member).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if (dataSnapshot != null) {
+                                    User user = dataSnapshot.getValue(User.class);
+                                    if (user != null) {
+
+                                        //  strMember[0] += String.format(" %s", user.getDisplayName());
+                                        Log.d("Chat", user.getDisplayName());
+                                        holder.txtMember.append(user.getDisplayName() + ", ");
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        //event click item
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("Chat", strGroupId);
+            }
+        });
+    }
+
+    @Override
+    public int getItemCount() {
+        return listChatId.size();
+    }
+
+    public void clearAllData() {
+        listChatId.clear();
+        notifyDataSetChanged();
+    }
+}

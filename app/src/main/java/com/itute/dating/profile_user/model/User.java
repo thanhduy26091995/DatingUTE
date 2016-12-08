@@ -30,7 +30,9 @@ public class User {
     private Map<String, Object> search = new HashMap<>();
     private Map<String, Boolean> friends = new HashMap<>();
     private Map<String, Boolean> requests = new HashMap<>();
+    private Map<String, Boolean> groups = new HashMap<>();
     private int friendCount;
+    private String deviceToken;
     //default constructor
 
     public User() {
@@ -51,6 +53,22 @@ public class User {
         this.religion = religion;
         this.uid = uid;
         this.search = search;
+    }
+
+    public Map<String, Boolean> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(Map<String, Boolean> groups) {
+        this.groups = groups;
+    }
+
+    public String getDeviceToken() {
+        return deviceToken;
+    }
+
+    public void setDeviceToken(String deviceToken) {
+        this.deviceToken = deviceToken;
     }
 
     public Map<String, Boolean> getRequests() {
@@ -247,6 +265,7 @@ public class User {
         myMap.put(Constants.HEART_COUNT, heartCount);
         myMap.put(Constants.UID, uid);
         myMap.put(Constants.SEARCH, search);
+        myMap.put(Constants.DEVICE_TOKEN, deviceToken);
         return myMap;
     }
 }

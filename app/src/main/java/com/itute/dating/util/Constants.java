@@ -7,6 +7,8 @@ import java.util.Locale;
  */
 public class Constants {
     //init
+    public static final String SERVER_KEY = "AAAAvT1f6ks:APA91bFz0t1Pdb9uKuEZqOQllW03aSp9qRqn7p2dTOqOdGzq9S-AcOXiYzrf3WeoSeVdMFdi6l8HjT6itH1angs-c7f-NKhNYMbcWobWcU0_3gmqHSlUKjc5ZlPHlpBPv3zQeIl6Ps6vX3F5YGaAOzQ_hpCCTRUhAQ";
+    public static final String FCM_MESSAGE_URL = "https://fcm.googleapis.com/fcm/send";
     public static final String[] FACEBOOK_PERMISSION = new String[]{"public_profile", "user_friends", "email"};
     public static final String USERS = "users";
     public static final int RC_SIGN_IN = 0;
@@ -26,6 +28,8 @@ public class Constants {
     public static final String USER_PHOTOS = "userPhotos";
     public static final String PHOTO_LINK = "photoLink";
     public static final String CHAT_PHOTO = "chatPhoto";
+    public static final String CHAT_GROUP = "chatGroup";
+    public static final String MEMBER = "member";
     //user
     public static final String DISPLAY_NAME = "displayName";
     public static final String ADDRESS = "address";
@@ -52,6 +56,7 @@ public class Constants {
     public static final String TO = "to";
     public static final String FRIEND_COUNT = "friendCount";
     public static final String FRIENDS = "friends";
+    public static final String GROUPS = "groups";
     //chat
     public static final String IS_MINE = "isMine";
     public static final String FROM_NAME = "fromName";

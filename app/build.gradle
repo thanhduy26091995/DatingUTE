@@ -15,7 +15,7 @@ android {
     defaultConfig {
         applicationId "com.itute.dating"
         minSdkVersion 18
-        targetSdkVersion 24
+        targetSdkVersion 20
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
@@ -89,5 +89,7 @@ dependencies {
     compile 'com.google.android.gms:play-services-ads:9.4.0'
     // Supernova Emoji
     compile 'hani.momanii.supernova_emoji_library:supernova-emoji-library:0.0.2'
+
+    compile 'com.android.support:multidex:1.0.0'
 }
 apply plugin: 'com.google.gms.google-services'

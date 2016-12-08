@@ -2,8 +2,10 @@ package com.itute.dating.base.view;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.support.multidex.MultiDex;
 
 /**
  * Created by buivu on 06/10/2016.
@@ -13,6 +15,12 @@ public class DatingUTEApplication extends Application {
 
     public static DatingUTEApplication getInstance() {
         return instance;
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
     }
 
     @Override

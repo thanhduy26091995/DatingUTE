@@ -53,8 +53,12 @@ import com.itute.dating.base.view.BaseActivity;
 import com.itute.dating.chat.model.ChatMessage;
 import com.itute.dating.chat.model.ChatMessageViewHolder;
 import com.itute.dating.chat.presenter.ChatMessagePresenter;
+import com.itute.dating.notification.PushMessage;
 import com.itute.dating.profile_user.model.User;
 import com.itute.dating.util.Constants;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -128,6 +132,8 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener, 
     private MediaPlayer mediaPlayer;
     private StorageReference mStorage;
 
+    //use for push notification
+    private String deviceToken, currentAvatar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -381,17 +387,7 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener, 
             }
         } else if (requestCode == Constants.CAMERA_INTENT) {
             if (resultCode == RESULT_OK) {
-//                try {
-//                    String filePath = getRealPathFromURI(data.getData());
-//                    byte[] bitmapImage = encodeImage(filePath);
-//
-//                    //add image
-//                   // ChatMessage message = new ChatMessage(fromName, encodeImage, new Date().getTime() / 1000, toName);
-//                    //presenter.addChatMessage(partnerID, message);
-//
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
+
                 try {
                     String filePath = getRealPathFromURI(data.getData());
                     byte[] bitmapImage = encodeImage(filePath);
@@ -578,14 +574,22 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener, 
             edtMessage.setError(getResources().getString(R.string.batBuoc));
         }
         if (result) {
+            //send push notification
+            try {
+                String[] regIds = {deviceToken};
+
+                JSONArray regArray = null;
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+                    regArray = new JSONArray(regIds);
+                }
+                PushMessage.sendMessage(regArray, fromName, edtMessage.getText().toString(), "", "Xin chào");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             ChatMessage message = new ChatMessage(fromName, edtMessage.getText().toString(), new Date().getTime() / 1000, toName);
             presenter.addChatMessage(partnerID, message);
             //clear text and show keyboard
             edtMessage.setText(null);
-
-//            edtMessage.requestFocus();
-//            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-//            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
         }
     }
 
@@ -601,6 +605,7 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener, 
                         //txtOld.setText(String.valueOf(user.getOld()));
                         txtAddress.setText(user.getAddress().get(Constants.ADDRESS).toString());
                         // ImageLoader.getInstance().loadImage(ChatActivity.this, user.getPhotoURL(), imgAvatarPartner);
+                        deviceToken = user.getDeviceToken();
                     }
                 }
             }
@@ -618,6 +623,7 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener, 
                     User user = dataSnapshot.getValue(User.class);
                     if (user != null) {
                         fromName = user.getDisplayName();
+                        currentAvatar = user.getPhotoURL();
                     }
                 }
             }

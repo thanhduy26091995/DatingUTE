@@ -34,6 +34,8 @@
     <string name="GPSTitle">Cài đặt GPS</string>
     <string name="GPSContent">GPS chưa bật, bạn có muốn đi đến cài đặt?</string>
     <string name="setting">Cài đặt</string>
+    <string name="chatGroup">Nhóm</string>
+    <string name="singleChat">Cá nhân</string>
 
     <string-array name="arr_gender">
         <item>Nam</item>

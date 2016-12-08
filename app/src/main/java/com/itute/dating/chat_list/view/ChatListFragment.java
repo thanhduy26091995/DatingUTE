@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.ChildEventListener;
@@ -22,6 +23,7 @@ import com.itute.dating.R;
 import com.itute.dating.base.view.BaseActivity;
 import com.itute.dating.chat.model.ChatMessage;
 import com.itute.dating.chat.view.ChatActivity;
+import com.itute.dating.chat_group.view.ChatGroupActivity;
 import com.itute.dating.chat_list.model.ChatListViewHolder;
 import com.itute.dating.chat_list.presenter.ChatListPresenter;
 import com.itute.dating.util.MyLinearLayoutManager;
@@ -34,9 +36,11 @@ import butterknife.ButterKnife;
 /**
  * Created by buivu on 09/10/2016.
  */
-public class ChatListFragment extends Fragment {
+public class ChatListFragment extends Fragment implements View.OnClickListener {
     @BindView(R.id.frame_chat)
     RecyclerView mRecycler;
+    @BindView(R.id.txt_add_member_to_group)
+    TextView txtAddMember;
 
     private LinearLayoutManager mManager;
     private ChatListPresenter presenter;
@@ -52,6 +56,7 @@ public class ChatListFragment extends Fragment {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mManager = new LinearLayoutManager(getContext());
         customLinearLayoutManager = new MyLinearLayoutManager(getContext());
+
     }
 
     @Nullable
@@ -59,6 +64,8 @@ public class ChatListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_all_chat, container, false);
         ButterKnife.bind(this, rootView);
+        //event click
+        txtAddMember.setOnClickListener(this);
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -71,6 +78,14 @@ public class ChatListFragment extends Fragment {
         thread.start();
 
         return rootView;
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view == txtAddMember) {
+            startActivity(new Intent(getActivity(), ChatGroupActivity.class));
+            getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        }
     }
 
     private void loadData() {
@@ -125,5 +140,32 @@ public class ChatListFragment extends Fragment {
 
             }
         });
+
+//        //demo
+//        mDatabase = mDatabase.child(Constants.CHAT_GROUP);
+//        mDatabase.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                if (dataSnapshot != null) {
+//                    for (DataSnapshot data : dataSnapshot.getChildren()) {
+//                        Member member = data.getValue(Member.class);
+//                        if (member != null) {
+//                            for (int i = 0; i < member.getMember().size(); i++) {
+//                                if (member.getMember().get(i).equals(BaseActivity.getUid())) {
+//
+//                                }
+//                                Log.d(TAG, member.getMember().get(i));
+//
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
     }
 }
