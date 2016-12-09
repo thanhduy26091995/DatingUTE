@@ -1,5 +1,6 @@
 package com.itute.dating.chat_list;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,6 +13,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.itute.dating.R;
+import com.itute.dating.chat_group.view.ChatGroupActivity;
 import com.itute.dating.chat_list.model.ChatGroupViewHolder;
 import com.itute.dating.profile_user.model.User;
 import com.itute.dating.util.Constants;
@@ -23,11 +25,11 @@ import java.util.List;
  */
 public class CustomChatGroupAdapter extends RecyclerView.Adapter<ChatGroupViewHolder> {
     private List<String> listChatId;
-    private Fragment view;
+    private Fragment fragment;
     private DatabaseReference mDatabase;
 
-    public CustomChatGroupAdapter(Fragment view, List<String> listChatId) {
-        this.view = view;
+    public CustomChatGroupAdapter(Fragment fragment, List<String> listChatId) {
+        this.fragment = fragment;
         this.listChatId = listChatId;
         mDatabase = FirebaseDatabase.getInstance().getReference();
     }
@@ -35,7 +37,7 @@ public class CustomChatGroupAdapter extends RecyclerView.Adapter<ChatGroupViewHo
 
     @Override
     public ChatGroupViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View rootView = View.inflate(view.getActivity(), R.layout.item_chat_group, null);
+        View rootView = View.inflate(fragment.getActivity(), R.layout.item_chat_group, null);
         return new ChatGroupViewHolder(rootView);
     }
 
@@ -46,8 +48,7 @@ public class CustomChatGroupAdapter extends RecyclerView.Adapter<ChatGroupViewHo
         mDatabase.child(Constants.CHAT_GROUP).child(strGroupId).child(Constants.MEMBER).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                final String[] strMember = {null};
-                final String[] str = {""};
+
                 if (dataSnapshot != null) {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         String member = snapshot.getValue(String.class);
@@ -60,8 +61,7 @@ public class CustomChatGroupAdapter extends RecyclerView.Adapter<ChatGroupViewHo
                                     User user = dataSnapshot.getValue(User.class);
                                     if (user != null) {
 
-                                        //  strMember[0] += String.format(" %s", user.getDisplayName());
-                                        Log.d("Chat", user.getDisplayName());
+
                                         holder.txtMember.append(user.getDisplayName() + ", ");
                                     }
                                 }
@@ -87,7 +87,11 @@ public class CustomChatGroupAdapter extends RecyclerView.Adapter<ChatGroupViewHo
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("Chat", strGroupId);
+
+                Intent myIntent = new Intent(fragment.getActivity(), ChatGroupActivity.class);
+                myIntent.putExtra(ChatGroupActivity.GROUP_CHAT_ID, strGroupId);
+                fragment.startActivity(myIntent);
+                fragment.getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
     }

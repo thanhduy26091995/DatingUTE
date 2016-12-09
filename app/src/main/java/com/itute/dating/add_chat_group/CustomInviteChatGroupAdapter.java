@@ -1,4 +1,4 @@
-package com.itute.dating.chat_group;
+package com.itute.dating.add_chat_group;
 
 import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
@@ -18,7 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.itute.dating.R;
 import com.itute.dating.base.model.ImageLoader;
-import com.itute.dating.chat_group.model.ChatGroupViewHolder;
+import com.itute.dating.add_chat_group.model.ChatGroupViewHolder;
 import com.itute.dating.profile_user.model.User;
 import com.itute.dating.util.Constants;
 

@@ -40,7 +40,7 @@ public class ChatFragment extends Fragment {
         getActivity().getSupportFragmentManager().popBackStack();
         chatLisFragment.setArguments(null);
         ft.replace(R.id.content, chatLisFragment);
-        ft.commit();
+        ft.commitAllowingStateLoss();
     }
 
     private void setUpTab() {
@@ -61,14 +61,14 @@ public class ChatFragment extends Fragment {
                     getActivity().getSupportFragmentManager().popBackStack();
                     chatGroupFragment.setArguments(null);
                     ft.replace(R.id.content, chatGroupFragment);
-                    ft.commit();
+                    ft.commitAllowingStateLoss();
                 } else if (position == 0) {
                     Fragment chatLisFragment = new ChatListFragment();
                     FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                     getActivity().getSupportFragmentManager().popBackStack();
                     chatLisFragment.setArguments(null);
                     ft.replace(R.id.content, chatLisFragment);
-                    ft.commit();
+                    ft.commitAllowingStateLoss();
                 }
             }
 

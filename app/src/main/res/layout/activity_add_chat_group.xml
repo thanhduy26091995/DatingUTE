@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/appBar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/appbar_height"
+        android:background="@color/colorPrimary">
+
+        <com.itute.dating.base.view.IconTextView
+            android:id="@+id/btnAppBack"
+            style="@style/AppNormalText"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/button_background_pressed"
+            android:gravity="center"
+            android:text="@string/fa_arrow_left"
+            android:textColor="@color/md_white_1000" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/btnAppBack"
+            android:gravity="center"
+            android:text="Tạo nhóm"
+            android:textColor="@color/md_white_1000"
+            android:textSize="18dp" />
+
+        <com.itute.dating.base.view.IconTextView
+            android:id="@+id/txt_create_group"
+            style="@style/AppLargeText"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/button_background_pressed"
+            android:gravity="center"
+            android:text="@string/fa_send"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+
+    <HorizontalScrollView
+        android:id="@+id/imageContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/appBar"
+        android:scrollbarSize="1dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/photoContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <TextView
+        android:id="@+id/txt_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageContainer"
+        android:layout_margin="5dp"
+        android:text="Danh sách người tham gia" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/frame_all_friends"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/txt_title"
+        tools:listitem="@layout/item_add_chat_group">
+
+    </android.support.v7.widget.RecyclerView>
+</RelativeLayout>

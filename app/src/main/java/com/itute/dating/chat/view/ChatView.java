@@ -99,8 +99,7 @@ public class ChatView extends FrameLayout {
     }
 
     public void setImage(String filePath) {
-        // byte[] decodedString = Base64.decode(imageBase64, Base64.DEFAULT);
-        // Bitmap decodeByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+
         Glide.with(getContext())
                 .load(filePath)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)

@@ -23,7 +23,7 @@ import com.itute.dating.R;
 import com.itute.dating.base.view.BaseActivity;
 import com.itute.dating.chat.model.ChatMessage;
 import com.itute.dating.chat.view.ChatActivity;
-import com.itute.dating.chat_group.view.ChatGroupActivity;
+import com.itute.dating.add_chat_group.view.ChatGroupActivity;
 import com.itute.dating.chat_list.model.ChatListViewHolder;
 import com.itute.dating.chat_list.presenter.ChatListPresenter;
 import com.itute.dating.util.MyLinearLayoutManager;

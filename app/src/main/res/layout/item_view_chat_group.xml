@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/v_left"
+        android:layout_width="50dp"
+        android:layout_height="20dp"
+        android:layout_alignParentLeft="true"
+        android:visibility="visible" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/v_right"
+        android:layout_toRightOf="@+id/v_left">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/avatar_chat_partner"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/avatar"
+            android:visibility="gone" />
+
+        <com.itute.dating.base.view.IconTextView
+            android:id="@+id/iv_left_arrow"
+            style="@style/AppLargeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="-2dp"
+            android:layout_toRightOf="@+id/avatar_chat_partner"
+            android:text="@string/fa_caret_left"
+            android:textColor="@color/divider"
+            android:visibility="gone" />
+
+
+        <FrameLayout
+            android:id="@+id/ll_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/iv_right_arrow"
+            android:layout_toRightOf="@+id/iv_left_arrow"
+            android:background="@drawable/border_color_primary"
+            android:padding="3dp">
+
+            <ImageView
+
+                android:id="@+id/iv_location"
+                android:layout_width="@dimen/size_maps_width"
+                android:layout_height="@dimen/size_maps_height"
+                android:background="@android:color/white" />
+
+            <TextView
+                android:id="@+id/tv_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="2dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingTop="2dp"
+                android:textSize="18sp"
+                android:visibility="gone" />
+        </FrameLayout>
+
+        <com.itute.dating.base.view.IconTextView
+            android:id="@+id/iv_right_arrow"
+            style="@style/AppLargeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="-2dp"
+            android:layout_toLeftOf="@+id/avatar_chat"
+            android:text="@string/fa_caret_right"
+            android:textColor="@color/colorPrimary" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/avatar_chat"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/avatar" />
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/v_right"
+        android:layout_width="50dp"
+        android:layout_height="20dp"
+        android:layout_alignParentRight="true"
+        android:visibility="gone" />
+
+</RelativeLayout>

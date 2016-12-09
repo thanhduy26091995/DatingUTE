@@ -63,4 +63,9 @@ public class Constants {
     public static final String MESSAGE = "message";
     public static final String MESSAGES = "messages";
     public static final String TO_NAME = "toName";
+    //chat group
+    public static final String CONTENT = "content";
+    public static final String SEND_BY = "sendBy";
+    public static final String AVATAR_SENDER = "avatarSender";
+    public static final String CONTENTS = "contents";
 }

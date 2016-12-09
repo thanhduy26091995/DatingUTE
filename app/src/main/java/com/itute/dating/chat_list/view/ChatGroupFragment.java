@@ -51,9 +51,23 @@ public class ChatGroupFragment extends Fragment {
         Log.d(TAG, "onCreateView");
         View rootView = inflater.inflate(R.layout.fragment_all_chat_group, container, false);
         mRecycler = (RecyclerView) rootView.findViewById(R.id.frame_chat_group);
-        loadData();
-        mRecycler.setAdapter(customAdapter);
-        mRecycler.setLayoutManager(customManager);
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadData();
+                        mRecycler.setAdapter(customAdapter);
+                        mRecycler.setLayoutManager(customManager);
+                    }
+                });
+
+            }
+        });
+        thread.start();
+
         return rootView;
     }
 
