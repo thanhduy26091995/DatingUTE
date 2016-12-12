@@ -1,6 +1,7 @@
 package com.itute.dating.user_list.presenter;
 
 import android.os.AsyncTask;
+import android.os.Build;
 import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
@@ -10,11 +11,16 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.Transaction;
+import com.google.firebase.database.ValueEventListener;
 import com.itute.dating.R;
+import com.itute.dating.notification.PushMessage;
 import com.itute.dating.profile_user.model.User;
 import com.itute.dating.user_list.model.UserListSubmitter;
 import com.itute.dating.user_list.view.UserListFragment;
 import com.itute.dating.util.Constants;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 /**
  * Created by buivu on 08/10/2016.
@@ -71,7 +77,7 @@ public class UserListPresenter {
     }
 
     //heart clicked
-    public void onAddFriendClicked(DatabaseReference databaseReference, final String uid) {
+    public void onAddFriendClicked(final DatabaseReference databaseReference, final String uid, final String currentName) {
         databaseReference.runTransaction(
                 new Transaction.Handler() {
                     @Override
@@ -90,6 +96,33 @@ public class UserListPresenter {
                                 MyAsyncTask myAsyncTask = new MyAsyncTask();
                                 myAsyncTask.execute(view.getResources().getString(R.string.sendRequestFail));
                             } else {
+                                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        if (dataSnapshot != null) {
+                                            User userGuess = dataSnapshot.getValue(User.class);
+                                            if (userGuess != null) {
+                                                String deviceToken = userGuess.getDeviceToken();
+                                                String[] regIds = {deviceToken};
+
+                                                JSONArray regArray = null;
+                                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                                                    try {
+                                                        regArray = new JSONArray(regIds);
+                                                    } catch (JSONException e) {
+                                                        e.printStackTrace();
+                                                    }
+                                                }
+                                                PushMessage.sendMessage(regArray, Constants.APP_NAME, String.format("%s %s", currentName, view.getResources().getString(R.string.guiLoiMoi)), "", "addFrien");
+                                            }
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
                                 user.getRequests().put(uid, true);
                                 //thông báo gủi kết bạn thành công
                                 MyAsyncTask myAsyncTask = new MyAsyncTask();

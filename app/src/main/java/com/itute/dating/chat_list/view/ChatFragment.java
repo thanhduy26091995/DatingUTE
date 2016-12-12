@@ -37,7 +37,7 @@ public class ChatFragment extends Fragment {
     private void initTab() {
         Fragment chatLisFragment = new ChatListFragment();
         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-        getActivity().getSupportFragmentManager().popBackStack();
+//        getActivity().getSupportFragmentManager().popBackStack();
         chatLisFragment.setArguments(null);
         ft.replace(R.id.content, chatLisFragment);
         ft.commitAllowingStateLoss();

@@ -582,7 +582,7 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener, 
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
                     regArray = new JSONArray(regIds);
                 }
-                PushMessage.sendMessage(regArray, fromName, edtMessage.getText().toString(), "", "Xin chào");
+                PushMessage.sendMessage(regArray, fromName, edtMessage.getText().toString(), "", "Chat");
             } catch (JSONException e) {
                 e.printStackTrace();
             }

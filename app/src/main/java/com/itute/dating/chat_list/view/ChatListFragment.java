@@ -97,6 +97,7 @@ public class ChatListFragment extends Fragment implements View.OnClickListener {
                         ChatListViewHolder.class, query) {
                     @Override
                     protected void populateViewHolder(final ChatListViewHolder viewHolder, ChatMessage model, int position) {
+
                         //lấy id root
                         final DatabaseReference userRef = getRef(position);
                         // gắn click listener
@@ -114,58 +115,37 @@ public class ChatListFragment extends Fragment implements View.OnClickListener {
                                 getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                             }
                         });
+
+
                     }
                 };
                 mRecycler.setLayoutManager(customLinearLayoutManager);
                 mRecycler.setAdapter(mAdapter);
+
+                Log.d(TAG, "onChildAdded");
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
+                Log.d(TAG, "onChildChanged");
+                //mAdapter.notifyItemMoved(5, 0);
             }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-
+                Log.d(TAG, "onChildRemoved");
             }
 
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
+                Log.d(TAG, "onChildMoved");
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                Log.d(TAG, "onCancelled");
             }
         });
 
-//        //demo
-//        mDatabase = mDatabase.child(Constants.CHAT_GROUP);
-//        mDatabase.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                if (dataSnapshot != null) {
-//                    for (DataSnapshot data : dataSnapshot.getChildren()) {
-//                        Member member = data.getValue(Member.class);
-//                        if (member != null) {
-//                            for (int i = 0; i < member.getMember().size(); i++) {
-//                                if (member.getMember().get(i).equals(BaseActivity.getUid())) {
-//
-//                                }
-//                                Log.d(TAG, member.getMember().get(i));
-//
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
     }
 }

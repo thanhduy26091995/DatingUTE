@@ -18,6 +18,7 @@ import com.itute.dating.chat_list.model.ChatGroupViewHolder;
 import com.itute.dating.profile_user.model.User;
 import com.itute.dating.util.Constants;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -50,18 +51,17 @@ public class CustomChatGroupAdapter extends RecyclerView.Adapter<ChatGroupViewHo
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 if (dataSnapshot != null) {
+                    List<String> listData = new ArrayList<String>();
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         String member = snapshot.getValue(String.class);
                         Log.d("Chat", member);
-
+                        listData.add(member);
                         mDatabase.child(Constants.USERS).child(member).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 if (dataSnapshot != null) {
                                     User user = dataSnapshot.getValue(User.class);
                                     if (user != null) {
-
-
                                         holder.txtMember.append(user.getDisplayName() + ", ");
                                     }
                                 }
@@ -72,7 +72,6 @@ public class CustomChatGroupAdapter extends RecyclerView.Adapter<ChatGroupViewHo
 
                             }
                         });
-
                     }
                 }
 

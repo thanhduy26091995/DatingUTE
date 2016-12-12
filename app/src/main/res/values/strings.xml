@@ -36,7 +36,8 @@
     <string name="setting">Cài đặt</string>
     <string name="chatGroup">Nhóm</string>
     <string name="singleChat">Cá nhân</string>
-
+    <string name="guiLoiMoi">đã gửi cho bạn lời mời kết bạn</string>
+    <string name="daChapNhanLoiMoi">đã chấp nhận lời mời kết bạn của bạn</string>
     <string-array name="arr_gender">
         <item>Nam</item>
         <item>Nữ</item>

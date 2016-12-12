@@ -6,6 +6,7 @@ import java.util.Locale;
  * Created by buivu on 06/10/2016.
  */
 public class Constants {
+    public static final String APP_NAME = "Dating";
     //init
     public static final String SERVER_KEY = "AAAAvT1f6ks:APA91bFz0t1Pdb9uKuEZqOQllW03aSp9qRqn7p2dTOqOdGzq9S-AcOXiYzrf3WeoSeVdMFdi6l8HjT6itH1angs-c7f-NKhNYMbcWobWcU0_3gmqHSlUKjc5ZlPHlpBPv3zQeIl6Ps6vX3F5YGaAOzQ_hpCCTRUhAQ";
     public static final String FCM_MESSAGE_URL = "https://fcm.googleapis.com/fcm/send";
@@ -21,7 +22,7 @@ public class Constants {
     public static final Locale DEFAULT_LOCALE = Locale.US;
     public static final int REQ_CODE_SPEECH_INPUT = 100;
     public static final String DEVICE_TOKEN = "deviceToken";
-    public static final String TAB_SELECT = "TAB_SELECT";
+    public static final String TAB_SELECT = "tab_select";
     public static final String REQUESTS = "requests";
     public static final int INTENT_REQUEST_GET_IMAGES = 13;
     public static final String PHOTOS = "photos";

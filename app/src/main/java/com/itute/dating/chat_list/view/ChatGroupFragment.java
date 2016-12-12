@@ -20,6 +20,7 @@ import com.itute.dating.chat_list.presenter.ChatGroupPresenter;
 import com.itute.dating.util.MyLinearLayoutManager;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -58,9 +59,12 @@ public class ChatGroupFragment extends Fragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+
+
                         loadData();
                         mRecycler.setAdapter(customAdapter);
                         mRecycler.setLayoutManager(customManager);
+
                     }
                 });
 
@@ -72,6 +76,7 @@ public class ChatGroupFragment extends Fragment {
     }
 
     private void loadData() {
+        final double start = new Date().getTime() / 1000;
         Query query = presenter.getAllChatGroup(BaseActivity.getUid());
         query.addChildEventListener(new ChildEventListener() {
             @Override
@@ -90,6 +95,8 @@ public class ChatGroupFragment extends Fragment {
                         Log.d(TAG, dataSnapshot.getKey());
                         customAdapter.notifyDataSetChanged();
                     }
+                    double end = new Date().getTime() / 1000;
+                    Log.d(TAG, "time: " + (end - start));
                 }
             }
 

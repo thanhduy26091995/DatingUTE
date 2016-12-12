@@ -2,6 +2,7 @@ package com.itute.dating.add_friend;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -16,9 +17,13 @@ import com.itute.dating.R;
 import com.itute.dating.add_friend.model.AddFriendViewHolder;
 import com.itute.dating.base.model.ImageLoader;
 import com.itute.dating.base.view.BaseActivity;
+import com.itute.dating.notification.PushMessage;
 import com.itute.dating.profile_user.model.User;
 import com.itute.dating.profile_user.view.ProfileUserActivity;
 import com.itute.dating.util.Constants;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.HashMap;
 import java.util.List;
@@ -83,6 +88,52 @@ public class CustomAddFriendAdapter extends RecyclerView.Adapter<AddFriendViewHo
             @Override
             public void onClick(View view) {
                 addFriend(holder, position);
+                //thông báo đã nhận lời mời
+                final String strGuessId = listUserId.get(position);
+                mDatabase.child(Constants.USERS).child(strGuessId).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot != null) {
+                            User userGuess = dataSnapshot.getValue(User.class);
+                            if (userGuess != null) {
+                                final String deviceToken = userGuess.getDeviceToken();
+                                //bắn 1 thông báo kết bạn thành công qua
+                                mDatabase.child(Constants.USERS).child(BaseActivity.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        if (dataSnapshot != null) {
+                                            User currentUser = dataSnapshot.getValue(User.class);
+                                            if (currentUser != null) {
+                                                String currentName = currentUser.getDisplayName();
+                                                String[] regIds = {deviceToken};
+                                                JSONArray regArray = null;
+                                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                                                    try {
+                                                        regArray = new JSONArray(regIds);
+                                                    } catch (JSONException e) {
+                                                        e.printStackTrace();
+                                                    }
+                                                }
+                                                PushMessage.sendMessage(regArray, Constants.APP_NAME, String.format("%s %s", currentName, mActivity.getResources().getString(R.string.daChapNhanLoiMoi)), "", "");
+
+                                            }
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
             }
         });
         //event click xoa

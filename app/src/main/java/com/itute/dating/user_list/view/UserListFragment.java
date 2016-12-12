@@ -52,6 +52,7 @@ public class UserListFragment extends Fragment {
     private Query query;
     private CustomFilterUserListAdapter customAdapter;
     private List<User> listUser;
+    private String currentName;
 
     public UserListFragment() {
     }
@@ -125,6 +126,7 @@ public class UserListFragment extends Fragment {
                         gender = Integer.parseInt(user.getSearch().get(Constants.GENDER).toString());
                         from = Integer.parseInt(user.getSearch().get(Constants.FROM).toString());
                         to = Integer.parseInt(user.getSearch().get(Constants.TO).toString());
+                        currentName = user.getDisplayName();
                         if (gender == 0) {
                             query = presenter.getUserList();
                         } else if (gender == 1) {
@@ -249,7 +251,7 @@ public class UserListFragment extends Fragment {
                         @Override
                         public void onClick(View view) {
                             DatabaseReference userPostRef = mDatabase.child(Constants.USERS).child(userKey);
-                            presenter.onAddFriendClicked(userPostRef, BaseActivity.getUid());
+                            presenter.onAddFriendClicked(userPostRef, BaseActivity.getUid(), currentName);
 
                         }
                     });

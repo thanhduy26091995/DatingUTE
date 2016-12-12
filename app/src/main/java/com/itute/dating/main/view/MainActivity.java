@@ -1,5 +1,6 @@
 package com.itute.dating.main.view;
 
+import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
@@ -57,7 +58,7 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
     private DatabaseReference mDatabase;
     private AdView avBanner;
     private AdRequest adRequest;
-
+    private BroadcastReceiver broadcastReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,9 +150,19 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
 
         tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorPrimaryDark));
         setupTabTextAndIcons();
+        mViewPager.setOffscreenPageLimit(3);
         setSelectedTab();
 
-        mViewPager.setOffscreenPageLimit(3);
+
+//        broadcastReceiver = new BroadcastReceiver() {
+//            @Override
+//            public void onReceive(Context context, Intent intent) {
+//                if (intent.getAction().equals(Config.PUSH_NOTIFICATION)){
+//                    String message = intent.getStringExtra("message");
+//                    Log.d(TAG, message);
+//                }
+//            }
+//        };
 
     }
 
@@ -193,6 +204,8 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
     public void setSelectedTab() {
         // Fetch the selected tab index with default
         int selectedTabIndex = getIntent().getIntExtra(Constants.TAB_SELECT, 0);
+
+        Log.d(TAG, "" + selectedTabIndex);
         // Switch to page based on index
         mViewPager.setCurrentItem(selectedTabIndex);
     }
