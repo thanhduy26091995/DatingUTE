@@ -18,7 +18,7 @@ public class ChatGroupViewHolder extends RecyclerView.ViewHolder {
     public ChatGroupViewHolder(View itemView) {
         super(itemView);
 
-        imgAvatarGroup = (ImageView) itemView.findViewById(R.id.img_avatar_chat_group);
+        imgAvatarGroup = (ImageView) itemView.findViewById(R.id.iv_avatar_group);
         txtMember = (TextView) itemView.findViewById(R.id.txtMember);
         txtLastMessage = (TextView) itemView.findViewById(R.id.txt_last_message);
     }

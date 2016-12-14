@@ -1,14 +1,26 @@
 package com.itute.dating.chat_group.view;
 
+import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -19,7 +31,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.itute.dating.R;
+import com.itute.dating.base.model.ImageLoader;
 import com.itute.dating.base.view.BaseActivity;
+import com.itute.dating.chat_group.model.ChatGroupInfo;
 import com.itute.dating.chat_group.model.ChatGroupMessage;
 import com.itute.dating.chat_group.model.ChatGroupViewHolder;
 import com.itute.dating.chat_group.presenter.ChatGroupPresenter;
@@ -52,7 +66,19 @@ public class ChatGroupActivity extends BaseActivity implements View.OnClickListe
     TextView txtSend;
     @BindView(R.id.rc_chat)
     RecyclerView mRecycler;
+    @BindView(R.id.txt_setting)
+    TextView txtSetting;
+    @BindView(R.id.txt_group_name)
+    TextView txtGroupName;
+    @BindView(R.id.iv_avatar)
+    ImageView imgGroupAvatar;
 
+    private static final int REQUEST_READ_EXTERNAL_STORAGE = 99;
+    private static final String[] PERMISSION_GROUP = {
+            Manifest.permission.READ_EXTERNAL_STORAGE
+    };
+    private ImageView imgGroupName;
+    private String groupName, groupAvatar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -72,6 +98,7 @@ public class ChatGroupActivity extends BaseActivity implements View.OnClickListe
         mRecycler.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
         //event click
         txtSend.setOnClickListener(this);
+        txtSetting.setOnClickListener(this);
         Log.d(TAG, "onCreate");
         //load data
 
@@ -85,11 +112,111 @@ public class ChatGroupActivity extends BaseActivity implements View.OnClickListe
     public void onClick(View view) {
         if (view == txtSend) {
             addNewMessageToGroup();
-
+        } else if (view == txtSetting) {
+            showAlertSetting();
         }
     }
 
+    private boolean verifyLocationPermission() {
+        int locationPermission = ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
+        if (locationPermission != PackageManager.PERMISSION_GRANTED) {
+            //request permission
+            ActivityCompat.requestPermissions(this, PERMISSION_GROUP, REQUEST_READ_EXTERNAL_STORAGE);
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case REQUEST_READ_EXTERNAL_STORAGE:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                }
+                break;
+        }
+    }
+
+    private void showAlertSetting() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater layoutInflater = getLayoutInflater();
+        View v = layoutInflater.inflate(R.layout.custom_alertdialog_setting_chat_group, null);
+        builder.setView(v);
+        //get instance of view in custom-alert-dialog
+        final EditText edtGroupName = (EditText) v.findViewById(R.id.edt_group_name);
+        imgGroupName = (ImageView) v.findViewById(R.id.img_avatar_group);
+        //hiển thị data
+        edtGroupName.setText(groupName);
+        ImageLoader.getInstance().loadImage(ChatGroupActivity.this, groupAvatar, imgGroupName);
+        //event click choose image
+        imgGroupName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(Intent.ACTION_PICK);
+                myIntent.setType("image/*");
+                startActivityForResult(myIntent, Constants.GALLERY_INTENT);
+            }
+        });
+        //create button Ok
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                txtGroupName.setText(edtGroupName.getText());
+                presenter.addChatGroupInfo(groupId, edtGroupName.getText().toString());
+            }
+        });
+        //create button cancel
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                builder.create().dismiss();
+            }
+        });
+        //show dialog
+        builder.create().show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == Constants.GALLERY_INTENT && resultCode == RESULT_OK) {
+            ImageLoader.getInstance().loadImage(ChatGroupActivity.this, data.getData().toString(), imgGroupName);
+            Constants.AVATAR_GROUP_CHAT = getRealPathFromURI(data.getData());
+        }
+    }
+
+    private String getRealPathFromURI(Uri uri) {
+        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+        cursor.moveToFirst();
+        int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+        return cursor.getString(idx);
+    }
+
     private void initInfo() {
+        //load group info
+        //show data len6chat-info
+        mDatabase.child(Constants.CHAT_GROUP).child(groupId).child(Constants.GROUP_INFO).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot != null) {
+                    ChatGroupInfo chatGroupInfo = dataSnapshot.getValue(ChatGroupInfo.class);
+                    if (chatGroupInfo != null) {
+                        groupName = chatGroupInfo.getGroupName();
+                        groupAvatar = chatGroupInfo.getGroupAvatar();
+                        txtGroupName.setText(chatGroupInfo.getGroupName());
+                        ImageLoader.getInstance().loadImage(ChatGroupActivity.this, chatGroupInfo.getGroupAvatar(), imgGroupAvatar);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        //load avatar sender
         mDatabase.child(Constants.USERS).child(getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -122,12 +249,14 @@ public class ChatGroupActivity extends BaseActivity implements View.OnClickListe
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            //showProgessDialog();
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
             initInfo();
             loadData();
+            //hideProgressDialog();
             return null;
         }
 
@@ -152,8 +281,8 @@ public class ChatGroupActivity extends BaseActivity implements View.OnClickListe
                 //gán data cho view
                 viewHolder.bindToView(getUid(), model);
                 //set avatar
-//                if (position == 0) {
-//                    viewHolder.chatView.setAvatar(model.getAvatarSender());
+                // if (position == 0) {
+                viewHolder.chatView.setAvatar(model.getAvatarSender());
 //                } else if (position > 0) {
 //                    ChatGroupMessage message = mAdapter.getItem(position - 1);
 //                    if (message.getSendBy().equals(model.getSendBy())) {

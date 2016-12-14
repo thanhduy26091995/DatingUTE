@@ -15,7 +15,7 @@
 
         <include
             android:id="@+id/ll_info"
-            layout="@layout/include_chat_info" />
+            layout="@layout/include_chat_group_info" />
 
         <View
             android:id="@+id/v_line"

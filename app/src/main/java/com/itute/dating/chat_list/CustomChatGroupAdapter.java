@@ -13,6 +13,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.itute.dating.R;
+import com.itute.dating.base.model.ImageLoader;
+import com.itute.dating.chat_group.model.ChatGroupInfo;
 import com.itute.dating.chat_group.view.ChatGroupActivity;
 import com.itute.dating.chat_list.model.ChatGroupViewHolder;
 import com.itute.dating.profile_user.model.User;
@@ -46,6 +48,7 @@ public class CustomChatGroupAdapter extends RecyclerView.Adapter<ChatGroupViewHo
     public void onBindViewHolder(final ChatGroupViewHolder holder, final int position) {
         final String strGroupId = listChatId.get(position);
 
+        //hiển thị danh sách user
         mDatabase.child(Constants.CHAT_GROUP).child(strGroupId).child(Constants.MEMBER).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -54,7 +57,7 @@ public class CustomChatGroupAdapter extends RecyclerView.Adapter<ChatGroupViewHo
                     List<String> listData = new ArrayList<String>();
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         String member = snapshot.getValue(String.class);
-                        Log.d("Chat", member);
+
                         listData.add(member);
                         mDatabase.child(Constants.USERS).child(member).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
@@ -75,6 +78,24 @@ public class CustomChatGroupAdapter extends RecyclerView.Adapter<ChatGroupViewHo
                     }
                 }
 
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        //hiển thị avatar group chat
+        mDatabase.child(Constants.CHAT_GROUP).child(strGroupId).child(Constants.GROUP_INFO).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot != null) {
+                    ChatGroupInfo chatGroupInfo = dataSnapshot.getValue(ChatGroupInfo.class);
+                    if (chatGroupInfo != null) {
+                        Log.d("Chat", chatGroupInfo.getGroupAvatar());
+                        ImageLoader.getInstance().loadImage(fragment.getActivity(), chatGroupInfo.getGroupAvatar(), holder.imgAvatarGroup);
+                    }
+                }
             }
 
             @Override

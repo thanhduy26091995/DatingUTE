@@ -64,10 +64,10 @@ public class ChatView extends FrameLayout {
         ivRight = (IconTextView) findViewById(R.id.iv_right_arrow);
         ivLocation = (ImageView) findViewById(R.id.iv_location);
         llMessage = findViewById(R.id.ll_message);
-       ivMyAvatar = (ImageView) findViewById(R.id.avatar_chat);
+        ivMyAvatar = (ImageView) findViewById(R.id.avatar_chat);
         ivPartnerAvatar = (ImageView) findViewById(R.id.avatar_chat_partner);
-       // txtTitleRight = (TextView) findViewById(R.id.title_right);
-       // txtTitleLeft = (TextView) findViewById(R.id.title_left);
+        // txtTitleRight = (TextView) findViewById(R.id.title_right);
+        // txtTitleLeft = (TextView) findViewById(R.id.title_left);
 
         update();
     }
@@ -132,29 +132,34 @@ public class ChatView extends FrameLayout {
     }
 
     public void removeAvatar() {
-        //xóa avatar của mình
-        Glide.with(getContext())
-                .load(R.drawable.img_white)
-                // .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .centerCrop()
-                .error(R.drawable.img_white)
-                .placeholder(R.drawable.img_white)
-                .into(ivMyAvatar);
-        //xóa avatar người chat
-        Glide.with(getContext())
-                .load(R.drawable.img_white)
-                // .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .centerCrop()
-                .error(R.drawable.img_white)
-                .placeholder(R.drawable.img_white)
-                .into(ivPartnerAvatar);
+
+        ivMyAvatar.setVisibility(View.GONE);
+        ivPartnerAvatar.setVisibility(View.GONE);
+
+
+//        //xóa avatar của mình
+//        Glide.with(getContext())
+//                .load(R.drawable.img_white)
+//                // .diskCacheStrategy(DiskCacheStrategy.ALL)
+//                .centerCrop()
+//                .error(R.drawable.img_white)
+//                .placeholder(R.drawable.img_white)
+//                .into(ivMyAvatar);
+//        //xóa avatar người chat
+//        Glide.with(getContext())
+//                .load(R.drawable.img_white)
+//                // .diskCacheStrategy(DiskCacheStrategy.ALL)
+//                .centerCrop()
+//                .error(R.drawable.img_white)
+//                .placeholder(R.drawable.img_white)
+//                .into(ivPartnerAvatar);
     }
 
     public void setAvatar(String url) {
         if (isMine) {
             Glide.with(getContext())
                     .load(url)
-                    // .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .centerCrop()
                     .error(R.drawable.avatar)
                     .placeholder(R.drawable.place_holder_gallery)
@@ -162,7 +167,7 @@ public class ChatView extends FrameLayout {
         } else {
             Glide.with(getContext())
                     .load(url)
-                    //.diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .centerCrop()
                     .error(R.drawable.avatar)
                     .placeholder(R.drawable.place_holder_gallery)

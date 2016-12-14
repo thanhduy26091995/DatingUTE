@@ -17,6 +17,7 @@ public class Constants {
     public static final int GALLERY_INTENT = 2;
     public static final int CAMERA_INTENT = 3;
     public static String USER_FILE_PATH = null;
+    public static String AVATAR_GROUP_CHAT = null;
     public static final String USER_AVATAR = "userAvatar";
     public static final String AVATAR = "avatar";
     public static final Locale DEFAULT_LOCALE = Locale.US;
@@ -69,4 +70,8 @@ public class Constants {
     public static final String SEND_BY = "sendBy";
     public static final String AVATAR_SENDER = "avatarSender";
     public static final String CONTENTS = "contents";
+    public static final String GROUP_NAME = "groupName";
+    public static final String GROUP_AVATAR = "groupAvatar";
+    public static final String GROUP_INFO = "groupInfo";
+    public static final String GROUP_PHOTO = "groupPhoto";
 }
